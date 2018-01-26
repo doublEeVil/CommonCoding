@@ -434,6 +434,7 @@ public class DbUtil {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
             out.writeObject(data);
+            out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -450,6 +451,7 @@ public class DbUtil {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath));
             list = (List<T>)in.readObject();
+            in.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

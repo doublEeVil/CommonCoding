@@ -23,7 +23,7 @@ public abstract class BaseTcpHandler {
     private static Logger logger = LogManager.getLogger(BaseTcpHandler.class);
     private static final ExecutorService pool = Executors.newFixedThreadPool(2 * Runtime.getRuntime().availableProcessors());
     private Selector selector;
-    public Queue<byte[]> msgQueue = new ConcurrentLinkedQueue();
+    public Queue<byte[]> msgQueue = new ConcurrentLinkedQueue<>();
     public Map<SocketChannel, TcpChannel> channelMap = new ConcurrentHashMap<>();
 
     public BaseTcpHandler() throws IOException {

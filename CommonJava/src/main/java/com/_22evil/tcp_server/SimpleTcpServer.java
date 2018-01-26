@@ -15,7 +15,7 @@ public class SimpleTcpServer {
 
     private int port;
     private Selector selector;
-    private Class handlerClazz;
+    private Class<?> handlerClazz;
 
     public SimpleTcpServer(int port, Class<? extends BaseTcpHandler> handler) {
         this.port = port;
@@ -28,7 +28,7 @@ public class SimpleTcpServer {
         server.configureBlocking(false);
         selector = Selector.open();
         server.register(selector, SelectionKey.OP_ACCEPT);
-
+        logger.info("server start...");
         int core = Runtime.getRuntime().availableProcessors();
         BaseTcpHandler[] handlers = new BaseTcpHandler[core];
         for (int i = 0; i < core; i++) {

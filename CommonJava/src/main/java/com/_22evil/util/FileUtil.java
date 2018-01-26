@@ -172,6 +172,7 @@ public class FileUtil {
                 data.add(s);
                 s = reader.readLine();
             }
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -238,6 +239,7 @@ public class FileUtil {
                         dataList.add(data);
                     }
                 }
+                jar.close();
             }
         } catch (Exception e) {
             e.printStackTrace();

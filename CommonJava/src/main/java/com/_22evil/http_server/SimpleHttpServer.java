@@ -39,7 +39,7 @@ public class SimpleHttpServer {
         this.pool = Executors.newCachedThreadPool();
     }
 
-    public void loadController(Class clazz) throws IllegalAccessException, InstantiationException{
+    public void loadController(Class<?> clazz) throws IllegalAccessException, InstantiationException{
         if (!clazz.getSuperclass().getName().equals("com.BaseHandler")) {
             return;
         }
@@ -64,7 +64,7 @@ public class SimpleHttpServer {
                 if (!file.getPath().matches(".*" + controllerPkg + ".*")) {
                     continue;
                 }
-                Class clazz = SimpleClassLoader.getInstance().load(file.getPath());
+                Class<?> clazz = SimpleClassLoader.getInstance().load(file.getPath());
                 loadController(clazz);
             }
 
@@ -80,10 +80,11 @@ public class SimpleHttpServer {
                         InputStream in = jar.getInputStream(jarEntry);
                         byte[] data = new byte[in.available()];
                         in.read(data);
-                        Class clazz = SimpleClassLoader.getInstance().load(data);
+                        Class<?> clazz = SimpleClassLoader.getInstance().load(data);
                         loadController(clazz);
                     }
                 }
+                jar.close();
             }
         }
         ServerSocket server = new ServerSocket();

@@ -5,7 +5,7 @@ package com._22evil.util;
  * 字符串转Number
  */
 public class StringToNumUtil {
-    public static Object string2Num(String str, Class clazz) {
+    public static Object string2Num(String str, Class<?> clazz) {
         if (clazz == String.class) {
             return str;
         }
