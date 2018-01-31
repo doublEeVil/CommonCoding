@@ -6,6 +6,26 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Debug (echo client)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.echo.client.EchoClient",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (echo server)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.echo.server.EchoServer",
+            "args": ""
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch)-Test<CommonJava>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -160,10 +180,14 @@
         },
         {
             "type": "java",
-            "name": "Debug (Attach)",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 0
+            "name": "Debug (Launch)-Sync<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.test.sync_test.Sync",
+            "projectName": "CommonJava",
+            "args": ""
         }
     ]
 }

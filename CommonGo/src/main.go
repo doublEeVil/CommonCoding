@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"./basic"
+	"./app/webtools"
 )
 
 type Stu struct {
@@ -22,6 +23,7 @@ func main() {
 	//basic.AppendFile("/Users/shangguyi/Downloads/abc/a.c", "hhh")
 	dat := basic.HttpGet("http://baidu.com")
 	ppp(dat)
+	webtools.Start(8081);
 	ppp("---end---")
 }
 
