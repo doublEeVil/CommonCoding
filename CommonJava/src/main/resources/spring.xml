@@ -8,14 +8,14 @@
        <!-- -->
        <!-- 扫描service自动注入为bean -->
        <!--<context:component-scan base-package="com.sprite.services.Impl, com.sprite.dao.Impl"/>-->
-       <context:component-scan base-package="com._22evil.netty_test.http_server.controller"/>
+       <context:component-scan base-package="com._22evil.netty_test.http_server_spring.controller"/>
 
        <!-- 处理定时任务 -->
        <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
        <task:scheduler id="qbScheduler" pool-size="10"/>
 
        <!-- 处理异常 -->
-       <bean id="exceptionHandler" class="com._22evil.netty_test.http_server.controller.DefaultExceptionResolver" />
+       <bean id="exceptionHandler" class="com._22evil.netty_test.http_server_spring.controller.DefaultExceptionResolver" />
        <!-- 处理返回json的解析,处理报错406 -->
        <bean id="mappingJacksonHttpMessageConverter"
              class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

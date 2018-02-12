@@ -1,4 +1,4 @@
-package com._22evil.netty_test.http_server.controller;
+package com._22evil.netty_test.http_server_spring.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com._22evil.netty_test.http_server;
+package com._22evil.netty_test.http_server_spring;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

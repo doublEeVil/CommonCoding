@@ -11,6 +11,12 @@ public class Ab extends BaseEntity {
     public int age = 0;
     public String name = "sd";
     private int cnt = 0;
+    private long create;
+
+    public Ab() {
+        this.create = System.currentTimeMillis();
+        System.out.println("****ctor  used");
+    }
     public Map<String, String> map;
 
     public int getAge() {
@@ -35,5 +41,9 @@ public class Ab extends BaseEntity {
 
     public void setCnt(int cnt) {
         this.cnt = cnt;
+    }
+
+    public long getCreate() {
+        return create;
     }
 }
