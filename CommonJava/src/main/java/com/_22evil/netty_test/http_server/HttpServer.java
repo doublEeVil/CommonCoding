@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class HttpServer {
     public final int port;
@@ -41,6 +42,7 @@ public class HttpServer {
                             ch.pipeline().addLast(new HttpRequestDecoder());
                             ch.pipeline().addLast(new HttpResponseEncoder());
                             ch.pipeline().addLast(new HttpObjectAggregator(512 * 1024));
+                            ch.pipeline().addLast(new ChunkedWriteHandler());
                             ch.pipeline().addLast(httpHandler);
                         }
                     });
