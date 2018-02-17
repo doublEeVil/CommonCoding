@@ -14,6 +14,7 @@ public class AbcController extends BaseHttpController {
     public void doService(FullHttpRequest request, FullHttpResponse response) {
         Map<String, String> parmMap = params(request);
         System.out.println(parmMap.get("name"));
+        response.headers().set("Access-Control-Allow-Origin", "*");
         response.content().writeCharSequence("hhh", CharsetUtil.UTF_8);
     }
 }
