@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"./basic"
 	"./app/webtools"
+	"./app/excel2db"
 )
 
 type Stu struct {
@@ -23,7 +24,9 @@ func main() {
 	//basic.AppendFile("/Users/shangguyi/Downloads/abc/a.c", "hhh")
 	dat := basic.HttpGet("http://baidu.com")
 	ppp(dat)
-	webtools.Start(8081)
+	go webtools.Start(8081)
+	excel2db.Start()
+
 	ppp("---end---")
 }
 

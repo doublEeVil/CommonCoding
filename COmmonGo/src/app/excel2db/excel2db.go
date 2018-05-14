@@ -1,33 +1,32 @@
 package excel2db
 
 import (
-	"github.com/tealeg/xlsx"
-	"fmt"
 	"bytes"
-	"log"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+	"fmt"
+	"log"
 	_ "strconv"
-	_ "strings"
-	_ "strings"
 	"strings"
+	_ "strings"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/tealeg/xlsx"
 )
 
-
 const user_name = "zjs"
-const password  = "123466"
-const db_url  = "127.0.0.1:3306"
-const db_name  = "ddd2h5_dev"
+const password = "123456"
+const db_url = "127.0.0.1:3306"
+const db_name = "ddd2h5_dev"
 
-func excelToDb(fileNames []string)  {
+func excelToDb(fileNames []string) {
 	// 先将Excel读取
 	for _, fname := range fileNames {
 		fmt.Println("====", fname)
 		xlFile, err := xlsx.OpenFile(fname)
 		checkErr(err)
-		for _, sheet := range xlFile.Sheets{
+		for _, sheet := range xlFile.Sheets {
 			tbName := sheet.Name
-			fmt.Println("表名：",tbName)
+			fmt.Println("表名：", tbName)
 
 			var buffer bytes.Buffer
 			buffer.WriteString("insert into ")
@@ -51,19 +50,27 @@ func excelToDb(fileNames []string)  {
 	}
 }
 
-func readExcelFile(data []byte)  {
+func readExcelFile(data []byte) {
 	xlFile, err := xlsx.OpenBinary(data)
 	checkErr(err)
-	for _, sheet := range xlFile.Sheets{
+
+	tabMap := getAllTables()
+
+	for _, sheet := range xlFile.Sheets {
 		tbName := sheet.Name
-		fmt.Println("表名：",tbName)
-		colMap1 := make(map[string] int) // 当成一个set， 判断是否存在column
-		colMap2 := make(map[int] string) // 真正的map，得到位置与column的关系
+		_, isExist := tabMap[tbName]
+		if !isExist {
+			continue
+		}
+		fmt.Println("表名：", tbName)
+		colMap1 := make(map[string]int) // 当成一个set， 判断是否存在column
+		colMap2 := make(map[int]string) // 真正的map，得到位置与column的关系
 
 		// 根据表名得到栏目名，一般情况下excel会比db表多出一些字段
 		err := getColumnName(tbName, colMap1)
 		if err != nil {
 			log.Println("查找表报错-----", tbName)
+			log.Println(err)
 			continue
 		}
 
@@ -108,7 +115,7 @@ func readExcelFile(data []byte)  {
 				// 说明这时可以导数据了
 				isBlankColumn := false
 
- 				for ind, cell := range row.Cells {
+				for ind, cell := range row.Cells {
 					_, exist := colMap2[ind]
 					if !exist {
 						continue
@@ -116,7 +123,7 @@ func readExcelFile(data []byte)  {
 
 					text := cell.String()
 
-					if ind == 0 && strings.Compare(text, "") == 0{
+					if ind == 0 && strings.Compare(text, "") == 0 {
 						// 空白数据
 						isBlankColumn = true
 						break
@@ -126,9 +133,9 @@ func readExcelFile(data []byte)  {
 						buffer.WriteString("(")
 					}
 
-					buffer.WriteString("'")
+					buffer.WriteString("\"")
 					buffer.WriteString(text)
-					buffer.WriteString("'")
+					buffer.WriteString("\"")
 					if ind == lastColNumber {
 						buffer.WriteString(")")
 						break
@@ -144,7 +151,7 @@ func readExcelFile(data []byte)  {
 			}
 		}
 		str := buffer.String()
-		sql := str[0:len(str) -1] // 把','去掉
+		sql := str[0 : len(str)-1] // 把','去掉
 		//log.Println("jieguo: ", sql)
 
 		// 先清空表数据
@@ -156,17 +163,32 @@ func readExcelFile(data []byte)  {
 
 var MY_DB *sql.DB = nil
 
-func getDb() *sql.DB{
+func getDb() *sql.DB {
 	if MY_DB == nil {
 		//db, err := sql.Open("mysql", "zjs:123456@tcp(127.0.0.1:3306)/ddd2h5_dev?charset=utf8")
-		db, err := sql.Open("mysql", user_name + ":" + password + "@tcp(" + db_url + ")/"+ db_name + "?charset=utf8")
-		checkErr(err)
+		db, err := sql.Open("mysql", user_name+":"+password+"@tcp("+db_url+")/"+db_name+"?charset=utf8")
+		log.Fatal("数据库链接出错： ", err)
+		//checkErr(err)
 		MY_DB = db
 	}
 	return MY_DB
 }
 
-func getColumnName(tbName string, colMap map[string] int) error{
+func getAllTables() map[string]int {
+	tabMap := make(map[string]int)
+	rows, err := getDb().Query("show tables")
+	if err != nil {
+		log.Println("得到全部表名报错：", err)
+	}
+	for rows.Next() {
+		var tabName string
+		rows.Scan(&tabName)
+		tabMap[tabName] = 0
+	}
+	return tabMap
+}
+
+func getColumnName(tbName string, colMap map[string]int) error {
 	rows, err := getDb().Query("select * from " + tbName + " limit 1")
 	if err != nil {
 		return err
@@ -180,16 +202,16 @@ func getColumnName(tbName string, colMap map[string] int) error{
 	return nil
 }
 
-func clearTable(tbName string)  {
+func clearTable(tbName string) {
 	_, err := getDb().Exec(" DELETE FROM " + tbName)
 	if err != nil {
-		log.Fatal(err)
+		log.Println("清空表报错： ", err)
 	}
 }
 
-func insertToDb(sql string)  {
+func insertToDb(sql string) {
 	_, err := getDb().Exec(sql)
 	if err != nil {
-		log.Fatal(err)
+		log.Println("插入数据报错：", err)
 	}
 }
