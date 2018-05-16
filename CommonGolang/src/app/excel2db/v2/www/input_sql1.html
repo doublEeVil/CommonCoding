@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>{{.Title}}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ 
+      <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">首页</a>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+        </nav>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h3 class="text-center text-success">
+                    数据库导表工具
+                </h3>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-8 column">
+                 <!-- <button type="button" class="btn btn-default btn-primary">上传文件</button><hr> -->
+                 <br>
+                 <button type="button" class="btn btn-primary" onclick="UpLoadFile()">上传文件</button><hr>
+                 <form id="uploadForm" name="uploadForm" enctype="multipart/form-data" action="/upload" method="POST">
+                    <input class="btn btn-default btn-warning" type="file" id="file" name="file"  onchange="preview(this)" multiple/> <br/>
+                 </form>
+                 <!-- <button type="button" class="btn btn-default btn-warning">选择文件</button> -->
+                <table id = "mytb1" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> 编号</th>  <th>名称</th>   <th>大小</th>    <th> 状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                             
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 column">
+                <h2>
+                    选择数据库
+                </h2>
+            
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                编号
+                            </th>
+                            <th>
+                                数据库地址
+                            </th>
+                            <th>
+                                数据库名
+                            </th>
+                            <th>
+                                备注名
+                            </th>
+                            <th>
+                                状态
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .Detail}}
+                        <tr class="info">
+                            <td>
+                                {{ .Id}}
+                            </td>
+                            <td>
+                                {{ .Url}}
+                             </td>
+                             <td>
+                                {{ .Name}}
+                            </td>
+                            <td>
+                                    {{ .Mark}}
+                            </td>
+                            <td>
+                                <input type="checkbox" checked name="dbs" value={{ .Id}}>
+                            </td>
+                        </tr>
+	                    {{end}}
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+      <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+      <script src="https://code.jquery.com/jquery.js"></script>
+      <!-- 包括所有已编译的插件 -->
+      <script src="js/bootstrap.min.js"></script>
+      <script>
+            $(function () {
+                //ListFile();
+            });
+        
+            var upload_files = [];
+            var dbids = [];
+
+            function preview(files) {
+                $("#mytb1 tbody").html("");
+                upload_files = [];
+
+                for (var i = 0; i < files.files.length; i++) {
+                    upload_files.push(files.files[i]);
+
+                    var fileName = files.files[i].name;
+                    var fileSize = files.files[i].size;
+
+                    var rowTemplate = '<tr id=_mytbtr' + i + ' class=success> ';
+                        rowTemplate += ' <td>' + i + '</td>';
+                        rowTemplate += ' <td>' + fileName + '</td>';
+                        rowTemplate += ' <td>' + parseInt(fileSize / 1024) + 'KB' + '</td>';
+                        rowTemplate += ' <td>' + ' <a href="#" onclick=Del(' + i + ')> 删除 </a> ' + '</td>';
+                        rowTemplate += ' </tr>';
+                    var tableHtml = $("#mytb1 tbody").html();
+                    tableHtml += rowTemplate;
+                    $("#mytb1 tbody").html(tableHtml);
+                }
+            }
+
+            function UpLoadFile() {
+                // 循环判断选择了哪些库
+                dbids = [];
+                $("input[type=checkbox][name=dbs]").each(function (i, e) {
+                    var isCheck = $(this).context.checked;
+                    var val = $(this).context.value;
+                    if (isCheck) {
+                        dbids.push(val);
+                    }
+                }); 
+
+                if (dbids.length == 0) {
+                    alert("至少选择一个数据库...")
+                    return;
+                }
+
+                if (upload_files.length == 0) {
+                    alert("至少选择一个文件...")
+                    return;
+                }
+                // FormData 对象
+                var form = new FormData(document.forms.namedItem("uploadForm"));
+                form.append("dbids", dbids);                        // 可以增加表单数据
+                console.log(document.forms.namedItem("uploadForm"))
+                // XMLHttpRequest 对象
+                var xhr = new XMLHttpRequest();
+                xhr.open("post", "/upload", true);
+                // xhr.upload 这是html5新增的api,储存了上传过程中的信息
+                xhr.upload.onprogress = function (ev) {
+                    var percent = 0;
+                    // if (ev.lengthComputable) {
+                    //     percent = 100 * ev.loaded / ev.total;
+                    //     $("#myprogress").width(percent + "%");
+                    // }
+                };
+                xhr.onload = function (oEvent) {
+                    if (xhr.status == 200) {
+                        //ListFile();
+                        alert("导入成功")
+                    } else {
+                        alert("失败")
+                    }
+                }
+                xhr.onreadystatechange = function(){
+                    var XMLHttpReq = xhr;
+                    if (XMLHttpReq.readyState == 4) {
+                        if (XMLHttpReq.status == 200) {
+                        var text = XMLHttpReq.responseText;
+                            console.log(text);
+                        }
+                    }
+                    var text = XMLHttpReq.responseText;
+                    console.log(text);
+                };
+                xhr.send(form);
+            }
+
+            function Del(index) {
+                $("#mytb1 #_mytbtr"+index).hide();
+                upload_files.slice(index, index+1)
+            }
+       </script>
+   </body>
+</html>
