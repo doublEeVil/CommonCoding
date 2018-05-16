@@ -43,7 +43,7 @@ func excelToDb(fileNames []string) {
 	}
 }
 
-func readExcelFile(data []byte, dbids []string) {
+func readExcelFile(data []byte, dbids []string) error {
 	xlFile, err := xlsx.OpenBinary(data)
 	checkErr(err)
 
@@ -155,9 +155,16 @@ func readExcelFile(data []byte, dbids []string) {
 
 		for _, dbid := range dbids {
 			// 先清空表数据
-			clearTable(tbName, dbid)
+			err := clearTable(tbName, dbid)
+			if err != nil {
+				return err
+			}
 			// 插入新数据
-			insertToDb(sql, dbid)
+			err = insertToDb(sql, dbid)
+			if err != nil {
+				return err
+			}
 		}
 	}
+	return nil
 }

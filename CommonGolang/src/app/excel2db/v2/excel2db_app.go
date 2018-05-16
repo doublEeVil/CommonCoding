@@ -54,10 +54,10 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		mp := r.MultipartForm
 		if mp == nil {
 			log.Println("not MultipartForm.")
-			w.Write(([]byte)("不是MultipartForm格式"))
+			w.Write(([]byte)("导入失败:不是MultipartForm格式"))
 			return
 		}
-		go action(w, mp)
+		action(w, mp)
 	}
 }
 
@@ -65,12 +65,15 @@ func action(w http.ResponseWriter, mp *multipart.Form) {
 	dbids := mp.Value["dbids"]
 	fmt.Println(dbids)
 	if len(dbids) == 0 {
-		w.Write(([]byte)("失败"))
+		//w.Write(([]byte)("失败"))
+		fmt.Fprintf(w, string("导入失败:没有选择数据库"))
 		return
 	}
 	fhs := mp.File["file"]
 	num := len(fhs)
 	log.Printf("总文件数：%d\n", num)
+
+	var insertErr error = nil
 
 	for n, fheader := range fhs {
 		fmt.Printf("%d : %s\n", n, fheader.Filename)
@@ -87,11 +90,19 @@ func action(w http.ResponseWriter, mp *multipart.Form) {
 		// 		fmt.Printf("Panicing %s\r\n", e)
 		// 	}
 		// }()
-		readExcelFile(data, dbids)
+		insertErr = readExcelFile(data, dbids)
+		if insertErr != nil {
+			w.Write(([]byte)("导入失败..." + insertErr.Error()))
+			break
+		}
 	}
-
-	w.Write(([]byte)("成功"))
-	log.Println("upload success")
+	if insertErr == nil {
+		w.Write(([]byte)("导入成功..."))
+		log.Println("upload success")
+	} else {
+		w.Write(([]byte)("导入失败..." + insertErr.Error()))
+		log.Println("upload fail" + insertErr.Error())
+	}
 }
 
 func checkErr(err error) {

@@ -94,16 +94,18 @@ func getColumnName(tbName string, dbid string, colMap map[string]int) error {
 	return nil
 }
 
-func clearTable(tbName string, dbid string) {
+func clearTable(tbName string, dbid string) error {
 	_, err := getDb(dbid).Exec(" DELETE FROM " + tbName)
 	if err != nil {
 		log.Println("清空表报错： ", err)
 	}
+	return err
 }
 
-func insertToDb(sql string, dbid string) {
+func insertToDb(sql string, dbid string) error {
 	_, err := getDb(dbid).Exec(sql)
 	if err != nil {
 		log.Println("插入数据报错：", err)
 	}
+	return err
 }

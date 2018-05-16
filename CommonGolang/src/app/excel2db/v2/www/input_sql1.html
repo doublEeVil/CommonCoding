@@ -108,6 +108,8 @@
       <script>
             $(function () {
                 //ListFile();
+                
+
             });
         
             var upload_files = [];
@@ -155,41 +157,57 @@
                     alert("至少选择一个文件...")
                     return;
                 }
-                // FormData 对象
+                // // FormData 对象
+                // var form = new FormData(document.forms.namedItem("uploadForm"));
+                // form.append("dbids", dbids);                        // 可以增加表单数据
+                // //XMLHttpRequest 对象
+                // var xhr = new XMLHttpRequest();
+                // xhr.open("post", "/upload", true);
+                // // xhr.upload 这是html5新增的api,储存了上传过程中的信息
+                // xhr.upload.onprogress = function (ev) {
+                //     var percent = 0;
+                //     // if (ev.lengthComputable) {
+                //     //     percent = 100 * ev.loaded / ev.total;
+                //     //     $("#myprogress").width(percent + "%");
+                //     // }
+                // };
+
+                // xhr.onloadend = function (oEvent) {
+                //     if (xhr.status == 200) {
+                //         //ListFile();
+                //         //alert("成功")
+                //         console.log("---", xhr)
+                //     } else {
+                //         alert("失败")
+                //     }
+                // }
+      
+                // xhr.onload = function (oEvent) {
+                //     if (xhr.status == 200) {
+                //         //ListFile();
+                //         alert("成功")
+                //         console.log("---", xhr)
+                //     } else {
+                //         alert("失败")
+                //     }
+                // }
+                // xhr.send(form);
+
                 var form = new FormData(document.forms.namedItem("uploadForm"));
-                form.append("dbids", dbids);                        // 可以增加表单数据
-                console.log(document.forms.namedItem("uploadForm"))
-                // XMLHttpRequest 对象
-                var xhr = new XMLHttpRequest();
-                xhr.open("post", "/upload", true);
-                // xhr.upload 这是html5新增的api,储存了上传过程中的信息
-                xhr.upload.onprogress = function (ev) {
-                    var percent = 0;
-                    // if (ev.lengthComputable) {
-                    //     percent = 100 * ev.loaded / ev.total;
-                    //     $("#myprogress").width(percent + "%");
-                    // }
-                };
-                xhr.onload = function (oEvent) {
-                    if (xhr.status == 200) {
-                        //ListFile();
-                        alert("导入成功")
-                    } else {
-                        alert("失败")
+                form.append("dbids", dbids);    
+                $.ajax({
+                    type: 'post',
+                    url: '/upload',
+                    data: form,
+                    contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+                    processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+                    success: function(data) {
+                        alert(data);
+                    },
+                    fail: function() {
+                        alert("导入失败....");
                     }
-                }
-                xhr.onreadystatechange = function(){
-                    var XMLHttpReq = xhr;
-                    if (XMLHttpReq.readyState == 4) {
-                        if (XMLHttpReq.status == 200) {
-                        var text = XMLHttpReq.responseText;
-                            console.log(text);
-                        }
-                    }
-                    var text = XMLHttpReq.responseText;
-                    console.log(text);
-                };
-                xhr.send(form);
+                })
             }
 
             function Del(index) {
