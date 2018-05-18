@@ -71,6 +71,7 @@ func readExcelFile(data []byte, dbids []string) error {
 		}
 
 		var buffer bytes.Buffer
+		buffer.Reset()
 		buffer.WriteString("insert into ")
 		buffer.WriteString(tbName)
 		buffer.WriteString(" (")
