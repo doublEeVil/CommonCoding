@@ -2,18 +2,20 @@ package main
 
 import (
 	"fmt"
-	"strings"
-	"time"
 	"net"
 	"net/http"
-	"./basic"
-	"./app/webtools"
+	"strings"
+	"time"
+
 	excel2db_v2 "./app/excel2db/v2"
+	image_tool "./app/png2jpg"
+	"./app/webtools"
+	"./basic"
 )
 
 type Stu struct {
 	name string
-	age int
+	age  int
 }
 
 func main() {
@@ -24,6 +26,10 @@ func main() {
 	//basic.AppendFile("/Users/shangguyi/Downloads/abc/a.c", "hhh")
 	dat := basic.HttpGet("http://baidu.com")
 	ppp(dat)
+
+	// 测试png->jpg
+	image_tool.PngToJpg("G:\\11.png", "G:\\11.jpg")
+
 	go webtools.Start(8081)
 	excel2db_v2.Start()
 
@@ -35,39 +41,39 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func server(conn net.Conn) {
-	for  {
+	for {
 		buf := make([]byte, 512)
 		n, _ := conn.Read(buf)
 		ppp(string(buf[:n]))
 	}
 }
 
-func sendData(ch chan string)  {
+func sendData(ch chan string) {
 	ch <- "111"
 	ch <- "222"
 	ch <- "333"
 }
 
-func getData(ch chan string)  {
-	for  {
-		input := <- ch
+func getData(ch chan string) {
+	for {
+		input := <-ch
 		ppp(input)
 	}
 }
 
-func wait1()  {
+func wait1() {
 	ppp("wait 1")
 	time.Sleep(10 * 1e9)
 	ppp("wait 1 end")
 }
 
-func wait2()  {
+func wait2() {
 	ppp("wait 2")
 	time.Sleep(10 * 1e9)
 	ppp("wait 2 end")
 }
 
-func httpGet(url string, f func(string))  {
+func httpGet(url string, f func(string)) {
 	if strings.HasSuffix(url, ".com") {
 		f("success")
 	} else {
@@ -75,10 +81,10 @@ func httpGet(url string, f func(string))  {
 	}
 }
 
-func httpCallback(msg string)  {
+func httpCallback(msg string) {
 	fmt.Println(msg)
 }
 
-func ppp(abc interface{})  {
+func ppp(abc interface{}) {
 	fmt.Println(abc)
 }
