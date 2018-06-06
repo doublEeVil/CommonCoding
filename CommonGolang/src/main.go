@@ -8,9 +8,10 @@ import (
 	"time"
 
 	excel2db_v2 "./app/excel2db/v2"
-	image_tool "./app/png2jpg"
+	//image_tool "./app/png2jpg"
 	"./app/webtools"
 	"./basic"
+	myt "./test"
 )
 
 type Stu struct {
@@ -28,7 +29,12 @@ func main() {
 	ppp(dat)
 
 	// 测试png->jpg
-	image_tool.PngToJpg("G:\\11.png", "G:\\11.jpg")
+	//image_tool.PngToJpg("G:\\11.png", "G:\\11.jpg")
+
+	// 测试写大型文件
+	//myt.WriteLargeJSONFile("G:\\apps\\abc.json")
+	// 测试读大型数据
+	myt.ReadLargeJSONFile("G:\\apps\\abc.json", 1024*1024*8)
 
 	go webtools.Start(8081)
 	excel2db_v2.Start()
