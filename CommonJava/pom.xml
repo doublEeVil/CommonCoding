@@ -80,6 +80,7 @@
                     <include>*.properties</include>
                     <include>*.dict</include>
                     <include>**/*.xml</include>
+                    <include>*.xml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
@@ -287,6 +288,22 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+
+        <!-- 解析html模板需要 不使用这个库 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
+
     </dependencies>
 
 </project>
