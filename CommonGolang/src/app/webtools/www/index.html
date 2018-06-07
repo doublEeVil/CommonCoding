@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>{{.Title}}</title>
+    <title>Web小工具</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ 
+      <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
 </head>
 
 <body>
-    now this is test
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h3>
+                    自定义web小工具，用于平常操作或者测试
+                </h3>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-4 column">
+                <h2>
+                    图片格式转换
+                </h2>
+                <p>
+                    图片格式PNG与JPG格式的相互转换
+                </p>
+                <p>
+                     <a class="btn" href="/webtools/img_exchange">点击Go »</a>
+                </p>
+            </div>
+            <div class="col-md-4 column">
+                <h2>
+                    常用在线编解码
+                </h2>
+                <p>
+                    Base64以及常用的Md5，后续增加中
+                </p>
+                <p>
+                     <a class="btn" href="/webtools/encode">点击Go »</a>
+                </p>
+            </div>
+            <div class="col-md-4 column">
+                <h2>
+                    等待增加中
+                </h2>
+                <p>
+                    浔阳江头夜送客，枫叶荻花秋瑟瑟。-----
+                    世味年来薄似纱, 谁令骑马客京华------
+                </p>
+                <p>
+                     <a class="btn" href="#">点击Go »</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

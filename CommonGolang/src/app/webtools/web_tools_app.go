@@ -12,6 +12,8 @@ import (
 	"strconv"
 	"strings"
 
+	basic "../../basic"
+
 	img_tool "../png2jpg"
 )
 
@@ -23,12 +25,13 @@ func Start(port int) {
 	fmt.Println("server start to run on port:", port)
 	http.HandleFunc("/webtools/", indexPage)                  // 首页
 	http.HandleFunc("/webtools/img_exchange", imageExchagnge) // 图片转换工具
+	http.HandleFunc("/webtools/encode", commonEncode)         // 常用在线编解码
 
 	basePath, _ := os.Getwd()
 	// 静态文件
 	http.Handle("/webtools/static/", http.StripPrefix("/webtools/static/", http.FileServer(http.Dir(basePath+"/app/webtools/www/static")))) //通过浏览器直接查看
-	//http.Handle("/js/", http.FileServer(http.Dir("app/webtools/www/")))
-	//http.Handle("/css/", http.FileServer(http.Dir("app/webtools/www/")))
+	http.Handle("/js/", http.FileServer(http.Dir("app/webtools/www/")))
+	http.Handle("/css/", http.FileServer(http.Dir("app/webtools/www/")))
 
 	http.HandleFunc("/download/", download) // 通过浏览器直接下载而不是查看
 
@@ -169,4 +172,33 @@ func imageExchagnge(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, imgExchangeInfo)
 	}
 
+}
+
+func commonEncode(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	if r.Method == "GET" {
+		t, _ := template.ParseFiles("app/webtools/www/encode.html")
+		t.Execute(w, nil)
+	} else {
+		// dat, _ := ioutil.ReadAll(r.Body)
+		// log.Println(string(dat)) // 使用ajax方式发过来的数据，只能通过这种方式读取
+
+		param1 := r.PostFormValue("encodeType")
+		param2 := r.PostFormValue("srcStr")
+
+		var ret string
+
+		intVal, _ := strconv.Atoi(param1)
+		if intVal == 0 {
+			// md5
+			ret = basic.Md5Encode(param2)
+		} else if intVal == 1 {
+			// base64 编码
+			ret = basic.Base64Encode(param2)
+		} else if intVal == 2 {
+			// base64解码
+			ret = basic.Base64Decode(param2)
+		}
+		w.Write([]byte(ret))
+	}
 }

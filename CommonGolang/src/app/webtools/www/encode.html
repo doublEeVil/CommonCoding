@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>在线编解码</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ 
+      <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body>
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h3>
+                    在线编解码工具
+                </h3>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                 <span class="label label-primary">编码方式</span>
+                 <div class="col-lg-2">
+                    <select class="form-control" onchange="selectOnchang(this)">
+                        <option>MD5摘要</option>
+                        <option>Base64编码</option>
+                        <option>Base64解码</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="row clearfix">
+            <div class="col-md-6 column">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                         <label for="inputEmail3" class="col-sm-2 control-label">编码前</label>
+                        <div class="col-sm-10 row-sm-20">
+                            <input class="form-control" id="inputEmail3" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                         <label for="inputPassword3" class="col-sm-2 control-label">编码后</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="inputPassword3" type="text" />
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                             <button type="submit" onclick="getResult()" class="btn btn-default">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 column">
+            </div>
+        </div>
+    </div>
+      <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+      <script src="https://code.jquery.com/jquery.js"></script>
+      <!-- 包括所有已编译的插件 -->
+      <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <script>
+            var encodeType = 0;
+            $(function () {
+                //ListFile();
+            });
+
+            function selectOnchang(obj){  
+                //获取被选中的option标签选项 
+                // alert(obj.selectedIndex);
+                encodeType = obj.selectedIndex
+            }
+            
+            function getResult() {
+                var srcString;
+                var dstString;
+                $("input[type=text][id=inputEmail3]").each(function (i, e) {
+                    console.log($(this).context.value);
+                    srcString = $(this).context.value;
+                }); 
+                $("input[type=text][id=inputPassword3]").each(function (i, e) {
+                    console.log($(this).context.value)
+                    dstString = $(this).context.value;
+                }); 
+                
+                var inputStr;
+
+                if (encodeType == 0) {
+                    //md5
+                    inputStr = srcString;
+                } else if (encodeType == 1) {
+                    // base64编码
+                    inputStr = srcString;
+                } else if (encodeType == 2) {
+                    // base64解码
+                    inputStr = dstString;
+                }
+
+                var form = {
+                    'encodeType': encodeType,
+                    'srcStr': inputStr
+                }
+
+                // $.ajax({
+                //     type: 'post',
+                //     url: '/webtools/encode',
+                //     data: {name: "zhujinshan"},
+                //     contentType: false,// 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置(详见：#1)
+                //     processData: false,// 是否序列化data属性，默认true(注意：false时type必须是post，详见：#2)
+                //     success: function(data) {
+                        
+                //     },
+                //     fail: function() {
+                //         alert("失败....");
+                //     }
+                // })
+
+                $.post("/webtools/encode", form, function(data) {
+                    if (encodeType == 0) {
+                        $("input[type=text][id=inputPassword3]").each(function (i, e) {
+                            $(this).context.value = data;
+                        }); 
+                    } else if (encodeType == 1) {
+                        // base64编码
+                        $("input[type=text][id=inputPassword3]").each(function (i, e) {
+                            $(this).context.value = data;
+                        });
+                    } else if (encodeType == 2) {
+                        // base64解码
+                        $("input[type=text][id=inputEmail3]").each(function (i, e) {
+                            $(this).context.value = data;
+                        });
+                    }
+                })
+            }
+       </script>
+   </body>
+</html>
