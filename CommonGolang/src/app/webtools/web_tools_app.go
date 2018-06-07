@@ -33,7 +33,7 @@ func Start(port int) {
 	http.Handle("/js/", http.FileServer(http.Dir("app/webtools/www/")))
 	http.Handle("/css/", http.FileServer(http.Dir("app/webtools/www/")))
 
-	http.HandleFunc("/download/", download) // 通过浏览器直接下载而不是查看
+	http.HandleFunc("/webtools/download/", download) // 通过浏览器直接下载而不是查看
 
 	http.HandleFunc("/abc", helloworld)
 
@@ -149,7 +149,7 @@ func imageExchagnge(w http.ResponseWriter, r *http.Request) {
 					log.Println("转换文件失败 " + fheader.Filename)
 					continue
 				}
-				pathList = append(pathList, "/download/"+fileName)
+				pathList = append(pathList, "/webtools/download/"+fileName)
 				fileNameList = append(fileNameList, fileName)
 				f, err := os.Open(pathTo)
 				fInfo, _ := f.Stat()
