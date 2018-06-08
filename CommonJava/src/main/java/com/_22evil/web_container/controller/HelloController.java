@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import freemarker.template.Template;
 
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -85,6 +81,18 @@ public class HelloController {
             temp.process(root, response.getWriter()); // 此时得到的便是testabc.html内容
             
             response.setContentType("text/html; charset=" + temp.getEncoding()); //中文乱码问题
+
+
+            // 测试下sesstion问题, 每次session都会不同，建议用spring-session上传到redis
+            System.out.println(request.getSession());
+            Object id = request.getSession().getAttribute("id");
+            if (id == null) {
+                request.getSession().setAttribute("id", "1234");
+                System.out.println("=== session 没有id");
+            } else {
+                System.out.println("====session id = " + id);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
