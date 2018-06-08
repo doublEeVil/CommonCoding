@@ -1,0 +1,4 @@
+//数据库相关操作
+//封装hibernate
+//由java实体生成mysql表
+//由java实体增加mysql表结构
