@@ -2,10 +2,11 @@
 /**
  * @author wangye
  */
-package com._22evil.dao;
+package com._22evil.spring_hibernate.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -79,6 +80,8 @@ public interface GenericDao<T, ID extends Serializable> {
      * @return 是否删除成功
      */
     boolean deleteById(ID Id);
+
+    boolean deleteByPlayerId(ID id);
 
     /**
      * <删除所有>

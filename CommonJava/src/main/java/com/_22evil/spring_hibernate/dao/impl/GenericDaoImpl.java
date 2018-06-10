@@ -1,20 +1,21 @@
-package com._22evil.dao.impl;
+package com._22evil.spring_hibernate.dao.impl;
 
+import com._22evil.spring_hibernate.dao.GenericDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import com._22evil.dao.GenericDao;
+
 /**
  * Created by wangye on 2016/6/1.
  */
-
 public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T, ID> {
     private static final Logger LOGGER = Logger
             .getLogger(GenericDaoImpl.class);
@@ -138,6 +139,19 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
             return false;
         }
         delete(t);
+        return true;
+    }
+
+    @Override
+    public boolean deleteByPlayerId(ID Id) {
+        List<T> ts = getSession().createQuery("from " + getEntityClass().getName() + " t where t.player.id=?").setParameter(0, Id).list();
+        if (ts.size() <= 0) {
+            return false;
+        }
+        for (T t : ts) {
+            delete(t);
+        }
+
         return true;
     }
 
@@ -326,6 +340,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
     @Override
     public void flush() {
         this.getSession().flush();
+
     }
 
 }
