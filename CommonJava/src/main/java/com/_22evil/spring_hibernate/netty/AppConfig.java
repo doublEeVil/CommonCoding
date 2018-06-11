@@ -1,5 +1,7 @@
 package com._22evil.spring_hibernate.netty;
 
+import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -12,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @EnableWebMvc
-@ImportResource({"classpath:spring.xml","classpath:spring-hibernate.xml"})
+@ImportResource({"classpath*:/spring.xml","classpath*:/spring-hibernate.xml"})
 public class AppConfig {
     /**
      * 初始化配置数据

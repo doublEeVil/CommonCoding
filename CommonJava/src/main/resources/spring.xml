@@ -11,11 +11,10 @@
        <!-- 扫描service自动注入为bean -->
        <!--<context:component-scan base-package="com.sprite.services.Impl, com.sprite.dao.Impl"/>-->
        <context:component-scan base-package="com._22evil"/>
-       <context:property-placeholder location="classpath:jdbc.properties"/>
 
-       <!-- 处理定时任务 -->
+       <!-- 处理定时任务
        <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
-       <task:scheduler id="qbScheduler" pool-size="10"/>
+       <task:scheduler id="qbScheduler" pool-size="10"/> -->
 
        <!-- 处理异常 -->
        <bean id="exceptionHandler" class="com._22evil.netty_test.http_server_spring.controller.DefaultExceptionResolver" />
@@ -37,14 +36,14 @@
 
       
        <!-- 引入properties配置文件 -->
-       <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
               <property name="locations">
-                     <list>
-                            <value>classpath:*.properties</value>
+                     <list> -->
+                            <!-- <value>classpath:*.properties</value> -->
                             <!--要是有多个配置文件，只需在这里继续添加即可 -->
-                     </list>
+                     <!-- </list>
               </property>
-       </bean>
+       </bean> -->
 
        <!--&lt;!&ndash; 配置redis池，依次为最大实例数，最大空闲实例数，(创建实例时)最大等待时间，(创建实例时)是否验证 &ndash;&gt;-->
        <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
