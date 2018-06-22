@@ -5,68 +5,6 @@
        xmlns:task="http://www.springframework.org/schema/task"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-   
-
-       <!-- -->
-       <!-- 扫描service自动注入为bean -->
-       <!--<context:component-scan base-package="com.sprite.services.Impl, com.sprite.dao.Impl"/>-->
+       
        <context:component-scan base-package="com._22evil"/>
-
-       <!-- 处理定时任务
-       <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
-       <task:scheduler id="qbScheduler" pool-size="10"/> -->
-
-       <!-- 处理异常 -->
-       <bean id="exceptionHandler" class="com._22evil.netty_test.http_server_spring.controller.DefaultExceptionResolver" />
-       <!-- 处理返回json的解析,处理报错406 -->
-       <bean id="mappingJacksonHttpMessageConverter"
-             class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-              <property name="supportedMediaTypes">
-                     <list>
-                            <value>text/html;charset=UTF-8</value>
-                     </list>
-              </property>
-       </bean>
-
-       <!-- 中文问题 -->
-  
-      <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
-            <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>  
-      </bean>  
-
-      
-       <!-- 引入properties配置文件 -->
-       <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-              <property name="locations">
-                     <list> -->
-                            <!-- <value>classpath:*.properties</value> -->
-                            <!--要是有多个配置文件，只需在这里继续添加即可 -->
-                     <!-- </list>
-              </property>
-       </bean> -->
-
-       <!--&lt;!&ndash; 配置redis池，依次为最大实例数，最大空闲实例数，(创建实例时)最大等待时间，(创建实例时)是否验证 &ndash;&gt;-->
-       <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-              <!--&lt;!&ndash;<property name="maxTotal" value="${redis.maxTotal}"/>&ndash;&gt;-->
-              <!--<property name="maxIdle" value="${redis.maxIdle}"/>-->
-              <!--<property name="maxWaitMillis" value="${redis.maxWait}"/>-->
-              <!--<property name="testOnBorrow" value="${redis.testOnBorrow}"/>-->
-       <!--</bean>-->
-
-       <!--&lt;!&ndash; redis连接配置，依次为主机ip，端口，是否使用池，(usePool=true时)redis的池配置 &ndash;&gt;-->
-       <!--<bean id="jedisFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">-->
-              <!--<property name="hostName" value="${redis.host}"/>-->
-              <!--<property name="port" value="${redis.port}"/>-->
-              <!--<property name="usePool" value="true"/>-->
-              <!--<property name="poolConfig" ref="jedisPoolConfig"/>-->
-       <!--</bean>-->
-
-       <!--&lt;!&ndash; redis模板配置 &ndash;&gt;-->
-       <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">-->
-              <!--<property name="connectionFactory" ref="jedisFactory"/>-->
-              <!--<property name="defaultSerializer">-->
-                     <!--<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
-              <!--</property>-->
-       <!--</bean>-->
-
 </beans>

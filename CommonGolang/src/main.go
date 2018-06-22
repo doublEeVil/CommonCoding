@@ -9,9 +9,11 @@ import (
 
 	// excel2db_v2 "./app/excel2db/v2"
 	// image_tool "./app/png2jpg"
-	"./app/webtools"
-	"./basic"
+	// "./app/webtools"
+
 	// myt "./test"
+
+	exceljson "./app/excel2json"
 )
 
 type Stu struct {
@@ -21,12 +23,12 @@ type Stu struct {
 
 func main() {
 	//httpGet("www.baidu.com", httpCallback)
-	ppp("---test---")
+	// ppp("---test---")
 	//data := basic.ReadFromFile("/Users/shangguyi/Downloads/abc/one.txt")
 	//ppp(data)
 	//basic.AppendFile("/Users/shangguyi/Downloads/abc/a.c", "hhh")
-	dat := basic.HttpGet("http://baidu.com")
-	ppp(dat)
+	// dat := basic.HttpGet("http://baidu.com")
+	// ppp(dat)
 
 	// 测试png->jpg
 	//image_tool.PngToJpg("G:\\11.png", "G:\\11.jpg")
@@ -36,10 +38,17 @@ func main() {
 	// 测试读大型数据
 	// myt.ReadLargeJSONFile("G:\\apps\\abc.json", 1024*1024*8)
 
-	webtools.Start(8081)
+	// webtools.Start(9001)
 	// excel2db_v2.Start()
 
-	ppp("---end---")
+	exceljson.Start()
+	pause()
+	// ppp("---end---")
+}
+
+func pause() {
+	fmt.Println("\n\n\n按任意键继续")
+	fmt.Scanln()
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {

@@ -10,6 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ImportResource({"classpath*:/spring.xml", "classpath*:/spring-hibernate.xml"})
+@ImportResource({"classpath*:/spring.xml"})
 public class AppConfig {
 }

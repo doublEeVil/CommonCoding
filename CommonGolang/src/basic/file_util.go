@@ -1,10 +1,10 @@
 package basic
 
 import (
-	"log"
-	"io/ioutil"
-	"os"
 	"bufio"
+	"io/ioutil"
+	"log"
+	"os"
 	"path/filepath"
 )
 
@@ -27,7 +27,7 @@ func ReadFromFile(path string) string {
 }
 
 //一行行得到文本内容
-func ReadFromFileAsLines(path string) []string{
+func ReadFromFileAsLines(path string) []string {
 	ret := make([]string, 12)
 	f, err := os.Open(path)
 	if err != nil {
@@ -35,8 +35,8 @@ func ReadFromFileAsLines(path string) []string{
 	}
 	defer f.Close()
 	reader := bufio.NewReader(f)
-	for  {
-		data,_, err := reader.ReadLine()
+	for {
+		data, _, err := reader.ReadLine()
 		if err != nil {
 			break
 		}
@@ -52,7 +52,7 @@ func WriteToFile(path string, data string) {
 }
 
 // 将内容添加到文件尾
-func AppendFile(path string, data string)  {
+func AppendFile(path string, data string) {
 	f, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
@@ -61,10 +61,10 @@ func AppendFile(path string, data string)  {
 }
 
 // 得到路径下所有文件路径, 包括子目录
-func GetFilePathList(path string) []string{
+func GetFilePathList(root string) []string {
 	ret := make([]string, 8)
-	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
-		if info == nil{
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if info == nil {
 			return err
 		}
 		if info.IsDir() {
@@ -77,4 +77,11 @@ func GetFilePathList(path string) []string{
 		log.Fatal(err)
 	}
 	return ret
+}
+
+func GetFilePathListOnlyRoot(root string) []string {
+	// files, _ := ioutil.ReadDir(root)
+	// return files
+	files, _ := filepath.Glob("*")
+	return files
 }
