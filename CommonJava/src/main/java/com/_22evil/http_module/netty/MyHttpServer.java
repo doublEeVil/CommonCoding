@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +27,36 @@ public class MyHttpServer {
         this.port = port;
     }
 
-    public void launch() throws Exception {
-        initHttpController();
+    /**
+     * 指定基础包名启动
+     */
+    public void launch(String basePackage) throws Exception {
+        initHttpController(basePackage);
+        launch0();
+    }
 
+    /**
+     * 指定spring上下文启动
+     */
+    public void launch(ApplicationContext ctx) throws Exception {
+        Map<String, Object> map = ctx.getBeansWithAnnotation(HandleHttp.class);
+        for (Object obj : map.values()) {
+            HandleHttp handler = (HandleHttp)obj.getClass().getAnnotation(HandleHttp.class);
+            String url = handler.url();
+            if (urlControllerMap.containsKey(url)) {
+                throw new RuntimeException("注解复用:" + obj.getClass().getName());
+            }
+            try {
+                BaseHttpController controller = (BaseHttpController)obj;
+                urlControllerMap.put(url, controller);
+            } catch (Exception e) {
+                throw new RuntimeException("注解类必须是继承BaseHttpController：" + obj);
+            }
+        }
+        launch0();
+    }
+
+    private void launch0() throws Exception {
         ServerBootstrap server = new ServerBootstrap();
         NioEventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -45,9 +74,9 @@ public class MyHttpServer {
         }
     }
 
-    private void initHttpController() {
+    private void initHttpController(String basePackage) {
         urlControllerMap = new HashMap<>();
-        Map<String, Class<?>> classMap = ClassUtil.getClassMapByAnnounce("com._22evil", HandleHttp.class);
+        Map<String, Class<?>> classMap = ClassUtil.getClassMapByAnnounce(basePackage, HandleHttp.class);
         for (Class clazz : classMap.values()) {
             HandleHttp handler = (HandleHttp)clazz.getAnnotation(HandleHttp.class);
             String url = handler.url();

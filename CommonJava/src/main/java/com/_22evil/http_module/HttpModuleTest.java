@@ -12,7 +12,7 @@ public class HttpModuleTest extends BaseHttpController{
     public static void main(String[] args) throws Exception {
         System.out.println("=====test====");
         System.out.println("====启动完成====");
-        new MyHttpServer(10100).launch();
+        new MyHttpServer(10100).launch("com._22evil");
     }
 
     public void service(MockHttpServletRequest request, MockHttpServletResponse response) throws Exception {
