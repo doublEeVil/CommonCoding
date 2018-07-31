@@ -1,9 +1,6 @@
 package com._22evil.spring_event;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import sun.tools.tree.ThisExpression;
-
 public class Test {
     public static void main(String[] args) {
         System.out.println("==== test ====");

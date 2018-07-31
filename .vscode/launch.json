@@ -1,0 +1,472 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Codec_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.Codec_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Configuration_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.Configuration_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileSystem_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.FileSystem_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HttpComponents_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.HttpComponents_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IO_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.IO_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Lang_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.Lang_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Math_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.Math_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Net_Test<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.apache_common_test.Net_Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AppStoreVerify<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.appstore_verify.AppStoreVerify",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CrawTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.crawer.CrawTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DownloadTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.crawer.download_test.DownloadTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-E01_StaticMethodConstuctor<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.effective_example.e001.E01_StaticMethodConstuctor",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Stu<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.effective_example.e003.Stu",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Singleton<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.effective_example.e004.Singleton",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MailTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.mail.MailTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EchoClient<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.echo.client.EchoClient",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EchoServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.echo.server.EchoServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HttpServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.http_server.HttpServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MyServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.idle.MyServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Client<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.pojo.client.Client",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Server<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.pojo.server.Server",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WSServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.netty_test.websokcet.WSServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReadMsgTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.protobuf_test.ReadMsgTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WriteMsgTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.protobuf_test.WriteMsgTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleProxyServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.proxy.SimpleProxyServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RmiClient<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.rmi.client.RmiClient",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RmiServer<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.rmi.server.RmiServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RpcClient<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.rpc.client.RpcClient",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MyServer<CommonJava>(1)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.spring_hibernate.netty.MyServer",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Sync<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.test.sync_test.Sync",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GoldPriceTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.third_data.GoldPriceTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-UnsafeTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.unsafe.UnsafeTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WebContainerTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.web_container.WebContainerTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SpringMysql<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.spring_mysql.Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LambdaTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.lambda.LambdaTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DFATest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.DFA.DFATest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HttpModule<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.http_module.HttpModuleTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SpringEvent<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.spring_event.Test",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 0
+        }
+    ]
+}

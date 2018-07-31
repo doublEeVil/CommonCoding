@@ -4,6 +4,7 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "java",
             "name": "Debug (Launch)-Test<CommonJava>",
@@ -158,6 +159,19 @@
             "projectName": "CommonJava",
             "args": ""
         },
+
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WebContainerTest<CommonJava>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com._22evil.web_container.WebContainerTest",
+            "projectName": "CommonJava",
+            "args": ""
+        },
+
         {
             "type": "java",
             "name": "Debug (Attach)",

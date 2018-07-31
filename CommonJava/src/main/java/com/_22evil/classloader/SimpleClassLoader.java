@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 public class SimpleClassLoader extends ClassLoader{
-    public static SimpleClassLoader loader = new SimpleClassLoader();
+    private static SimpleClassLoader loader = new SimpleClassLoader();
 
     private SimpleClassLoader() {
 

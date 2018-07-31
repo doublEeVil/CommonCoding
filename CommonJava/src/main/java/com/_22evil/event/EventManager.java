@@ -76,7 +76,7 @@ public class EventManager {
 
     /**
      * 发布事件
-     * 异步执行
+     * 异步执行, 这里直接new thread, 正常情况下应该使用线程池
      * @param eventId
      * @param params
      */
