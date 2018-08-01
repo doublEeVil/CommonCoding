@@ -1,0 +1,3 @@
+VSCodeExtension/hellowd/node_modules
+VSCodeExtension/hellowd/.vscode-test/
+VSCodeExtension/hellowd/*.vsix
