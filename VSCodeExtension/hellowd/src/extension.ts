@@ -85,6 +85,9 @@ class WordCounter {
             let wordCount = this._getWordCount(doc);
             this._statusBarItem.text = wordCount !== 1 ? `$(pencil) ${wordCount} Words` : `$(pencil) 1 word`; //显示一个pencil图标 具体有哪些图标，参考 https://octicons.github.com/
             this._statusBarItem.show();
+
+            // 尝试文本编辑
+            editor.document.getText();
         } else {
             this._statusBarItem.hide();
         }
