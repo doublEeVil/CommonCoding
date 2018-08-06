@@ -13,6 +13,7 @@ public abstract class BaseHttpController {
             service(request, response);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+            e.printStackTrace();
         }
     }
 }

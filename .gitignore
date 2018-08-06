@@ -1,5 +1,14 @@
 VSCodeExtension/hellowd/node_modules
 VSCodeExtension/hellowd/.vscode-test/
 VSCodeExtension/hellowd/*.vsix
+
 CommonRust/rust_study/target
 CommonRust/rust_study/Cargo.lock
+
+CommonJava/target
+CommonJava/.classpath
+CommonJava/.factorypath
+
+.vscode/*
+
+

@@ -18,7 +18,7 @@ public class Global {
                         } else {
                             file = new File("");
                             String path = file.getCanonicalPath();
-                            file = new File(path + "\\src\\main\\resources\\template");
+                            file = new File(path + "/CommonJava/" + "/src/main/resources/template");
                         }
                         free_marker_cfg.setDirectoryForTemplateLoading(file);
                         free_marker_cfg.setDefaultEncoding("UTF-8");

@@ -13,6 +13,13 @@
 
 //！ 它经常用在 crate 根文件（lib.rs）或者模块根文件（mod.rs）
 //！
+
+// 如果安装rust出现这样的提示 `error: no default toolchain configured`
+// 如果是mac
+// 输入以下
+// `rustup toolchain link mygnutoolchain '/usr/local'`
+// `rustup default mygnutoolchain`
+// 即可
 fn main() {
     println!("=== start ===");
 
