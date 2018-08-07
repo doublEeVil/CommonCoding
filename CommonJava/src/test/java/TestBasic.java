@@ -9,8 +9,22 @@ public class TestBasic {
         System.out.println("====");
         try {
             Thread.sleep(120);
+            CA ca = new CB();
+            ca.say();
         } catch (Exception e) {
             
         }
+    }
+}
+
+class CA {
+    public void say() {
+        System.out.println("this is ca");
+    }
+}
+
+class CB extends CA {
+    public void say() {
+        System.out.println("this is cb");
     }
 }
