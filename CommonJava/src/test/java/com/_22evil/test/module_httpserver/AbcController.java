@@ -1,4 +1,4 @@
-package com._22evil.test.httpserver;
+package com._22evil.test.module_httpserver;
 
 import com._22evil.module_httpserver.controller.BaseHttpController;
 import com._22evil.module_httpserver.controller.HandleHttp;
@@ -11,9 +11,9 @@ public class AbcController extends BaseHttpController{
 
     public void service(MockHttpServletRequest request, MockHttpServletResponse response) throws Exception {
         System.out.println("this is abc");
-        String sid = request.getRequestedSessionId();
+        String sid = request.getSession().toString();
 
         String name = (String)request.getSession().getAttribute("name");
-        response.getWriter().write("thi is  s " + name + " " + sid);
+        response.getWriter().write("<html><body>thi is  abc  " + name + " " + sid + " <a href='/test'>go to test</a>" + "</body></html>" );
     }
 }

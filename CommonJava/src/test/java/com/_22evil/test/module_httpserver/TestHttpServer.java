@@ -1,4 +1,4 @@
-package com._22evil.test.httpserver;
+package com._22evil.test.module_httpserver;
 
 import com._22evil.module_httpserver.netty.MyHttpServer;
 
@@ -8,7 +8,7 @@ public class TestHttpServer {
 
     @Test
     public void startHttp() throws Exception {
-        MyHttpServer server = new MyHttpServer(9000);
+        MyHttpServer server = new MyHttpServer(8888);
         server.launch("com._22evil.test.httpserver");
     }
 }

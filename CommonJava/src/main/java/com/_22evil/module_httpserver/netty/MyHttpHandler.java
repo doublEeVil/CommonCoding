@@ -1,23 +1,38 @@
 package com._22evil.module_httpserver.netty;
 
 import com._22evil.module_httpserver.controller.BaseHttpController;
+import com._22evil.module_httpserver.session.MySession;
+import com._22evil.module_httpserver.session.SessionManager;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.DefaultHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.cookie.ClientCookieDecoder;
+import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.DefaultCookie;
 import io.netty.handler.stream.ChunkedStream;
 import io.netty.util.CharsetUtil;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriUtils;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -109,7 +124,18 @@ public class MyHttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> 
             return;
         }
         MockHttpServletRequest servletRequest = createServletRequest(req);
+
+        // 处理session
+        String jsessionId = SessionManager.getInstance().getJSessionIdFromCookies(servletRequest);
+        MySession session = SessionManager.getInstance().solveHttpSession(servletRequest, jsessionId);
+        servletRequest.setSession(session);
+
         MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        if (!session.getSessionId().equals(jsessionId)) {
+            // 重写cookie
+            Cookie cookie = new DefaultCookie(MockHttpSession.SESSION_COOKIE_NAME, session.getSessionId());
+            servletResponse.setHeader(HttpHeaderNames.SET_COOKIE.toString(), io.netty.handler.codec.http.cookie.ClientCookieEncoder.STRICT.encode(cookie));
+        }
 
         BaseHttpController controller = MyHttpServer.getUrlControllerMap().get(servletRequest.getRequestURI());
         if (null == controller) {
