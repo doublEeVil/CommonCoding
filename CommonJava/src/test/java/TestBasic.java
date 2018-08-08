@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -11,6 +15,8 @@ public class TestBasic {
             Thread.sleep(120);
             CA ca = new CB();
             ca.say();
+            List list = new ArrayList();
+            list.iterator();
         } catch (Exception e) {
             
         }
