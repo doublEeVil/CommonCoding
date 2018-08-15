@@ -12,7 +12,7 @@ CommonJava/.settings
 
 .vscode/*
 
-
+CommonJava/.classpath
 CommonJava/.settings/org.eclipse.jdt.apt.core.prefs
 CommonJava/.factorypath
 CommonJava/ttt.db
