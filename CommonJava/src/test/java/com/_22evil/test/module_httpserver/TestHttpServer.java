@@ -9,6 +9,6 @@ public class TestHttpServer {
     @Test
     public void startHttp() throws Exception {
         MyHttpServer server = new MyHttpServer(8888);
-        server.launch("com._22evil.test.httpserver");
+        server.launch("com._22evil.test.module_httpserver");
     }
 }

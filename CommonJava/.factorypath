@@ -102,4 +102,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/json/json/20171018/json-20171018.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/freemarker/freemarker/2.3.28/freemarker-2.3.28.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/commons-codec/commons-codec/1.11/commons-codec-1.11.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/xerial/sqlite-jdbc/3.23.1/sqlite-jdbc-3.23.1.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

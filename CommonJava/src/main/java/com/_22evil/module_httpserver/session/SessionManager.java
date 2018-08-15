@@ -37,6 +37,12 @@ public class SessionManager {
 
     public String getJSessionIdFromCookies(HttpServletRequest request) {
         String cookieStr = request.getHeader(HttpHeaderNames.COOKIE.toString());
+        if (null == cookieStr) {
+            return null;
+        }
+        if (true) {
+            throw new RuntimeException("kkkk");
+        }
         Set<Cookie> cookieSet = ServerCookieDecoder.STRICT.decode(cookieStr);
         for (Cookie cookie : cookieSet) {
             if (cookie.name().equals(MockHttpSession.SESSION_COOKIE_NAME)) {

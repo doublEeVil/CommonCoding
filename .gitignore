@@ -15,3 +15,5 @@ CommonJava/.settings
 
 CommonJava/.settings/org.eclipse.jdt.apt.core.prefs
 CommonJava/.factorypath
+CommonJava/ttt.db
+CommonGolang/src/app/excel2db/v2/dbtool.go

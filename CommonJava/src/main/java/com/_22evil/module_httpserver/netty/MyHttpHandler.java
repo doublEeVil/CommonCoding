@@ -181,6 +181,13 @@ public class MyHttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> 
         fullHttpResponse.headers().add(CONTENT_TYPE, "text/plain; charset=UTF-8");
 
         // Close the connection as soon as the error message is sent.
-        ctx.write(fullHttpResponse).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(fullHttpResponse).addListener(ChannelFutureListener.CLOSE);
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        sendError(ctx, HttpResponseStatus.BAD_GATEWAY);
+    }
+
 }
