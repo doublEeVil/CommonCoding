@@ -1,11 +1,13 @@
-package com._22evil.mail;
+package com._22evil.test.mail;
 
-/**
- * 发送邮件测试
- */
-public class MailTest {
+import com._22evil.mail.MailConfig;
+import com._22evil.mail.MailUtil;
 
-    public static void main(String[] args) {
+import org.junit.Test;
+
+public class TestMail {
+    @Test
+    public void testMail() {
         System.out.println("====发送邮件测试====");
         MailConfig config = new MailConfig();
         config.host = "smtp.126.com";

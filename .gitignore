@@ -9,6 +9,8 @@ CommonJava/target
 CommonJava/.classpath
 CommonJava/.factorypath
 CommonJava/.settings
+CommonJava/.idea
+CommonJava/CommonJava.iml
 
 .vscode/*
 
@@ -17,3 +19,6 @@ CommonJava/.settings/org.eclipse.jdt.apt.core.prefs
 CommonJava/.factorypath
 CommonJava/ttt.db
 CommonGolang/src/app/excel2db/v2/dbtool.go
+
+
+
