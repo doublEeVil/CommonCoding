@@ -12,19 +12,40 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestBasic {
     @Test
     public void test1() {
-        int p = (int)(25);
-        byte q = (byte)(25);
-        int result = 0;
-        if (p == q) {
-            result = 1;
-        }else{
-            result = 2;
+        long t1 = System.currentTimeMillis();
+        String a = "1ad(&^&ha哈fs生df";
+        String b = "k22e（*&y";
+        byte[] as = a.getBytes();
+        byte[] bs = b.getBytes();
+
+        byte[] jiami = new byte[as.length];
+        int i = 0;
+
+        for (byte t : as) {
+            jiami[i] = (byte) (t ^ bs[i % bs.length]);
+            i++;
         }
-        System.out.println("result is "+result);
-        return;
+        System.out.println("jia mi hou: " + new String(jiami));
+        print(jiami);
+        System.out.println("-----");
+
+        i = 0;
+        for (byte t : jiami) {
+            jiami[i] = (byte) (t ^ bs[i % bs.length]);
+            i++;
+        }
+        System.out.println("jie mi hou: " + new String(jiami));
+        System.out.println(" time is : " + (System.currentTimeMillis() - t1));
     }
 
     public static void main(String[] args) {
         System.out.println("====");
+    }
+
+    private void print(byte[] dd) {
+        for (byte d : dd) {
+            System.out.print(d + " ");
+        }
+        System.out.println();
     }
 }

@@ -5,6 +5,10 @@ import org.junit.Test;
 import static spark.Spark.get;
 import static spark.Spark.port;
 
+/**
+ * 各种报错，实在是不清楚spark需要哪个javax.servlet版本
+ *
+ */
 public class TestHelloWorld {
 
     //@Test

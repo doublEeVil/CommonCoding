@@ -359,11 +359,11 @@
         </dependency>
 
         <!-- Servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet-api</artifactId>-->
+            <!--<version>3.0.1</version>-->
+        <!--</dependency>-->
 
         <!-- ehcache -->
         <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
@@ -575,6 +575,14 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+        <!--JMH（Java Micro-benchmark Harness）是一种常用的 Java 微基准测试框架 -->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.21</version>
+        </dependency>
+
 
     </dependencies>
 
