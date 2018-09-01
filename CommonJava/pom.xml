@@ -359,11 +359,11 @@
         </dependency>
 
         <!-- Servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet-api</artifactId>-->
+            <!--<version>3.0.1</version>-->
+        <!--</dependency>-->
 
         <!-- ehcache -->
         <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
@@ -568,6 +568,29 @@
             <artifactId>selenium-java</artifactId>
             <version>3.14.0</version>
         </dependency>
+
+        <!-- 一个用jetty实现的小型webapplication框架 -->
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+        <!-- -->
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--JMH（Java Micro-benchmark Harness）是一种常用的 Java 微基准测试框架 -->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.21</version>
+        </dependency>
+
     </dependencies>
 
 </project>

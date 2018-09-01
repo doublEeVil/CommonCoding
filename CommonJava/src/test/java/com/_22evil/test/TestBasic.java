@@ -14,34 +14,55 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class TestBasic {
     @Test
-    public void test1() {
-        System.out.println("====");
+    public void test1() throws Exception {
+        System.err.println("---");
+        TT t1 = new TT();
+        t1.say();
 
-        URL url = this.getClass().getClassLoader().getResource("");
-        System.out.println("---" + url);
-        File file = new File(url.getFile());
-        System.out.println(file.getName());
+        new Thread(()->{
+            synchronized (t1) {
+                try {
+                    for (int i = 0; i < 5; i++) {
+                        t1.val++;
+                    }
+                    System.out.println("====1111==" + t1.val);
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+            }
+        }).start();
+
+        new Thread(()->{
+            synchronized (t1) {
+                try {
+                    for (int i = 0; i < 5; i++) {
+                        t1.val++;
+                    }
+                    System.out.println("====222==" + t1.val);
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+            }
+        }).start();
+
+        Thread.sleep(20000);
     }
 
-    public static void main(String[] args) {
-        System.out.println("====");
+    @Test
+    public void test() {
+
     }
 }
 
-class TT1 {
-    private String name;
-    private int age;
+class TT {
+    int val;
 
-    public TT1(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
+    public void say() {
+        System.out.println("====say");
     }
 }
+
+
