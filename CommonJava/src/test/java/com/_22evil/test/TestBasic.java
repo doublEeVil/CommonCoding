@@ -10,42 +10,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class TestBasic {
+
+    private String s;
+
     @Test
     public void test1() {
-        long t1 = System.currentTimeMillis();
-        String a = "1ad(&^&ha哈fs生df";
-        String b = "k22e（*&y";
-        byte[] as = a.getBytes();
-        byte[] bs = b.getBytes();
+        s = get(s);
+        System.out.println(s);
 
-        byte[] jiami = new byte[as.length];
-        int i = 0;
+        String s1 = null;
+        s1 = get(s1);
+        System.out.println(s1);
+    }
 
-        for (byte t : as) {
-            jiami[i] = (byte) (t ^ bs[i % bs.length]);
-            i++;
+    public String get(String s) {
+        if (s == null) {
+            s = new String("222");
         }
-        System.out.println("jia mi hou: " + new String(jiami));
-        print(jiami);
-        System.out.println("-----");
-
-        i = 0;
-        for (byte t : jiami) {
-            jiami[i] = (byte) (t ^ bs[i % bs.length]);
-            i++;
-        }
-        System.out.println("jie mi hou: " + new String(jiami));
-        System.out.println(" time is : " + (System.currentTimeMillis() - t1));
+        return s;
     }
 
     public static void main(String[] args) {
-        System.out.println("====");
-    }
-
-    private void print(byte[] dd) {
-        for (byte d : dd) {
-            System.out.print(d + " ");
-        }
-        System.out.println();
+        System.out.println("===");
     }
 }
+
