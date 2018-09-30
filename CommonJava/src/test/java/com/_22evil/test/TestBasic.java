@@ -1,5 +1,8 @@
 package com._22evil.test;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,24 +17,55 @@ public class TestBasic {
     private String s;
 
     @Test
-    public void test1() {
-        s = get(s);
-        System.out.println(s);
+    public void test1() throws Exception {
+        System.err.println("---");
+        TT t1 = new TT();
+        t1.say();
 
-        String s1 = null;
-        s1 = get(s1);
-        System.out.println(s1);
+        new Thread(()->{
+            synchronized (t1) {
+                try {
+                    for (int i = 0; i < 5; i++) {
+                        t1.val++;
+                    }
+                    System.out.println("====1111==" + t1.val);
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+            }
+        }).start();
+
+        new Thread(()->{
+            synchronized (t1) {
+                try {
+                    for (int i = 0; i < 5; i++) {
+                        t1.val++;
+                    }
+                    System.out.println("====222==" + t1.val);
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+            }
+        }).start();
+
+        Thread.sleep(20000);
     }
 
-    public String get(String s) {
-        if (s == null) {
-            s = new String("222");
-        }
-        return s;
-    }
+    @Test
+    public void test() {
 
-    public static void main(String[] args) {
-        System.out.println("===");
     }
 }
+
+class TT {
+    int val;
+
+    public void say() {
+        System.out.println("====say");
+    }
+}
+
 

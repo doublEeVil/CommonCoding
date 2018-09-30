@@ -561,6 +561,14 @@
             <version>3.4.1</version>
         </dependency>
 
+        <!-- 与chrome交互的驱动 -->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+
         <!-- 一个用jetty实现的小型webapplication框架 -->
         <dependency>
             <groupId>com.sparkjava</groupId>
