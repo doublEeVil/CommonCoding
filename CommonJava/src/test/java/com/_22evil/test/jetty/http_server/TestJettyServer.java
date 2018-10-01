@@ -1,4 +1,4 @@
-package com._22evil.test.jetty;
+package com._22evil.test.jetty.http_server;
 
 import org.junit.Test;
 import org.mortbay.jetty.Server;

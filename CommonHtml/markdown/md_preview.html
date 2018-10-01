@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="./css/mditor.css" />
+	<script src="./js/mditor.js"></script>
+</head>
+<body>
+	<textarea name="editor" id="editor"></textarea>
+	<script type="text/javascript">
+		var mditor =  Mditor.fromTextarea(document.getElementById('editor'));
+ 
+		//获取或设置编辑器的值
+		mditor.on('ready',function(){
+		  console.log(mditor.value);
+		  mditor.value = '** hello **';	
+		});
+	</script>
+</body>
+</html>

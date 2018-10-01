@@ -13,6 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class TestBasic {
+
+    private String s;
+
     @Test
     public void test1() throws Exception {
         System.err.println("---");

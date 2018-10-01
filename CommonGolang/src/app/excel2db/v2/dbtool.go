@@ -27,18 +27,26 @@ func initDBInfos() map[string]DB_INFO {
 		"123456",
 		"127.0.0.1:3306",
 		"ddd2h5_dev",
-		"本地开发服",
+		"本地开发服127.0.0.1",
 	}
 	db2 := DB_INFO{
 		"zjs",
 		"123456",
 		"127.0.0.1:3306",
 		"ddd2h5_dev",
-		"本地开发服",
+		"本地开发服127.0.0.1",
+	}
+	db3 := DB_INFO{
+		"root",
+		"123456",
+		"192.168.3.30:3306",
+		"dddh5_world",
+		"本地开发服192.168.3.30",
 	}
 	retMap := make(map[string]DB_INFO)
 	retMap["1"] = db1
 	retMap["2"] = db2
+	retMap["3"] = db3
 	return retMap
 }
 
