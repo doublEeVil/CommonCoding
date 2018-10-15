@@ -3,9 +3,12 @@ package com._22evil.test;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,58 +17,33 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class TestBasic {
 
-    private String s;
 
-    @Test
-    public void test1() throws Exception {
-        System.err.println("---");
-        TT t1 = new TT();
-        t1.say();
-
-        new Thread(()->{
-            synchronized (t1) {
-                try {
-                    for (int i = 0; i < 5; i++) {
-                        t1.val++;
-                    }
-                    System.out.println("====1111==" + t1.val);
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-            }
-        }).start();
-
-        new Thread(()->{
-            synchronized (t1) {
-                try {
-                    for (int i = 0; i < 5; i++) {
-                        t1.val++;
-                    }
-                    System.out.println("====222==" + t1.val);
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-            }
-        }).start();
-
-        Thread.sleep(20000);
-    }
 
     @Test
     public void test() {
 
     }
-}
 
-class TT {
-    int val;
+    Lock lock = new ReentrantLock();
+    Condition condition = lock.newCondition();
 
-    public void say() {
-        System.out.println("====say");
+
+
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(1,2,3);
+        Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            iterator.remove();
+            //break;
+        }
+    }
+
+
+    @Test
+    public void test2() {
+        System.out.println("----");
     }
 }
+
 
 
