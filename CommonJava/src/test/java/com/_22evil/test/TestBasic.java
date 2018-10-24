@@ -3,6 +3,7 @@ package com._22evil.test;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,9 +40,31 @@ public class TestBasic {
     }
 
 
+    private Map<Integer, Set<Integer>> playerMap            = new ConcurrentHashMap<>();
     @Test
     public void test2() {
         System.out.println("----");
+        Set<Integer> set = playerMap.get(1);
+        if (set == null) {
+            set = playerMap.putIfAbsent(1, new HashSet<>());
+
+        }
+        // System.out.println("+++" + set.size());
+
+        Map<String, String> map = new HashMap<>();
+        String s = map.put("dd", "dd");
+        System.out.println(s);
+        System.out.println(map.get("dd"));
+        LocalDate localDate1 = LocalDate.parse("2018-10-22");
+        System.out.println(localDate1);
+
+        LocalDate localDate2 = LocalDate.now();
+        System.out.println(localDate1.isEqual(localDate2));
+        for (int i = 0; i < 12; i++) {
+            localDate2 = localDate2.plusDays(1);
+            System.out.println(localDate2);
+        }
+
     }
 }
 
