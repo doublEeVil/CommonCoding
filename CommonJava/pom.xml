@@ -111,7 +111,9 @@
         <jedis.version>2.9.0</jedis.version>
         <jetty.version>6.1.26</jetty.version>
         <netty.version>4.1.19.Final</netty.version>
-        <spring.version>5.0.3.RELEASE</spring.version>
+        <!--  spring 5.0.0 - 5.0.7 有bug-->
+        <spring.version>5.1.1.RELEASE</spring.version>
+            <commonmark.version>0.11.0</commonmark.version>
     </properties>
     <dependencies>
         <!-- spring -->
@@ -580,7 +582,8 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>3.1.0</version>
+            <!--<version>4.0.1</version>-->
             <scope>provided</scope>
         </dependency>
         <!--JMH（Java Micro-benchmark Harness）是一种常用的 Java 微基准测试框架 -->
@@ -648,6 +651,26 @@
             <scope>compile</scope>
         </dependency>
         <!-- spring aop   end-->
+
+        <!--markdown处理-->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

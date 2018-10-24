@@ -107,7 +107,7 @@ public class MyHttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> 
                             UriUtils.decode(value, "UTF-8"));
                 }
             }
-        } catch (UnsupportedEncodingException ex) {
+        } catch (Exception ex) {
             // shouldn't happen
             ex.printStackTrace();
         }
