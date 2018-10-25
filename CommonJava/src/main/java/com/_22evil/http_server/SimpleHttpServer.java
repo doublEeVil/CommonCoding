@@ -18,7 +18,9 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * 采用java IO，性能不会很高
+ * 采用java IO 实现的Http Server，性能不会很高
+ * 实验性质
+ * 而且只能定义controller 在 handler 目录下
  */
 public class SimpleHttpServer {
     private static Logger logger = LogManager.getLogger(SimpleHttpServer.class);
@@ -40,10 +42,10 @@ public class SimpleHttpServer {
     }
 
     public void loadController(Class<?> clazz) throws IllegalAccessException, InstantiationException{
-        if (!clazz.getSuperclass().getName().equals("com.BaseHandler")) {
+        if (!clazz.getSuperclass().getName().equals("com._22evil.http_server.BaseHandler")) {
             return;
         }
-        Handler handler = (Handler)clazz.getAnnotation(Handler.class);
+        Handler handler = clazz.getAnnotation(Handler.class);
         if (handler == null) {
             return;
         }
@@ -90,7 +92,7 @@ public class SimpleHttpServer {
         ServerSocket server = new ServerSocket();
         server.bind(new InetSocketAddress(port));
         while (true) {
-            Socket socket = null;
+            Socket socket;
             socket = server.accept();
             pool.execute(new SocketThread(socket));
         }

@@ -20,5 +20,7 @@ CommonJava/.factorypath
 CommonJava/ttt.db
 CommonGolang/src/app/excel2db/v2/dbtool.go
 
+.output/*
+_ServerDeploy/*
 
 
