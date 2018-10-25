@@ -8,7 +8,6 @@
     <artifactId>CommonJava</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <build>
         <plugins>
             <plugin>
@@ -123,8 +122,7 @@
         <properties>
         <!--指定Maven用什么编码来读取源码及文档 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<hibernate.version>4.3.8.Final</hibernate.version>-->
-        <hibernate.version>5.0.5.Final</hibernate.version>
+        <hibernate.version>5.3.6.Final</hibernate.version>
         <log4j2.version>2.6.2</log4j2.version>
         <netty.version>4.1.7</netty.version>
         <mysql.version>5.1.34</mysql.version>
@@ -134,7 +132,7 @@
         <netty.version>4.1.19.Final</netty.version>
         <!--  spring 5.0.0 - 5.0.7 有bug-->
         <spring.version>5.1.1.RELEASE</spring.version>
-            <commonmark.version>0.11.0</commonmark.version>
+        <commonmark.version>0.11.0</commonmark.version>
     </properties>
     <dependencies>
         <!-- spring -->
@@ -174,6 +172,12 @@
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!-- end -->
         <!-- hibernate -->
         <!-- start -->
@@ -190,12 +194,6 @@
             <version>${netty.version}</version>
         </dependency>
         <!-- hibernate -->
-        <!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
         <!-- hibernate5必须要的组件 -->
@@ -204,7 +202,6 @@
             <artifactId>jta</artifactId>
             <version>1.1</version>
         </dependency>
-
 
 
         <dependency>
@@ -283,36 +280,43 @@
             <artifactId>quartz</artifactId>
             <version>2.2.1</version>
         </dependency>
+
         <dependency>
             <groupId>backport-util-concurrent</groupId>
             <artifactId>backport-util-concurrent</artifactId>
             <version>3.1</version>
         </dependency>
+
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.11.0.GA</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.10</version>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -323,16 +327,19 @@
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.5</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
             <artifactId>concurrentlinkedhashmap-lru</artifactId>
@@ -344,42 +351,30 @@
             <artifactId>jsoup</artifactId>
             <version>1.8.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.47</version>
         </dependency>
+
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
         </dependency>
+
         <dependency>
             <groupId>ch.ethz.ganymed</groupId>
             <artifactId>ganymed-ssh2</artifactId>
             <version>build210</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>3.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <!-- redis -->
@@ -474,7 +469,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.3</version>
+            <version>1.1.12</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

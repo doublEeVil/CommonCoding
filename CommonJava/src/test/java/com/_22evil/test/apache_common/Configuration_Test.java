@@ -12,7 +12,7 @@ public class Configuration_Test {
     @Test
     public void test_Properties() {
         try {
-            PropertiesConfiguration pg = new PropertiesConfiguration("F:\\CommonCoding\\CommonJava\\target\\classes\\database.properties");
+            PropertiesConfiguration pg = new PropertiesConfiguration("F:\\CommonCoding\\CommonJava\\target\\classes\\template_database.properties");
             System.out.println(pg.getProperty("url"));
             pg.setProperty("name", "zjs");
             // 如果原格式包含/之类的特殊符号，save保存会存在问题

@@ -20,7 +20,7 @@ public class TStack<T> {
 
     public void push(T t) {
         if (isFull()) {
-            throw new RuntimeException("stack is full");
+            throw new RuntimeException("stack is page");
         }
         index++;
         elementData[index] = t;

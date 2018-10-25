@@ -22,7 +22,7 @@ public class TQueue<T> {
      */
     public void offer(T t) {
         if (isFull()) {
-            throw new RuntimeException("queue is full");
+            throw new RuntimeException("queue is page");
         }
         int index = head + size;
         if (index >= elementData.length) {

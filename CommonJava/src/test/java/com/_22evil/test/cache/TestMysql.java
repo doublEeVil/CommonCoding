@@ -36,7 +36,7 @@ public class TestMysql {
     public void testFind() {
         System.out.println("=======");
         TestEntityA a = genericMysqlService.get(TestEntityA.class, 10001);
-        Assert.assertEquals(a.getAge(), 12);
+        Assert.assertEquals(a.getAge(), 28);
         List<TestEntityA> list = genericMysqlService.getAll(TestEntityA.class);
         Assert.assertNotNull(list);
         System.out.println("==== test find pass ===");
