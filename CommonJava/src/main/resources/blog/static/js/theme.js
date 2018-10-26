@@ -81,36 +81,36 @@
     }
     
     /*Instafeed Widget*/
-    function instafeedWidget(){
-        if( $('#instafeed').length ){
-            var userFeed = new Instafeed({
-                get: 'user',
-                tagName: 'awesome',
-                userId: '1101771199',
-                resolution: 'standard_resolution',
-                accessToken: '1101771199.1677ed0.64ed520ad0c94f358dd92dddc082c33f',
-                limit: 2,
-                template: '<div class="item"><a href="{{image}}" data-source="{{image}}" title="{{caption}}"><img src="{{image}}" alt="{{caption}}></a></div>',
-                after: function () {
-                    for (var i = 0; i < 1; i++) {
-                        var $newdiv = $('<div class="item"></div>').html('<img src="http://placehold.it/360x300">');
-                        $('#instafeed').append($newdiv)
-                    }
-                    var owl = $('#instafeed');
-                    owl.owlCarousel({
-                        items: 1,
-                        loop: true,
-                        margin: 0,
-                        nav: false,
-                        autoplay: true,
-                        animateOut: 'fadeOut',
-                        animateIn: 'fadeIn'
-                    })
-                }
-            });
-            userFeed.run()
-        }
-    }
+    // function instafeedWidget(){
+    //     if( $('#instafeed').length ){
+    //         var userFeed = new Instafeed({
+    //             get: 'user',
+    //             tagName: 'awesome',
+    //             userId: '1101771199',
+    //             resolution: 'standard_resolution',
+    //             accessToken: '1101771199.1677ed0.64ed520ad0c94f358dd92dddc082c33f',
+    //             limit: 2,
+    //             template: '<div class="item"><a href="{{image}}" data-source="{{image}}" title="{{caption}}"><img src="{{image}}" alt="{{caption}}></a></div>',
+    //             after: function () {
+    //                 for (var i = 0; i < 1; i++) {
+    //                     var $newdiv = $('<div class="item"></div>').html('<img src="http://placehold.it/360x300">');
+    //                     $('#instafeed').append($newdiv)
+    //                 }
+    //                 var owl = $('#instafeed');
+    //                 owl.owlCarousel({
+    //                     items: 1,
+    //                     loop: true,
+    //                     margin: 0,
+    //                     nav: false,
+    //                     autoplay: true,
+    //                     animateOut: 'fadeOut',
+    //                     animateIn: 'fadeIn'
+    //                 })
+    //             }
+    //         });
+    //         userFeed.run()
+    //     }
+    // }
     
     function zoomGallery () {
         if ( $('#instafeed').length ){
@@ -197,7 +197,7 @@
     /*==========================================================================================*/
     /*Function Call*/
     featuredPostCarosel();
-    instafeedWidget();
+    //instafeedWidget();
     galleryOfPost ();
     galleryOfPost2 ();
     postMasonry();
