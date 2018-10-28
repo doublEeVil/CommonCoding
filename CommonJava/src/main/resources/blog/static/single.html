@@ -47,7 +47,7 @@
                 </form>
             </div>
             <div class="col-sm-4 logo-col text-center">
-                <a href="index6.html"><img src="images/logo-black-green.png" alt=""></a>
+                <a href="index.html"><img src="images/logo-black-green.png" alt=""></a>
             </div>
             <div class="col-sm-4 menu-trigger-col">
                 <button class="menu-trigger black pull-right">
@@ -90,7 +90,7 @@
                             <a id='create-time' href="#" class="date">2018年10月25日</a>
                             <span class="post-author"><i>by</i><a href="#">南风斜冷</a></span>
                         </h5>
-                        <h1  class="post-title">这个是标题</h1>
+                        <h1  id='content-title' class="post-title">这个是标题</h1>
                     </header>
 
                     <div id = 'content' class="post-content row">
@@ -142,19 +142,33 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-    $.get("http://127.0.0.1:8888/api/article", function(data) {
+    $.get("http://127.0.0.1:8888/api/article", {"articleId": getArticleId()}, function(data) {
         var article = JSON.parse(data);
         var title = article["title"];
         var time = article["time"];
         var type = article["type"];
         var content = article["content"];
+        var type = article["type"];
         // 标题
         document.title = title;
+        document.getElementById('content-title').innerHTML = title;
         // 时间
         document.getElementById('create-time').innerHTML = time;
         // 具体文章
-        document.getElementById('content').innerHTML = marked(content);
+        if (type == "markdown") {
+            document.getElementById('content').innerHTML = marked(content);
+        } else if (type == "html") {
+            document.getElementById('content').innerHTML = content;
+        }
+        
     });
+
+    function getArticleId() {
+        var reg = new RegExp("(^|&)"+ "articleId" +"=([^&]*)(&|$)");
+	    var r = window.location.search.substr(1).match(reg);
+	    if(r!=null) return unescape(r[2]); 
+        return 0;
+    }
 </script>
 </body>
 </html>

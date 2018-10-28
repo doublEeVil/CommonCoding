@@ -651,7 +651,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>5.0.1.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

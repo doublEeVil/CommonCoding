@@ -9,10 +9,11 @@ import spark.Route;
 public class ApiArticleRouter implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        String articleId = request.params("articleId");
+        String articleId = request.queryParams("articleId");
         if (articleId == null) {
             articleId = String.valueOf(1);
         }
+        System.out.println(articleId);
         response.header("Access-Control-Allow-Origin", "*");
         return ServiceManager.getInstance().getArticleService().getArticle(Integer.valueOf(articleId));
     }

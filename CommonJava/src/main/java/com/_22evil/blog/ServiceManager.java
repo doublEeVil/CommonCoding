@@ -1,5 +1,7 @@
 package com._22evil.blog;
+import com._22evil.blog.service.IAdminService;
 import com._22evil.blog.service.IArticleService;
+import com._22evil.blog.service.impl.AdminServiceImpl;
 import com._22evil.blog.service.impl.ArticleServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 public class ServiceManager {
@@ -36,5 +38,13 @@ public class ServiceManager {
      */
     public IArticleService getArticleService() {
         return context.getBean(ArticleServiceImpl.class);
+    }
+
+    /**
+     * 文章管理服务
+     * @return
+     */
+    public IAdminService getAdminService() {
+        return context.getBean(AdminServiceImpl.class);
     }
 }

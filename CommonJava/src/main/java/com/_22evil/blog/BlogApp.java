@@ -1,5 +1,5 @@
 package com._22evil.blog;
-import com._22evil.blog.controller.api.ApiArticleRouter;
+import com._22evil.blog.controller.api.*;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -33,10 +33,21 @@ public class BlogApp {
         // hello world
         get("/hello", "application/json", (request, response) -> "{\"message\": \"Hello World\"}");
 
-        // 首页
 
+        // 首页信息
+        get("/api/index", "application/json", new ApiIndexRouter());
         // 具体文章
         get("/api/article", "application/json", new ApiArticleRouter());
+
+        // 管理界面-登录
+        post("/api/admin_login", "application/json", new ApiAdminLoginRouter());
+        // 管理界面-首页
+        post("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
+        // 管理界面-增加文章
+        post("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
+        // 管理界面-编辑文章
+        post("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
+
         System.out.println("BlogApp启动完成...");
     }
 }

@@ -7,4 +7,10 @@ public interface IArticleService {
      * @return
      */
     JSONObject getArticle(int articleId);
+
+    /**
+     * 获取首页信息
+     * @return
+     */
+    JSONObject getIndex();
 }

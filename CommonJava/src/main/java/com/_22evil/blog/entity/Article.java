@@ -1,8 +1,5 @@
 package com._22evil.blog.entity;
 import com._22evil.module_cache.mysql.BaseIdAutoIncEntity;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
