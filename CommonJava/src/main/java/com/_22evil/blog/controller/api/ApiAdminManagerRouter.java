@@ -8,7 +8,10 @@ import spark.Route;
 public class ApiAdminManagerRouter implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
+        System.out.println(request.cookies());
         System.out.println("manager: " + request.session());
+        System.out.println(request.session().lastAccessedTime());
+        //System.out.println("+++" + request.attribute("foo").toString());
         Boolean login = request.session().attribute("login");
         JSONObject json = new JSONObject();
         json.put("login", login);

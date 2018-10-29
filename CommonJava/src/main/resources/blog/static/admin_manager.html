@@ -3,7 +3,7 @@ hhhhhhhh
 
 <script src="js/jquery-2.2.0.min.js"></script>
 <script>
-    $.post("http://127.0.0.1:8888/api/admin_manager", function(data) {
+    $.get("/api/admin_manager", function(data) {
         data = JSON.parse(data);
         console.log(data);
     });

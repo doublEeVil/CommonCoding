@@ -17,8 +17,8 @@ public class ApiAdminLoginRouter implements Route {
         }
         JSONObject json = new JSONObject();
         json.put("login", ok);
-        response.header("Access-Control-Allow-Origin", "*");
         System.out.println("login: " + request.session());
+        request.attribute("foo", "bar");
         return json;
     }
 }

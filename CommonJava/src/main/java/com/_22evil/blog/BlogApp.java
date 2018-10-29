@@ -33,6 +33,10 @@ public class BlogApp {
         // hello world
         get("/hello", "application/json", (request, response) -> "{\"message\": \"Hello World\"}");
 
+        // 前置拦截器
+        before(((request, response) -> {
+
+        }));
 
         // 首页信息
         get("/api/index", "application/json", new ApiIndexRouter());
@@ -40,14 +44,23 @@ public class BlogApp {
         get("/api/article", "application/json", new ApiArticleRouter());
 
         // 管理界面-登录
-        post("/api/admin_login", "application/json", new ApiAdminLoginRouter());
+        get("/api/admin_login", "application/json", new ApiAdminLoginRouter());
         // 管理界面-首页
-        post("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
+        get("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
         // 管理界面-增加文章
-        post("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
+        get("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
         // 管理界面-编辑文章
-        post("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
+        get("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
 
+        // 后置拦截器处理
+        afterAfter(((request, response) -> {
+            response.header("Access-Control-Allow-Credentials", "true");
+            response.header("Access-Control-Allow-Headers", "x-requested-with");
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+            response.header("Access-Control-Max-Age", "3600");
+            response.header("XDomainRequestAllowed","1");
+        }));
         System.out.println("BlogApp启动完成...");
     }
 }

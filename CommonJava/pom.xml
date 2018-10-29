@@ -77,7 +77,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!-- 主函数入口 -->
-                                    <mainClass>com._22evil.Test</mainClass>
+                                    <mainClass>com._22evil.file_server.FileServer</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>META-INF/spring.handlers</resource>

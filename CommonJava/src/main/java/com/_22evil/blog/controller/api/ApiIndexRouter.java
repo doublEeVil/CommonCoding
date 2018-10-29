@@ -8,7 +8,7 @@ import spark.Route;
 public class ApiIndexRouter implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        response.header("Access-Control-Allow-Origin", "*");
+        //response.header("Access-Control-Allow-Origin", "*");
         return ServiceManager.getInstance().getArticleService().getIndex();
     }
 }

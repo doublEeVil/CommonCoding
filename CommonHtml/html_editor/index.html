@@ -1,0 +1,28 @@
+<html>
+    <header>
+        <title></title>
+        <meta charset="utf-8">
+    </header>
+    <body>
+        <div id="editor" type="text/plain" style="width:1024px;height:500px;"></div>
+        <div>
+            <hr>
+            <button onclick="getContent()">获得内容</button>
+        </div>
+    </body>
+
+    <script type="text/javascript" charset="utf-8" src="neditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="neditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="i18n/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="neditor.service.js"></script>
+    <script type="text/javascript" src="third-party/browser-md5-file.min.js"></script>
+    <script type="text/javascript" src="third-party/jquery-1.10.2.min.js"></script>
+    <script>
+        var ue = UE.getEditor('editor');
+
+        function getContent() {
+            var content = UE.getEditor('editor').getContent();
+            console.log(content);
+        }
+    </script>
+</html>

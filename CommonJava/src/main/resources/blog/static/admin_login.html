@@ -2,6 +2,7 @@
 <html>
    <head>
       <title>登录</title>
+      <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- 引入 Bootstrap -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -90,11 +91,11 @@
                 console.log(tx);
 
                 // 登录
-            $.post("http://127.0.0.1:8888/api/admin_login", {'user': username, 'password': password}, function(data) {
+            $.get("/api/admin_login", {'user': username, 'password': password}, function(data) {
                 data = JSON.parse(data);
                 console.log(data);
                 if (data.login) {
-                    window.location.href="http://127.0.0.1:8888/admin_manager.html"; 
+                    window.location.href="/admin_manager.html";
                 } else {
                     alert("密码错误");
                 }
