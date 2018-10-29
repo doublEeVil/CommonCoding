@@ -13,4 +13,14 @@ public interface IArticleService {
      * @return
      */
     JSONObject getIndex();
+
+    /**
+     * 增加文章
+     * @param title
+     * @param type
+     * @param tags
+     * @param status
+     * @param content
+     */
+    int addArticle(String title, String type, String tags, String status, String content);
 }

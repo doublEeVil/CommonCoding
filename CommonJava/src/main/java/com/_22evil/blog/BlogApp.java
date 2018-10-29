@@ -3,6 +3,8 @@ import com._22evil.blog.controller.api.*;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import spark.*;
+import spark.servlet.SparkFilter;
 
 import static spark.Spark.*;
 /**
@@ -44,13 +46,13 @@ public class BlogApp {
         get("/api/article", "application/json", new ApiArticleRouter());
 
         // 管理界面-登录
-        get("/api/admin_login", "application/json", new ApiAdminLoginRouter());
+        post("/api/admin_login", "application/json", new ApiAdminLoginRouter());
         // 管理界面-首页
-        get("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
+        post("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
         // 管理界面-增加文章
-        get("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
+        post("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
         // 管理界面-编辑文章
-        get("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
+        post("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
 
         // 后置拦截器处理
         afterAfter(((request, response) -> {
@@ -61,6 +63,14 @@ public class BlogApp {
             response.header("Access-Control-Max-Age", "3600");
             response.header("XDomainRequestAllowed","1");
         }));
+
+        // 异常同一处理
+        Spark.exception(Exception.class, new ExceptionHandler() {
+            @Override
+            public void handle(Exception e, Request request, Response response) {
+                e.printStackTrace();
+            }
+        });
         System.out.println("BlogApp启动完成...");
     }
 }

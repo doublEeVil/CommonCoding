@@ -35,17 +35,42 @@ public class ArticleServiceImpl implements IArticleService{
         List<Article> articleList = genericMySqlService.getAllByHql("from Article ");
         JSONObject json = new JSONObject();
         List<JSONObject> list = new ArrayList<>();
+        String content;
         for (Article article : articleList) {
             JSONObject tmp = new JSONObject();
             tmp.put("articleId", article.getId());
             tmp.put("title", article.getTitle());
             tmp.put("time", new Date(article.getCreateDate()).toLocaleString());
             tmp.put("type", article.getType());
-            tmp.put("content", article.getContent().substring(0, 100));
+            content =  article.getContent();
+            if (content.length() > 100) {
+                tmp.put("content", content.substring(0, 100));
+            } else {
+                tmp.put("content", content);
+            }
             list.add(tmp);
         }
         json.put("title", "南风斜冷");
         json.put("articleList", list);
         return json;
+    }
+
+    @Override
+    public int addArticle(String title, String type, String tags, String status, String content) {
+        try {
+            Article article = new Article();
+            article.setTitle(title);
+            article.setType(type);
+            article.setTags(tags);
+            article.setStatus(status);
+            article.setContent(content);
+            article.setCreateDate(System.currentTimeMillis());
+            article.setUpdateDate(System.currentTimeMillis());
+            genericMySqlService.save(article);
+            return article.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
