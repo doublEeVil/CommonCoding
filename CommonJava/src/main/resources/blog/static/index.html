@@ -277,7 +277,7 @@
     }
 
     function getIndex() {
-        $.get("http://127.0.0.1:8888/api/index", function(data) {
+        $.get("/api/index", function(data) {
             data = JSON.parse(data);
             console.log(data);
 
@@ -290,12 +290,12 @@
             var articleRootNodeList = document.getElementById('post-masonry');
             console.log(articleRootNodeList);
             var innerHTML = "";
-            for (i = 0; i < articleList.length; i++) {
+            for (var i = 0; i < articleList.length; i++) {
                 var article = articleList[i];
                 innerHTML += "<article class='col-sm-4 post post-masonry post-format-image'>";
                     innerHTML += "<div class='post-wrapper row'>";
                         innerHTML += "<div class='featured-content row'>"
-                            innerHTML += "<a href='single.html'><img src='images/posts/masonry/" + getRandNum() + ".jpg' alt='' class='img-responsive'></a>";
+                            innerHTML += "<a href='single.html" + "?articleId=" + article['articleId'] + "'><img src='images/posts/masonry/" + getRandNum() + ".jpg' alt='' class='img-responsive'></a>";
                             innerHTML += "</div>";
                             innerHTML += "<div class='post-excerpt row'>";
                                 innerHTML += "<h5 class='post-meta'>";
@@ -305,8 +305,8 @@
                                     innerHTML += "<h3 class='post-title'><a href='single.html" + "?articleId=" + article['articleId'] + "'>" + article.title + "</a></h3>";
                                     innerHTML += "<p>" + getContent(article.content, article.type) + "</p>";
                                         innerHTML += "<footer class='row'>";
-                                            innerHTML += "<h5 class='taxonomy'><i>in</i> <a href='#'>image</a>, <a href='#'>entertainment</a></h5>";
-                                            innerHTML += "<div class='response-count'><img src='images/comment-icon-gray.png' alt=''>5</div>";
+                                            //innerHTML += "<h5 class='taxonomy'><i>in</i> <a href='#'>image</a>, <a href='#'>entertainment</a></h5>";
+                                            //innerHTML += "<div class='response-count'><img src='images/comment-icon-gray.png' alt=''>5</div>";
                                             innerHTML += "</footer>";
                                             innerHTML += "</div>";
                                             innerHTML += "</div>";

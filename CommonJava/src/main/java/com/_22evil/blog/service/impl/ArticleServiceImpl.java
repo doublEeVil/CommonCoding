@@ -27,6 +27,7 @@ public class ArticleServiceImpl implements IArticleService{
         json.put("content", article.getContent());
         json.put("time", new Date(article.getCreateDate()).toLocaleString());
         json.put("type", article.getType());
+        json.put("tags", article.getTags());
         return json;
     }
 
@@ -72,5 +73,34 @@ public class ArticleServiceImpl implements IArticleService{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void editArticle(String articleId, String title, String tags, String status, String content) {
+        Article article = genericMySqlService.get(Article.class, Integer.valueOf(articleId));
+        if (article == null) {
+            return;
+        }
+        if (title != null) article.setTitle(title);
+        if (tags != null) article.setTags(tags);
+        if (status != null) article.setStatus(status);
+        if (content != null) article.setContent(content);
+        article.setUpdateDate(System.currentTimeMillis());
+        genericMySqlService.update(article);
+    }
+
+    public JSONObject getAllTitle() {
+        List<Article> list = genericMySqlService.getAll(Article.class);
+        JSONObject json = new JSONObject();
+        List<JSONObject> titleList = new ArrayList<>();
+        for (Article article : list) {
+            JSONObject tmp = new JSONObject();
+            tmp.put("articleId", article.getId());
+            tmp.put("title", article.getTitle());
+            tmp.put("type", article.getType());
+            titleList.add(tmp);
+        }
+        json.put("list", titleList);
+        return json;
     }
 }

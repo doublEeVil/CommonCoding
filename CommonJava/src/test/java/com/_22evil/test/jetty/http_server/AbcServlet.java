@@ -24,19 +24,12 @@ public class AbcServlet extends HttpServlet{
             System.out.println(cookie.getDomain() + " " + cookie.getName() + " " + cookie.getValue());
             PrintUtil.printVar(cookie);
         }
-        byte[] data = new byte[0];
-        try {
-            data = FileUtil.fileToByte(new File("C:\\Users\\Administrator\\Desktop\\temp\\pednson.md"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         resp.setCharacterEncoding("utf-8");
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        String input = new String(data, "utf-8");
+
         String out = "<html><body><a href='/test'>go to test</a><br>sid: +" + sid +"+</body></html>";
-        System.out.println(input);
-        resp.getWriter().write(input);
+        resp.getWriter().write(out);
     }
 
     @Override

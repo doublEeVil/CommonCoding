@@ -13,12 +13,10 @@ public class ApiAdminLoginRouter implements Route {
         String pwd = request.queryParams("password");
         boolean ok = ServiceManager.getInstance().getAdminService().login(name, pwd);
         if (ok) {
-            request.session(true).attribute("login", true);
+            request.session().attribute("login", true);
         }
         JSONObject json = new JSONObject();
         json.put("login", ok);
-        System.out.println("login: " + request.session());
-        request.attribute("foo", "bar");
         return json;
     }
 }

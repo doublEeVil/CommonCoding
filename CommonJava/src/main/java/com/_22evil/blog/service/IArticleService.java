@@ -23,4 +23,20 @@ public interface IArticleService {
      * @param content
      */
     int addArticle(String title, String type, String tags, String status, String content);
+
+    /**
+     * 编辑文章
+     * @param articleId
+     * @param title
+     * @param tags
+     * @param status
+     * @param content
+     */
+    void editArticle(String articleId, String title, String tags, String status, String content);
+
+    /**
+     * 获得所有文章标题
+     * @return
+     */
+    JSONObject getAllTitle();
 }

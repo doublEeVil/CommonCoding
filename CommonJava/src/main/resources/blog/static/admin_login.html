@@ -91,15 +91,15 @@
                 console.log(tx);
 
                 // 登录
-            $.get("/api/admin_login", {'user': username, 'password': password}, function(data) {
-                data = JSON.parse(data);
-                console.log(data);
-                if (data.login) {
-                    window.location.href="/admin_manager.html";
-                } else {
-                    alert("密码错误");
-                }
-            });
+                $.post("/api/admin_login", {'user': username, 'password': password}, function(data) {
+                    data = JSON.parse(data);
+                    console.log(data);
+                    if (data.login) {
+                        window.location.href="/admin_manager.html";
+                    } else {
+                        alert("密码错误");
+                    }
+                });
             }
        </script>
    </body>

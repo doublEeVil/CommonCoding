@@ -1,10 +1,9 @@
 package com._22evil.blog;
 import com._22evil.blog.controller.api.*;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import spark.*;
-import spark.servlet.SparkFilter;
 
 import static spark.Spark.*;
 /**
@@ -17,6 +16,10 @@ import static spark.Spark.*;
  * 暂时先尝试一下客户端渲染模式
  */
 public class BlogApp {
+
+    private static final String SESSION_NAME = "username";
+
+    private static final Logger logger = LogManager.getLogger(BlogApp.class);
 
     public static BlogConfig BLOG_CONFIG = new BlogConfig();
 
@@ -33,11 +36,23 @@ public class BlogApp {
         staticFileLocation("blog/static");
 
         // hello world
-        get("/hello", "application/json", (request, response) -> "{\"message\": \"Hello World\"}");
+        get("/hello", "application/json", (request, response) -> {
+            System.out.println(request.session().id());
+            return "{\"message\": \"Hello World\"}";
+        });
 
         // 前置拦截器
-        before(((request, response) -> {
-
+        before("/api/admin_manager", ((request, response) -> {
+            if (request.session().attribute("login") == null) {
+                response.redirect("/admin_login.html");
+                halt(401, "You are not welcome here");
+            }
+        }));
+        before("/api/admin_article", ((request, response) -> {
+            if (request.session().attribute("login") == null) {
+                response.redirect("/admin_login.html");
+                halt(401, "You are not welcome here");
+            }
         }));
 
         // 首页信息
@@ -49,10 +64,9 @@ public class BlogApp {
         post("/api/admin_login", "application/json", new ApiAdminLoginRouter());
         // 管理界面-首页
         post("/api/admin_manager", "application/json", new ApiAdminManagerRouter());
-        // 管理界面-增加文章
-        post("/api/admin_add_article", "application/json", new ApiAdminAddArticleRouter());
-        // 管理界面-编辑文章
-        post("/api/admin_edit_article", "application/json", new ApiAdminEditArticleRouter());
+        // 管理界面-增加,编辑,删除文章
+        post("/api/admin_article", "application/json", new ApiAdminArticleRouter());
+
 
         // 后置拦截器处理
         afterAfter(((request, response) -> {
@@ -65,12 +79,12 @@ public class BlogApp {
         }));
 
         // 异常同一处理
-        Spark.exception(Exception.class, new ExceptionHandler() {
-            @Override
-            public void handle(Exception e, Request request, Response response) {
-                e.printStackTrace();
-            }
+        Spark.exception(Exception.class, (e, request, response) -> {
+            logger.error(e, e);
+            e.printStackTrace();
         });
+
         System.out.println("BlogApp启动完成...");
+        logger.error("启动完成...");
     }
 }

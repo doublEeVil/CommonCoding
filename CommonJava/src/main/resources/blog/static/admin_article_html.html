@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入 Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/mditor.css" />
 
     <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
@@ -25,16 +24,16 @@
                     <label for="title">文章标题</label><input class="form-control" id="title" type="text" />
                 </div>
                 <div class="form-group">
-                    <label for="tag">标签</label><input class="form-control" id="tag" type="text" />
+                    <label for="tags">标签</label><input class="form-control" id="tags" type="text" />
                 </div>
 
                 <div name="editor" id="editor" type="text/plain" style="width:764px;height:300px;">
 
                 </div>
 
-                <button onclick="changeEditor()" class="btn btn-default">更换编辑器</button>
-                <button  class="btn btn-default">存为草稿</button>
-                <button  class="btn btn-default">立刻发布</button>
+                <button type="button" onclick="changeEditor()" class="btn btn-default">更换编辑器</button>
+                <button type="button" onclick="addArticle('private')" class="btn btn-default">存为草稿</button>
+                <button type="button" onclick="addArticle('publish')" class="btn btn-default">立刻发布</button>
             </form>
             <div class="row clearfix">
                 <div class="col-md-12 column">
@@ -45,23 +44,84 @@
 </div>
 
 <!-- 包括所有已编译的插件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="neditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="neditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="i18n/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" charset="utf-8" src="neditor.service.js"></script>
+<script type="text/javascript" charset="utf-8" src="i18n/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="third-party/browser-md5-file.min.js"></script>
 <script type="text/javascript" src="third-party/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script>
     var ue = UE.getEditor('editor');
 
-    function changeEditor() {
-        window.href.location = "/admin_article_markdown.html";
+    // 如果是更新，则一开始就填入数据
+    var articleId = getArticleId();
+    var action;
+    if (articleId > 0) {
+        action = "edit";
+        //initEditData();
+    } else {
+        action = "add";
     }
 
-    function getContent() {
-        var content = UE.getEditor('editor').getContent();
-        console.log(content);
+    setTimeout(function () {
+        if (articleId > 0) {
+            initEditData();
+        }
+    }, 100, 1);
+
+    function changeEditor() {
+        window.location.href = "/admin_article_markdown.html";
+    }
+
+    function addArticle(status) {
+        var title = document.getElementById("title").value;
+        var tags = document.getElementById("tags").value;
+        var type = "html";
+        var content = ue.getContent();
+        var data = {
+            "action": action,
+            "articleId": articleId,
+            "title": title,
+            "tags": tags,
+            "type": type,
+            "status": status,
+            "content": content
+        }
+        console.log(data);
+        $.post("/api/admin_article", data, function(data) {
+            var data = JSON.parse(data);
+            if (data.articleId != 0) {
+                window.location.href = "/single.html?articleId=" + data.articleId;
+            } else {
+                alert("文章发布失败");
+            }
+        });
+    }
+
+    function getArticleId() {
+        var reg = new RegExp("(^|&)"+ "articleId" +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null) return unescape(r[2]);
+        return 0;
+    }
+
+    function initEditData() {
+        $.get("/api/article", {"articleId": getArticleId()}, function(data) {
+            var article = JSON.parse(data);
+            console.log(article);
+            var title = article["title"];
+            var tags = article["tags"];
+            var content = article["content"];
+            // 标题
+            document.getElementById("title").value = title;
+            document.getElementById("tags").value = tags;
+            setContent(content);
+        });
+    }
+
+    function setContent(content) {
+        ue.setContent(content);
     }
 </script>
 </body>

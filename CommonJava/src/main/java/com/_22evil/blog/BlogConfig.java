@@ -28,4 +28,12 @@ public class BlogConfig {
     public String websiteUrl() {
         return config.getString("website_url");
     }
+
+    public String username() {
+        return config.getString("username");
+    }
+
+    public String password() {
+        return config.getString("password");
+    }
 }

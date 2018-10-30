@@ -58,8 +58,18 @@
         mditor.value = '** hello **';
     });
 
+    // 如果是更新，则一开始就填入数据
+    var articleId = getArticleId();
+    var action;
+    if (articleId > 0) {
+        action = "edit";
+        initEditData();
+    } else {
+        action = "add";
+    }
+
     function changeEditor() {
-        window.href.location = "/admin_article_html.html";
+        window.location.href = "/admin_article_html.html";
     }
 
     function addArticle(status) {
@@ -68,6 +78,8 @@
         var type = "markdown";
         var content = editor.value;
         var data = {
+            "action": action,
+            "articleId": articleId,
             "title": title,
             "tags": tags,
             "type": type,
@@ -75,13 +87,37 @@
             "content": content
         }
         console.log(data);
-        $.post("/api/admin_add_article", data, function(data) {
+        $.post("/api/admin_article", data, function(data) {
             var data = JSON.parse(data);
             if (data.articleId != 0) {
-                window.href.location = "/single?articleId=" + data.articleId;
+                window.location.href = "/single.html?articleId=" + data.articleId;
             } else {
                 alert("文章发布失败");
             }
+        });
+    }
+
+    function getArticleId() {
+        var reg = new RegExp("(^|&)"+ "articleId" +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null) return unescape(r[2]);
+        return 0;
+    }
+
+    function initEditData() {
+        $.get("/api/article", {"articleId": getArticleId()}, function(data) {
+            var article = JSON.parse(data);
+            var title = article["title"];
+            var tags = article["tags"];
+            var content = article["content"];
+            // 标题
+            document.getElementById("title").value = title;
+            document.getElementById("tags").value = tags;
+            mditor.value = content;
+            mditor.on('ready',function(){
+                console.log(mditor.value);
+                mditor.value = content;
+            });
         });
     }
 </script>

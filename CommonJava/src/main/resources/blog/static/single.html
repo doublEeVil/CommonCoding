@@ -142,11 +142,10 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-    $.get("http://127.0.0.1:8888/api/article", {"articleId": getArticleId()}, function(data) {
+    $.get("/api/article", {"articleId": getArticleId()}, function(data) {
         var article = JSON.parse(data);
         var title = article["title"];
         var time = article["time"];
-        var type = article["type"];
         var content = article["content"];
         var type = article["type"];
         // 标题

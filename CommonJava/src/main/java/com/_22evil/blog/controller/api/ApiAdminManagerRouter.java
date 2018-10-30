@@ -1,5 +1,6 @@
 package com._22evil.blog.controller.api;
 
+import com._22evil.blog.ServiceManager;
 import com.alibaba.fastjson.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -13,7 +14,7 @@ public class ApiAdminManagerRouter implements Route {
         System.out.println(request.session().lastAccessedTime());
         //System.out.println("+++" + request.attribute("foo").toString());
         Boolean login = request.session().attribute("login");
-        JSONObject json = new JSONObject();
+        JSONObject json = ServiceManager.getInstance().getArticleService().getAllTitle();
         json.put("login", login);
         return json;
     }
