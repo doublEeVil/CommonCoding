@@ -17,8 +17,6 @@ import static spark.Spark.*;
  */
 public class BlogApp {
 
-    private static final String SESSION_NAME = "username";
-
     private static final Logger logger = LogManager.getLogger(BlogApp.class);
 
     public static BlogConfig BLOG_CONFIG = new BlogConfig();
@@ -86,5 +84,10 @@ public class BlogApp {
 
         System.out.println("BlogApp启动完成...");
         logger.error("启动完成...");
+
+        Runtime.getRuntime().addShutdownHook(new Thread(()->{
+            System.out.println("程序被killed");
+        }));
+
     }
 }

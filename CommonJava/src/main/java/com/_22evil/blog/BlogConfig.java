@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
  * 配置
  */
 @Configuration
-@ImportResource({"classpath:blog/application.xml"})
+@ImportResource({"classpath*:blog/application.xml"})
 public class BlogConfig {
     private PropertiesConfiguration config;
     public BlogConfig() {

@@ -9,6 +9,30 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
+        <!--最终文件名 -->
+        <finalName>blog</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--<includes>-->
+                <!--<include>**/*.properties</include>-->
+                <!--<include>*.properties</include>-->
+                <!--<include>*.dict</include>-->
+                <!--<include>**/*.xml</include>-->
+                <!--<include>*.xml</include>-->
+                <!--</includes>-->
+                <!--<filtering>true</filtering>-->
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <!--<includes>-->
+                <!--<include>**/*.properties</include>-->
+                <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
+                <!--<filtering>true</filtering>-->
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -17,9 +41,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <compilerArguments>
-                        <extdirs>src\main\lib</extdirs>
-                    </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>
@@ -78,77 +99,76 @@
                 </configuration>
             </plugin>
 
-            <!--打包为可执行jar-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <skipTests>true</skipTests>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <!-- 主函数入口 -->
-                                    <mainClass>com._22evil.blog.BlogApp</mainClass>
-                                </transformer>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/spring.handlers</resource>
-                                </transformer>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/spring.tooling</resource>
-                                </transformer>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/spring.schemas</resource>
-                                </transformer>
-                            </transformers>
+                            <target>
+                                <copy todir="${project.build.directory}/out">
+                                    <fileset dir="${project.build.directory}/classes/"
+                                             excludes="com/**"></fileset>
+                                </copy>
+                            </target>
+
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-        <resources>
 
-            <resource>
-                <directory>src/main/resources</directory>
-                <!--<includes>-->
-                    <!--<include>**/*.properties</include>-->
-                    <!--<include>*.properties</include>-->
-                    <!--<include>*.dict</include>-->
-                    <!--<include>**/*.xml</include>-->
-                    <!--<include>*.xml</include>-->
-                <!--</includes>-->
-                <!--<filtering>true</filtering>-->
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <!--<includes>-->
-                    <!--<include>**/*.properties</include>-->
-                    <!--<include>**/*.xml</include>-->
-                <!--</includes>-->
-                <!--<filtering>true</filtering>-->
-            </resource>
-        </resources>
+            <!--打包为可执行jar-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-shade-plugin</artifactId>-->
+                <!--<version>2.4.3</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>shade</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<filters>-->
+                                <!--<filter>-->
+                                    <!--<artifact>*:*</artifact>-->
+                                    <!--<excludes>-->
+                                        <!--<skipTests>true</skipTests>-->
+                                        <!--<exclude>META-INF/*.SF</exclude>-->
+                                        <!--<exclude>META-INF/*.DSA</exclude>-->
+                                        <!--<exclude>META-INF/*.RSA</exclude>-->
+                                    <!--</excludes>-->
+                                <!--</filter>-->
+                            <!--</filters>-->
+                            <!--<transformers>-->
+                                <!--<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+                                    <!--&lt;!&ndash; 主函数入口 &ndash;&gt;-->
+                                    <!--<mainClass>com._22evil.blog.BlogApp</mainClass>-->
+                                <!--</transformer>-->
+                                <!--<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+                                    <!--<resource>META-INF/spring.handlers</resource>-->
+                                <!--</transformer>-->
+                                <!--<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+                                    <!--<resource>META-INF/spring.tooling</resource>-->
+                                <!--</transformer>-->
+                                <!--<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+                                    <!--<resource>META-INF/spring.schemas</resource>-->
+                                <!--</transformer>-->
+                            <!--</transformers>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        </plugins>
     </build>
     <packaging>jar</packaging>
 
     <name>CommonJava</name>
     <url>http://maven.apache.org</url>
-
         <properties>
         <!--指定Maven用什么编码来读取源码及文档 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
