@@ -80,8 +80,12 @@ func GetFilePathList(root string) []string {
 }
 
 func GetFilePathListOnlyRoot(root string) []string {
-	// files, _ := ioutil.ReadDir(root)
+	files, _ := ioutil.ReadDir(root)
+	data := []string{}
+	for _, v := range files {
+		data = append(data, root+"\\"+v.Name())
+	}
+	return data
+	// files, _ := filepath.Glob(root + "*")
 	// return files
-	files, _ := filepath.Glob("*")
-	return files
 }
