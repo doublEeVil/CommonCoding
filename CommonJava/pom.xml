@@ -166,11 +166,11 @@
         <log4j2.version>2.6.2</log4j2.version>
         <netty.version>4.1.7</netty.version>
         <mysql.version>5.1.34</mysql.version>
-        <jackson.version>2.5.1</jackson.version>
+        <jackson.version>2.9.7</jackson.version>
         <jedis.version>2.9.0</jedis.version>
         <jetty.version>6.1.26</jetty.version>
         <netty.version>4.1.19.Final</netty.version>
-        <spring.version>5.1.1.RELEASE</spring.version><!--  spring 5.0.0 - 5.0.7 有bug-->
+        <spring.version>5.1.1.RELEASE</spring.version>
         <commonmark.version>0.11.0</commonmark.version>
     </properties>
     <dependencies>

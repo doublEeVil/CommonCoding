@@ -296,21 +296,21 @@
                     innerHTML += "<div class='post-wrapper row'>";
                         innerHTML += "<div class='featured-content row'>"
                             innerHTML += "<a href='single.html" + "?articleId=" + article['articleId'] + "'><img src='images/posts/masonry/" + getRandNum() + ".jpg' alt='' class='img-responsive'></a>";
-                            innerHTML += "</div>";
+                        innerHTML += "</div>";
                             innerHTML += "<div class='post-excerpt row'>";
                                 innerHTML += "<h5 class='post-meta'>";
                                     innerHTML += "<a href='#' class='date'>" + article.time + "</a>";
                                     innerHTML += "<span class='post-author'><i>by</i><a href='#'>南风斜冷</a></span>";
-                                    innerHTML += "</h5>"
+                                innerHTML += "</h5>"
                                     innerHTML += "<h3 class='post-title'><a href='single.html" + "?articleId=" + article['articleId'] + "'>" + article.title + "</a></h3>";
                                     innerHTML += "<p>" + getContent(article.content, article.type) + "</p>";
                                         innerHTML += "<footer class='row'>";
                                             //innerHTML += "<h5 class='taxonomy'><i>in</i> <a href='#'>image</a>, <a href='#'>entertainment</a></h5>";
                                             //innerHTML += "<div class='response-count'><img src='images/comment-icon-gray.png' alt=''>5</div>";
-                                            innerHTML += "</footer>";
-                                            innerHTML += "</div>";
-                                            innerHTML += "</div>";
-                                            innerHTML += "</article>";
+                                        innerHTML += "</footer>";
+                            innerHTML += "</div>";
+                    innerHTML += "</div>";
+                innerHTML += "</article>";
             }
             articleRootNodeList.innerHTML = innerHTML;
         });

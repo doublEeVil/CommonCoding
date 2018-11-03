@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class ArticleServiceImpl implements IArticleService{
         JSONObject json = new JSONObject();
         List<JSONObject> list = new ArrayList<>();
         String content;
+        Collections.sort(articleList, (o1, o2) -> (int)(o2.getCreateDate()/1000 - o1.getCreateDate()/1000));
         for (Article article : articleList) {
             JSONObject tmp = new JSONObject();
             tmp.put("articleId", article.getId());
@@ -44,8 +46,9 @@ public class ArticleServiceImpl implements IArticleService{
             tmp.put("time", new Date(article.getCreateDate()).toLocaleString());
             tmp.put("type", article.getType());
             content =  article.getContent();
-            if (content.length() > 100) {
-                tmp.put("content", content.substring(0, 100));
+            if (content.length() > 50) {
+                tmp.put("content", content.substring(0, 50));
+                //tmp.put("content", content);
             } else {
                 tmp.put("content", content);
             }

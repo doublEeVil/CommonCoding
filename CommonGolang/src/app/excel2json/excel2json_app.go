@@ -221,7 +221,7 @@ func Start() {
 
 	t1 := time.Now()
 	// 1. 将excel转json
-	//convertAll(conf.Excel_path, conf.Json_path)
+	convertAll(conf.Excel_path, conf.Json_path)
 	// 2. 将json zip压缩
 	// zipFiles(conf.Json_path, conf.Config_path+"\\config")
 	err = compress(conf.Json_path+"\\", conf.Config_path+"\\config")

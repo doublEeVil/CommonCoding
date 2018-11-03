@@ -2,6 +2,7 @@ package com._22evil.test.arithmetic;
 
 import org.junit.Test;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.concurrent.ThreadLocalRandom;
@@ -56,6 +57,37 @@ public class TestTopK {
         }
         while (queue.size() > 0) {
             System.out.println(queue.poll());
+        }
+    }
+
+    @Test
+    public void testFindTopK() {
+        PriorityQueue<Integer> queue = new PriorityQueue<>(K);
+
+        List<Integer> all = new ArrayList<>(123456);
+        for (int i = 0; i < 123456; i++) {
+            all.add(ThreadLocalRandom.current().nextInt(10000));
+        }
+
+        for (int i = 0; i < 123456; i++) {
+           if (queue.size() < K || queue.peek() < all.get(i)) {
+               queue.offer(all.get(i));
+           }
+           if (queue.size() > K) {
+               queue.poll();
+           }
+
+           // 打印信息
+           Iterator<Integer> iterator = queue.iterator();
+           while (iterator.hasNext()) {
+               System.out.print(iterator.next() + " ");
+           }
+           System.out.println();
+           try {
+               Thread.sleep(500);
+           } catch (InterruptedException e) {
+               
+           }
         }
     }
 
