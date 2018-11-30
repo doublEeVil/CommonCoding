@@ -664,6 +664,28 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 图形数据库-->
+        <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-kernel -->
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-kernel</artifactId>-->
+            <!--<version>3.4.9</version>-->
+        <!--</dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>3.4.9</version>
+        </dependency>
+
+        <!--阿里的rpc-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-rpc-all</artifactId>
+            <version>5.4.7</version>
+        </dependency>
     </dependencies>
 
 </project>

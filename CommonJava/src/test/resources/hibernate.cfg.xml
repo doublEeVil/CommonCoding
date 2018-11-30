@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+
+        <property name = "hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+
+        <!-- Assume students is the database name -->
+
+        <property name = "hibernate.connection.url">
+            jdbc:mysql://127.0.0.1:3306/world
+        </property>
+
+        <property name = "hibernate.connection.username">
+            zjs
+        </property>
+
+        <property name = "hibernate.connection.password">
+            123456
+        </property>
+
+        <property name="hbm2ddl.auto">
+            update
+        </property>
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+        <property name="hibernate.connection.provider_class">
+            com.alibaba.druid.support.hibernate.DruidConnectionProvider
+        </property>
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!--数据源信息 for Druid-->
+        <property name="driverClassName">com.mysql.jdbc.Driver</property>
+        <property name="url">jdbc:mysql://127.0.0.1:3306/world?useSSL=false</property>
+        <property name="username">zjs</property>
+        <property name="password">123456</property>
+        <property name="filter">stat</property>
+        <property name="initialSize">5</property>
+        <property name="maxActive">100</property>
+        <property name="maxWait">60000</property>
+        <property name="timeBetweenEvictionRunsMillis">60000</property>
+        <property name="minEvictableIdleTimeMillis">300000</property>
+        <property name="validationQuery">SELECT 1</property>
+        <property name="testWhileIdle">true</property>
+        <property name="testOnBorrow">false</property>
+        <property name="testOnReturn">false</property>
+        <property name="poolPreparedStatements">false</property>
+        <property name="maxPoolPreparedStatementPerConnectionSize">200</property>
+        <!--end-->
+    </session-factory>
+</hibernate-configuration>
