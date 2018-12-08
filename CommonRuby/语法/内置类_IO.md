@@ -189,7 +189,7 @@ io.sync=(state)
 ```
 
 12. 与命令交互
-O.popen(command, mode)
+IO.popen(command, mode)
 
 参数 mode 的使用方法与 File.open 方法是一样的，参数缺省时默认为 "r" 模式。
 
