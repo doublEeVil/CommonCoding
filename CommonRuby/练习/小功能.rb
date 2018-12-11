@@ -65,9 +65,11 @@ end
 # ------------------------------------------------------------------------------------------------------------
 # 7. 目录文本查找
 # text_pattern用//格式，例如  search_text_in_dictionary(".", /ruby/)
+# eg. search_text_in_dictionary("G:/我的坚果云/PersonData", /ruby/);
+# eg. search_text_in_dictionary(".", /ruby/);
 def search_text_in_dictionary(path = ".", text_pattern)
     puts "seach start ... "
-    Dir.glob("**/*").each do |file| 
+    Dir.glob(path + "/**/*").each do |file| 
         line_cnt = 1
         # if FileTest.file?(file) && (File.extname(file) == ".txt" || 
         #                         File.extname(file) == ".log" || 
@@ -75,18 +77,22 @@ def search_text_in_dictionary(path = ".", text_pattern)
         #                         File.extname(file) == ".ini" ||
         #                         File.extname(file) == ".properties" ||
         #                         File.extname(file) == ".rb")
-        if FileTest.file?(file)
-            open(file).each_line do |line| 
+        if FileTest.file?(file) && FileTest.readable?(file)
+            begin
+                open(file).each_line do |line| 
                 begin
                     puts "#{file}:#{line_cnt}:#{line}" if line =~ text_pattern
                 rescue => ex
                 end
                 line_cnt += 1
             end
+            rescue Exception => e 
+            end
         end
     end
     puts "search end !!!"
 end
+
 
 
 
