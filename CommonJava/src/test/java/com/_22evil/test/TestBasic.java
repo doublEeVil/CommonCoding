@@ -1,10 +1,13 @@
 package com._22evil.test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.URL;
+import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.*;
@@ -19,7 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 
 public class TestBasic {
 
@@ -52,15 +55,7 @@ public class TestBasic {
 
     @Test
     public void test2() {
-        String path = "classpath*:";
-        try {
-            Enumeration<URL> dirs = Thread.currentThread().getContextClassLoader().getResources("classpath*:com");
-            while (dirs.hasMoreElements()) {
-                System.out.println(dirs.nextElement());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }
