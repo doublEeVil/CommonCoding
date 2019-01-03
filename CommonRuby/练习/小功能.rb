@@ -93,6 +93,69 @@ def search_text_in_dictionary(path = ".", text_pattern)
     puts "search end !!!"
 end
 
+# ------------------------------------------------------------------------------------------------------------
+# 8. 启动一个本地http服务器
+# 直接使用命令行也可以
+def http_file_server_start
+    # 以下两者都可以启动一个文件服务器
+    `ruby -run -e httpd -- -p 5000`
+    # `ruby -rwebrick -e'WEBrick::HTTPServer.new(:Port=>8000,:DocumentRoot=>Dir.pwd).start'`
+end
+
+# ------------------------------------------------------------------------------------------------------------
+# 9. 开启一个本地服务器
+# 单线程版本
+require 'socket'
+def tcp_server(port)
+    server = TCPServer.open(port)
+    loop {
+    	client = server.accept
+    	client.puts(Time.now.ctime)
+    	client.puts "Bye..."
+    	client.close
+    }
+end
+
+# ------------------------------------------------------------------------------------------------------------
+# 10. 开启一个本地服务器
+# 多线程版本
+require 'socket'
+def tcp_server_m(port)
+    server = TCPServer.open(port)
+    loop {
+        Thread.start(server.accept) do |client|
+            client.puts(Time.now.ctime)
+            client.puts "Bye..."
+            client.close
+        end
+    }
+end
+
+# ------------------------------------------------------------------------------------------------------------
+# 11. 开启一个本地客户端
+def tcp_client(host, port)
+    s = TCPSocket.open(host, port)
+    req = "GET /index.html HTTP/1.0\r\n\r\n"
+    s.print(req) # 发送请求
+    resp = s.read
+    puts resp
+end
+
+# ------------------------------------------------------------------------------------------------------------
+# 12. 开启一个HTTP本地客户端
+require 'net/http'  
+def http_client(host, path)
+    http = Net::HTTP.new(host)
+    headers, body = http.get(path)
+    if headers.code == "200"
+    	p headers
+    	print headers, body
+    else 
+    	puts headers.code
+    end
+end
+
+
 
 
 
