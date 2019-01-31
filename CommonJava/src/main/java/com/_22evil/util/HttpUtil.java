@@ -1,9 +1,6 @@
 package com._22evil.util;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -90,6 +87,8 @@ public class HttpUtil {
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);
+            conn.setRequestProperty("User-Agent","Mozilla/5.0");
+            conn.setRequestProperty("Accept","*/*");
             if (data != null) {
                 conn.setDoOutput(true);
                 DataOutputStream out = new DataOutputStream(conn.getOutputStream());
@@ -98,7 +97,9 @@ public class HttpUtil {
                 out.close();
             }
             int status = conn.getResponseCode();
-            DataInputStream in = new DataInputStream(conn.getInputStream());
+            // 如果 status 大于 400 ，直接conn.getInputStream()会抛FileNotFoundException
+            InputStream in = conn.getErrorStream();
+            if (in == null) in = conn.getInputStream();
             StringBuilder sb = new StringBuilder();
             byte[] bytes = new byte[512];
             int c = 0;
