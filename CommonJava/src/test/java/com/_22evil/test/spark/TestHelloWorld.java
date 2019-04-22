@@ -12,7 +12,7 @@ public class TestHelloWorld {
     //@Test
     public static void main(String[] args) throws Exception{
         port(8888);
-        post("/abc", (req, resp) -> {
+        get("/abc", (req, resp) -> {
             resp.header("Access-Control-Allow-Origin", "*");
             //resp.redirect("/abc");
             //resp.redirect("/abc");

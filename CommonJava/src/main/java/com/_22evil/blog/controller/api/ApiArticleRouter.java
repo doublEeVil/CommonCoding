@@ -13,7 +13,6 @@ public class ApiArticleRouter implements Route {
         if (articleId == null) {
             articleId = String.valueOf(1);
         }
-        System.out.println(articleId);
         //response.header("Access-Control-Allow-Origin", "*");
         return ServiceManager.getInstance().getArticleService().getArticle(Integer.valueOf(articleId));
     }

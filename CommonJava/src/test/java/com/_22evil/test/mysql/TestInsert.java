@@ -99,12 +99,12 @@ public class TestInsert {
         Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/world?useServerPrepStmts=false&rewriteBatchedStatements=true", "zjs", "123456");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.19.132/ww2?useServerPrepStmts=false&rewriteBatchedStatements=true", "zjs", "123456");
             conn.setAutoCommit(false);  // 必须设置为false,否则比较慢
             // 插入数据
             int SIZE = 1000_0000;
             int batchSize = 10_0000;
-            String sql = "insert into stu (id, name, age) values (?, ?, ?)";
+            String sql = "insert into game_test (id, name, age) values (?, ?, ?)";
             ps = conn.prepareStatement(sql);
 
             for (int i = 1; i < SIZE; i++) {
