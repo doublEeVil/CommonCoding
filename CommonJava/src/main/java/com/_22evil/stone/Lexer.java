@@ -43,6 +43,11 @@ public class Lexer {
         reader = new LineNumberReader(r);
     }
 
+    /**
+     * 一行一行读，如果文件没有结束。
+     * @return
+     * @throws ParseException
+     */
     public Token read() throws ParseException {
         if (fillQueue(0))
             return queue.remove(0);
@@ -76,34 +81,39 @@ public class Lexer {
             hasMore = false;
             return;
         }
+        // 解释器显然需要记住这个是第几行
         int lineNo = reader.getLineNumber();
         Matcher matcher = pattern.matcher(line);
-        matcher.useTransparentBounds(true).useTransparentBounds(false);
+        // 前一个是代表是否可以跨越边界值搜索，后一个是代表匹配器是否使用定位界限,例如^ $这两个符号
+        matcher.useTransparentBounds(true).useAnchoringBounds(false);
         int pos = 0;
         int endPos = line.length();
         while (pos < endPos) {
             matcher.region(pos, endPos);
-            if (matcher.lookingAt()) {
+            if (matcher.lookingAt()) {  // 尝试将从区域开头开始的输入序列与该模式匹配
                 addToken(lineNo, matcher);
                 pos = matcher.end();
             } else {
                 throw new ParseException("bad token at line " + lineNo);
             }
         }
+        // 行结束
         queue.add(new IdToken(lineNo, Token.EOL));
     }
 
     protected void addToken(int lineNo, Matcher matcher) {
-        String m = matcher.group(1);
+        // group(0) 指代匹配整个字符串，举个例子， str = 'i am zhujinshan', regexp = 'zhu(jin)(shan)'
+        // 那么， group(0)='zhujinshan', group(1)='jin'
+        String m = matcher.group(1);// 刚刚好去掉了空格开头
         if (m != null) {
-            if (matcher.group(2) == null) {
+            if (matcher.group(2) == null) {// 不需要解析注释
                 Token token;
-                if (matcher.group(3) != null) {
+                if (matcher.group(3) != null) { // 数字
                     token = new NumToken(lineNo, Integer.parseInt(m));
-                } else if (matcher.group(4) != null) {
+                } else if (matcher.group(4) != null) { // 字符串 以""表示的
                     token = new StrToken(lineNo, toStringLiteral(m));
                 } else {
-                    token = new IdToken(lineNo, m);
+                    token = new IdToken(lineNo, m); // 符号，标识符，保留字等等
                 }
                 queue.add(token);
             }

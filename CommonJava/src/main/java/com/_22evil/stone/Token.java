@@ -30,4 +30,14 @@ public abstract class Token {
     public String getText() {
         return "";
     }
+
+    public String type() {
+        if (isNumber()) {
+            return "num";
+        } else if (isString()) {
+            return "string";
+        } else {
+            return "identifier";
+        }
+    }
 }

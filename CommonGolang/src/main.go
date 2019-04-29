@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	// excel2db_v2 "./app/excel2db/v2"
+	excel2db_v2 "./app/excel2db/v2"
 	// image_tool "./app/png2jpg"
 	// "./app/webtools"
 
@@ -39,7 +39,7 @@ func main() {
 	// myt.ReadLargeJSONFile("G:\\apps\\abc.json", 1024*1024*8)
 
 	// webtools.Start(9001)
-	// excel2db_v2.Start()
+	excel2db_v2.Start()
 
 	exceljson.Start()
 	pause()

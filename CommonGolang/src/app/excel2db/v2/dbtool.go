@@ -40,7 +40,7 @@ func initDBInfos() map[string]DB_INFO {
 		"root",
 		"123456",
 		"192.168.3.30:3306",
-		"dddh5_world",
+		"dddh5_world_dev",
 		"本地开发服192.168.3.30",
 	}
 	retMap := make(map[string]DB_INFO)
