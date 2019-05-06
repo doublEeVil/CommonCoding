@@ -36,4 +36,8 @@ public class BlogConfig {
     public String password() {
         return config.getString("password");
     }
+
+    public String getUploadPicPath() {
+        return config.getString("upload_pic_path");
+    }
 }

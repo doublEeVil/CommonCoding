@@ -20,11 +20,13 @@ public class GenericMysqlServiceImpl implements GenericMySqlService {
 
     @Override
     public void save(BaseIdAutoIncEntity t) {
+        t.setCreateDate(System.currentTimeMillis());
         genericDao.save(t);
     }
 
     @Override
     public void update(BaseIdAutoIncEntity t) {
+        t.setUpdateDate(System.currentTimeMillis());
         genericDao.update(t);
     }
 
@@ -66,5 +68,10 @@ public class GenericMysqlServiceImpl implements GenericMySqlService {
     @Override
     public void flush() {
         genericDao.flush();
+    }
+
+    @Override
+    public <T> List<T> getBySql(Class<T> clazz, String sql) {
+        return genericDao.getBySql(clazz, sql);
     }
 }

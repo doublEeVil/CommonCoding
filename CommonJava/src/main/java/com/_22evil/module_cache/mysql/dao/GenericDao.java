@@ -106,6 +106,14 @@ public interface GenericDao {
      * @param t 实体
      */
     void delete(Serializable t);
+
+    /**
+     * 根据sql去查询
+     * @param sql
+     * @param <T>
+     * @return
+     */
+    <T> List<T>  getBySql(Class<T> clazz, String sql);
 //
 //    /**
 //     * <根据ID删除数据>

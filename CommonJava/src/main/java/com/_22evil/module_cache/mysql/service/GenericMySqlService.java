@@ -81,4 +81,11 @@ public interface GenericMySqlService {
      *
      */
     void flush();
+
+    /**
+     *
+     * @param <T>
+     * @return
+     */
+    <T> List<T> getBySql(Class<T> clazz, String sql);
 }

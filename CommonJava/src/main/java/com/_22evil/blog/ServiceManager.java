@@ -1,8 +1,10 @@
 package com._22evil.blog;
 import com._22evil.blog.service.IAdminService;
 import com._22evil.blog.service.IArticleService;
+import com._22evil.blog.service.IPicInfoService;
 import com._22evil.blog.service.impl.AdminServiceImpl;
 import com._22evil.blog.service.impl.ArticleServiceImpl;
+import com._22evil.blog.service.impl.PicInfoService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 public class ServiceManager {
     private static ServiceManager                     instance;
@@ -30,6 +32,7 @@ public class ServiceManager {
      */
     public void initData() {
         System.out.println("loading data ...");
+        ServiceManager.getInstance().getPicInfoService().initPicData();
     }
 
     /**
@@ -46,5 +49,13 @@ public class ServiceManager {
      */
     public IAdminService getAdminService() {
         return context.getBean(AdminServiceImpl.class);
+    }
+
+    /**
+     * 图片管理
+     * @return
+     */
+    public IPicInfoService getPicInfoService() {
+        return context.getBean(PicInfoService.class);
     }
 }

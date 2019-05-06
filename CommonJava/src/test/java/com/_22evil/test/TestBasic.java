@@ -8,11 +8,14 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 public class TestBasic {
 
     @Test
     public void test() throws InterruptedException {
-
+        Map<Object, Object> map = new ConcurrentHashMap<>();
+        map.remove(1);
     }
 
     @Test

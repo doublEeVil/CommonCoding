@@ -30,8 +30,11 @@ public class BlogApp {
         // 初始化数据
         ServiceManager.getInstance().initData();
 
-        // 静态文件
+        // 静态文件(不包括上传文件)
         staticFileLocation("blog/static");
+        // 网页上传的文件路径
+        System.err.println("图片上传路径为:" + BLOG_CONFIG.getUploadPicPath());
+        staticFiles.externalLocation(BLOG_CONFIG.getUploadPicPath());
 
         // hello world
         get("/hello", "application/json", (request, response) -> {
@@ -52,6 +55,12 @@ public class BlogApp {
                 halt(401, "You are not welcome here");
             }
         }));
+        before("/api/pic_add", ((request, response) -> {
+            if (request.session().attribute("login") == null) {
+                response.redirect("/admin_login.html");
+                halt(401, "You are not welcome here");
+            }
+        }));
 
         // 首页信息
         get("/api/index", "application/json", new ApiIndexRouter());
@@ -65,6 +74,10 @@ public class BlogApp {
         // 管理界面-增加,编辑,删除文章
         post("/api/admin_article", "application/json", new ApiAdminArticleRouter());
 
+        // 增加图片
+        post("/api/pic_add", "application/json", new ApiPicAddRouter());
+        // 查看近期图片
+        get("/api/pic","application/json", new ApiPicRouter());
 
         // 后置拦截器处理
         afterAfter(((request, response) -> {

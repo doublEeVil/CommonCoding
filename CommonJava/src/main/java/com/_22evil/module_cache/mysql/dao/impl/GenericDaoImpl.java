@@ -167,6 +167,13 @@ public class GenericDaoImpl implements GenericDao {
         this.getSession().delete(t);
     }
 
+    @Override
+    public <T> List<T>  getBySql(Class<T> clazz, String sql) {
+        Session session = this.getSession();
+        return session.createSQLQuery(sql).addEntity(clazz).list();
+        //return (List<T>) session.createSQLQuery(sql).list();
+    }
+
 
 //
 //    /**
