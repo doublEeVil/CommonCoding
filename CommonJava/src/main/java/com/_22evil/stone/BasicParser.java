@@ -11,13 +11,23 @@ public class BasicParser {
     Set<String> reserved = new HashSet<>();
     Parser.Operators operators = new Parser.Operators();
 
+    /**
+     * primary:     (expr) | number | identifier | string
+     * factor:      -primary | primary
+     * expr:        factor {OP factor}
+     * block:       {[statement] {(;|EOL) [statement]}}
+     * simple:      expr
+     * statement:   if expr block [else block] | while expr block | simple
+     * program:     [statement](;|EOL)
+     */
     Parser expr0 = rule();
     Parser primary = rule(PrimaryExpr.class)
                             .or(rule().sep("(").ast(expr0).sep(")"),
                                 rule().number(NumberLiteral.class),
                                 rule().identifier(Name.class, reserved),
                                 rule().string(StringLiteral.class));
-    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary), primary);
+    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary),
+                                primary);
 
     Parser expr = expr0.expression(BinaryExpr.class, factor, operators);
 
