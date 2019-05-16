@@ -1,10 +1,9 @@
 package com._22evil.test;
 
-import com._22evil.stone.BasicParser;
-import com._22evil.stone.Lexer;
-import com._22evil.stone.ParseException;
-import com._22evil.stone.Token;
+import com._22evil.image.ImageTool;
+import com._22evil.stone.*;
 import com._22evil.stone.ast.ASTree;
+import com._22evil.stone.ast.NullStmnt;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 
@@ -16,8 +15,7 @@ public class TestBasic {
 
     @Test
     public void test() throws InterruptedException {
-        Map<Object, Object> map = new ConcurrentHashMap<>();
-        map.remove(1);
+
     }
 
     /**
@@ -27,7 +25,7 @@ public class TestBasic {
      */
     @Test
     public void testStoneLexer() throws ParseException, FileNotFoundException{
-        FileReader reader = new FileReader("F:\\CommonCoding\\CommonCoding\\CommonJava\\src\\main\\java\\com\\_22evil\\stone\\ast\\ASTree.java");
+        FileReader reader = new FileReader("F:\\CommonCoding\\CommonCoding\\CommonJava\\src\\test\\java\\com\\_22evil\\test\\tt.stone");
         Lexer lexer = new Lexer(reader);
         Token token;
         while (true) {
@@ -52,6 +50,29 @@ public class TestBasic {
             ASTree ast = bp.parse(lexer);
             System.out.println("=>" + ast.toString());
         }
+    }
+
+    @Test
+    public void testBasicInterpreter() throws ParseException, FileNotFoundException {
+        FileReader reader = new FileReader("F:\\CommonCoding\\CommonCoding\\CommonJava\\src\\test\\java\\com\\_22evil\\test\\tt.stone");
+        Lexer lexer = new Lexer(reader);
+        BasicParser bp = new BasicParser();
+        Environment env = new BasicEnv();
+        while (lexer.peek(0) != Token.EOF) {
+            ASTree ast = bp.parse(lexer);
+            if (ast instanceof NullStmnt)
+                continue;
+            Object v = ((BasicEvaluator.ASTreeEx)ast).eval(env);
+            System.out.println("==>" + v);
+        }
+    }
+
+    @Test
+    public void testImg() throws Exception{
+        String f1 = "C:\\Users\\Administrator\\Desktop\\pp\\33.png";
+        String f2 = "C:\\Users\\Administrator\\Desktop\\pp\\22.jpg";
+        //ImageTool.gray(f1, f2);
+        ImageTool.waterline(f1, f2, "  this is text");
     }
 }
 

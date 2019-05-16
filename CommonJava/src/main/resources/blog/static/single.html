@@ -142,7 +142,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-    $.get("/api/article", {"articleId": getArticleId()}, function(data) {
+    $.post("/api/article", {"articleId": getArticleId()}, function(data) {
         var article = JSON.parse(data);
         var title = article["title"];
         var time = article["time"];

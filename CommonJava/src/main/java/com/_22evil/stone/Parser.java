@@ -63,10 +63,10 @@ public class Parser {
         }
 
         protected void insert(Parser p) {
-            Parser[] newPasers = new Parser[parsers.length + 1];
-            newPasers[0] = p;
-            System.arraycopy(parsers, 0, newPasers, 1, parsers.length);
-            parsers = newPasers;
+            Parser[] newParsers = new Parser[parsers.length + 1];
+            newParsers[0] = p;
+            System.arraycopy(parsers, 0, newParsers, 1, parsers.length);
+            parsers = newParsers;
         }
     }
 
@@ -169,7 +169,8 @@ public class Parser {
             if (test(token)) {
                 ASTree leaf = factory.make(token);
                 res.add(leaf);
-            }
+            } else
+                throw new ParseException(token);
         }
 
         @Override
@@ -191,7 +192,7 @@ public class Parser {
 
         @Override
         protected boolean test(Token t) {
-            return false;
+            return t.isIdentifier() && !reserved.contains(t.getText());
         }
     }
 
@@ -441,8 +442,8 @@ public class Parser {
         return this;
     }
 
-    public Parser reset(Class c) {
-        elements = new ArrayList<>();
+    public Parser reset(Class<? extends ASTree> c) {
+        elements = new ArrayList<Element>();
         factory = Factory.getForASTList(c);
         return this;
     }

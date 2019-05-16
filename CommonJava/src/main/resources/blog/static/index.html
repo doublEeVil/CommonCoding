@@ -276,8 +276,10 @@
         })
     }
 
+    $.post("/api/index", function(data){console.log("----"+ data)});
+
     function getIndex() {
-        $.get("/api/index", function(data) {
+        $.post"/api/index", function(data) {
             data = JSON.parse(data);
             console.log(data);
 

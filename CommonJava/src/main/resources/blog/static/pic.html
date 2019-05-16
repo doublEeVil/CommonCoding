@@ -34,7 +34,7 @@
     });
 
     function listAll() {
-        $.get("/api/pic", function (data) {
+        $.post("/api/pic", function (data) {
             data = JSON.parse(data);
             console.log(data);
             var tableHtml = $("#picList").html();
