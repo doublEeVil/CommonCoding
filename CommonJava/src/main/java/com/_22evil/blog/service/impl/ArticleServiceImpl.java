@@ -1,4 +1,5 @@
 package com._22evil.blog.service.impl;
+import com._22evil.blog.common.GlobalData;
 import com._22evil.blog.entity.Article;
 import com._22evil.blog.service.IArticleService;
 import com._22evil.module_cache.mysql.service.GenericMySqlService;
@@ -18,6 +19,13 @@ public class ArticleServiceImpl implements IArticleService{
     @Autowired
     private GenericMySqlService genericMySqlService;
 
+    private static final int PAGE_SIZE = 12;
+    @Override
+    public void onStart() {
+        int count = genericMySqlService.countBySql("select count(*) from tb_article");
+        GlobalData.getInstance().setArticleCount(count);
+    }
+
     public JSONObject getArticle(int articleId) {
         Article article = genericMySqlService.get(Article.class, articleId);
         if (article == null) {
@@ -33,8 +41,11 @@ public class ArticleServiceImpl implements IArticleService{
     }
 
     @Override
-    public JSONObject getIndex() {
-        List<Article> articleList = genericMySqlService.getAllByHql("from Article ");
+    public JSONObject getIndex(int page) {
+        // List<Article> articleList = genericMySqlService.getAllByHql("from Article ");
+        int start = page * PAGE_SIZE;
+        int end = page + PAGE_SIZE;
+        List<Article> articleList = genericMySqlService.getBySql(Article.class, "select * from tb_article limit " + start + "," + end);
         JSONObject json = new JSONObject();
         List<JSONObject> list = new ArrayList<>();
         String content;
@@ -56,6 +67,43 @@ public class ArticleServiceImpl implements IArticleService{
         }
         json.put("title", "南风斜冷");
         json.put("articleList", list);
+        json.put("allSize", GlobalData.getInstance().getArticleCount());
+        json.put("pageNum", page + 1);
+        json.put("pageSize", PAGE_SIZE);
+        return json;
+    }
+
+    @Override
+    public JSONObject getIndex(String keyword) {
+        //TODO 暂不实现查找，直接返回第一页的信息
+        int page = 0;
+        int start = page * PAGE_SIZE;
+        int end = page + PAGE_SIZE;
+        List<Article> articleList = genericMySqlService.getBySql(Article.class, "select * from tb_article limit " + start + "," + end);
+        JSONObject json = new JSONObject();
+        List<JSONObject> list = new ArrayList<>();
+        String content;
+        Collections.sort(articleList, (o1, o2) -> (int)(o2.getCreateDate()/1000 - o1.getCreateDate()/1000));
+        for (Article article : articleList) {
+            JSONObject tmp = new JSONObject();
+            tmp.put("articleId", article.getId());
+            tmp.put("title", article.getTitle());
+            tmp.put("time", new Date(article.getCreateDate()).toLocaleString());
+            tmp.put("type", article.getType());
+            content =  article.getContent();
+            if (content.length() > 50) {
+                tmp.put("content", content.substring(0, 50));
+                //tmp.put("content", content);
+            } else {
+                tmp.put("content", content);
+            }
+            list.add(tmp);
+        }
+        json.put("title", "南风斜冷");
+        json.put("articleList", list);
+        json.put("allSize", GlobalData.getInstance().getArticleCount());
+        json.put("pageNum", page + 1);
+        json.put("pageSize", PAGE_SIZE);
         return json;
     }
 
@@ -71,6 +119,7 @@ public class ArticleServiceImpl implements IArticleService{
             article.setCreateDate(System.currentTimeMillis());
             article.setUpdateDate(System.currentTimeMillis());
             genericMySqlService.save(article);
+            GlobalData.getInstance().addArticleCount();
             return article.getId();
         } catch (Exception e) {
             e.printStackTrace();

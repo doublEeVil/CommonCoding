@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <configuration status="INFO">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
@@ -14,9 +15,11 @@
         </RollingFile>
     </appenders>
     <loggers>
+        <Logger name="AppLog" level="info"  additivity="false">
+            <AppenderRef ref="RollingFile" />
+        </Logger>
         <root level="INFO">
             <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFile"/>
         </root>
     </loggers>
 </configuration>

@@ -74,4 +74,9 @@ public class GenericMysqlServiceImpl implements GenericMySqlService {
     public <T> List<T> getBySql(Class<T> clazz, String sql) {
         return genericDao.getBySql(clazz, sql);
     }
+
+    @Override
+    public <T> int countBySql(String sql) {
+        return genericDao.countBySql(sql);
+    }
 }

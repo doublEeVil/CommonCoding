@@ -88,4 +88,12 @@ public interface GenericMySqlService {
      * @return
      */
     <T> List<T> getBySql(Class<T> clazz, String sql);
+
+    /**
+     * 查询数目
+     * @param sql
+     * @param <T>
+     * @return
+     */
+    <T> int countBySql(String sql);
 }

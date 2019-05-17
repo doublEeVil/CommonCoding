@@ -6,6 +6,7 @@ import java.util.List;
 public class GlobalData {
     private volatile static GlobalData instance;
     private List<String> recentPicList = new LinkedList<>(); //最近30张图片路径
+    private int articleCount = 0;
     private GlobalData() {
     }
 
@@ -31,4 +32,15 @@ public class GlobalData {
         return recentPicList;
     }
 
+    public int getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
+    }
+
+    public void addArticleCount() {
+        this.articleCount++;
+    }
 }

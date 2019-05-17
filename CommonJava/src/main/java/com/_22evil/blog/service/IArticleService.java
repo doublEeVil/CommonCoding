@@ -2,6 +2,11 @@ package com._22evil.blog.service;
 import com.alibaba.fastjson.JSONObject;
 public interface IArticleService {
     /**
+     *
+     */
+    void onStart();
+
+    /**
      * 根据id 获取具体文章
      * @param articleId
      * @return
@@ -9,10 +14,17 @@ public interface IArticleService {
     JSONObject getArticle(int articleId);
 
     /**
-     * 获取首页信息
+     * 获取页面信息
      * @return
      */
-    JSONObject getIndex();
+    JSONObject getIndex(int page);
+
+    /**
+     * 根据关键词查询
+     * @param keyword
+     * @return
+     */
+    JSONObject getIndex(String keyword);
 
     /**
      * 增加文章

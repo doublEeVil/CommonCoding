@@ -174,8 +174,13 @@ public class GenericDaoImpl implements GenericDao {
         //return (List<T>) session.createSQLQuery(sql).list();
     }
 
+    @Override
+    public int countBySql(String sql) {
+        Session session = this.getSession();
+        return ((java.math.BigInteger)(session.createSQLQuery(sql).uniqueResult())).intValue();
+    }
 
-//
+    //
 //    /**
 //     * <根据ID删除数据>
 //     *

@@ -114,6 +114,13 @@ public interface GenericDao {
      * @return
      */
     <T> List<T>  getBySql(Class<T> clazz, String sql);
+
+    /**
+     *
+     * @param sql
+     * @return
+     */
+    int countBySql(String sql);
 //
 //    /**
 //     * <根据ID删除数据>

@@ -1,5 +1,6 @@
 package com._22evil.test.cache;
 
+import com._22evil.test.cache.entity.GamePlayer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com._22evil.module_cache.mysql.service.GenericMySqlService;
@@ -63,5 +67,10 @@ public class TestMysql {
     public void testByHql() {
         TestEntityA a = genericMysqlService.getByHql(" from TestEntityA a where a.age = ?", 23);
         System.out.println(a.getId());
+    }
+
+    @Test
+    public void testGamePlayer() {
+
     }
 }

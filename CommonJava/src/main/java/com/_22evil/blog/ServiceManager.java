@@ -33,6 +33,7 @@ public class ServiceManager {
     public void initData() {
         System.out.println("loading data ...");
         ServiceManager.getInstance().getPicInfoService().initPicData();
+        ServiceManager.getInstance().getArticleService().onStart();
     }
 
     /**
