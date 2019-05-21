@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Resource;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Tuple;
@@ -22,7 +23,7 @@ public abstract class JCacheBase {
     /**
      * 失败日志logger，用于定期del指定的key
      */
-    public static Logger logger_failure = Logger.getLogger("logger_redis_failure");
+    public static Logger logger_failure = LogManager.getLogger("logger_redis_failure");
     @Resource
     public JedisPool  jedisPool;
 

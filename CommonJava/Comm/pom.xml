@@ -38,82 +38,83 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <!-- 拷贝lib包 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/../../_ServerDeploy/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>2.3.2</version>-->
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>2.5</version>-->
+<!--                <configuration>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            &lt;!&ndash; 拷贝lib包 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy-dependencies</id>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-dependencies</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.build.directory}/../../_ServerDeploy/lib</outputDirectory>-->
+<!--                            <overWriteReleases>false</overWriteReleases>-->
+<!--                            <overWriteSnapshots>false</overWriteSnapshots>-->
+<!--                            <overWriteIfNewer>true</overWriteIfNewer>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/out/</outputDirectory>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <version>2.3.2</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>default-jar</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <outputDirectory>${project.build.directory}/out/</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <copy todir="${project.build.directory}/out">
-                                    <fileset dir="${project.build.directory}/classes/"
-                                             excludes="com/**"></fileset>
-                                </copy>
-                            </target>
+<!--            <plugin>-->
+<!--                <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                <version>1.7</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <target>-->
+<!--                                <copy todir="${project.build.directory}/out">-->
+<!--                                    <fileset dir="${project.build.directory}/classes/"-->
+<!--                                             excludes="com/**"></fileset>-->
+<!--                                </copy>-->
+<!--                            </target>-->
 
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
 
             <!--打包为可执行jar-->
             <!--<plugin>-->
@@ -175,6 +176,13 @@
 
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com._22evil</groupId>
+            <artifactId>Util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- spring -->
         <!-- start -->
         <dependency>
@@ -652,5 +660,6 @@
             <artifactId>lanterna</artifactId>
             <version>3.0.1</version>
         </dependency>
+
     </dependencies>
 </project>

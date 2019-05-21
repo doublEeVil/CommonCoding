@@ -1,6 +1,5 @@
-package com._22evil.test.cache;
+package com._22evil.test.mysql;
 
-import com._22evil.test.cache.entity.GamePlayer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,12 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com._22evil.module_cache.mysql.service.GenericMySqlService;
-import com._22evil.test.cache.entity.TestEntityA;
+import com._22evil.test.mysql.entity.TestEntityA;
 
 @SuppressWarnings("unused")
 @RunWith(SpringJUnit4ClassRunner.class)

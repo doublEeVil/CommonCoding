@@ -1,4 +1,4 @@
-package com._22evil.test.cache.entity;
+package com._22evil.test.mysql.entity;
 
 import com._22evil.module_cache.mysql.BaseIdAutoIncEntity;
 import com.alibaba.fastjson.JSONObject;

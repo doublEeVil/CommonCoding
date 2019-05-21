@@ -1,5 +1,5 @@
 package com._22evil.blog;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 /**

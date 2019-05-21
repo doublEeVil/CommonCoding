@@ -1,4 +1,4 @@
-package com._22evil.test.cache;
+package com._22evil.test.db;
 
 import org.ehcache.UserManagedCache;
 import org.ehcache.config.builders.UserManagedCacheBuilder;
@@ -16,8 +16,8 @@ import java.util.function.Consumer;
 
 import com._22evil.module_cache.ehcache.CacheException;
 import com._22evil.module_cache.ehcache.service.impl.CacheServiceImpl;
-import com._22evil.test.cache.entity.TestConfigEntityA;
-import com._22evil.test.cache.entity.TestEntityA;
+import com._22evil.test.mysql.entity.TestConfigEntityA;
+import com._22evil.test.mysql.entity.TestEntityA;
 
 @SuppressWarnings("unused")
 @RunWith(SpringJUnit4ClassRunner.class)

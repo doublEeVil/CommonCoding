@@ -25,3 +25,5 @@ _ServerDeploy/*
 
 
 CommonJava/dependency-reduced-pom.xml
+CommonJava/_ServerDeploy
+CommonJava/*/*.iml

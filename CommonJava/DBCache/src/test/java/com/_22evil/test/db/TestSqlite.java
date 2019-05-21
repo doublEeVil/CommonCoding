@@ -1,11 +1,10 @@
-package com._22evil.test.module_cache;
+package com._22evil.test.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com._22evil.blog.entity.Article;
 import com._22evil.module_cache.mysql.service.GenericMySqlService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,15 +77,15 @@ public class TestSqlite {
                 String tags = rs.getString("tags");
                 String type = rs.getString("fmt_type");
 
-                Article article = new Article();
-                article.setTitle(title);
-                article.setCreateDate(create);
-                article.setUpdateDate(update);
-                article.setContent(content);
-                article.setStatus(status);
-                article.setTags(tags);
-                article.setType(type);
-                genericMysqlService.save(article);
+//                Article article = new Article();
+//                article.setTitle(title);
+//                article.setCreateDate(create);
+//                article.setUpdateDate(update);
+//                article.setContent(content);
+//                article.setStatus(status);
+//                article.setTags(tags);
+//                article.setType(type);
+//                genericMysqlService.save(article);
             }
 
             stmt.close();

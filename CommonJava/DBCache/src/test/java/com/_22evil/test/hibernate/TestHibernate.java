@@ -1,5 +1,5 @@
 package com._22evil.test.hibernate;
-import com._22evil.module_cache.db.HibernateUtil;
+import com._22evil.db.HibernateUtil;
 import com._22evil.test.hibernate.entity.TestEntityC;
 
 public class TestHibernate {

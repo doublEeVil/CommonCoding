@@ -1,4 +1,4 @@
-package com._22evil.test.cache.entity;
+package com._22evil.test.mysql.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

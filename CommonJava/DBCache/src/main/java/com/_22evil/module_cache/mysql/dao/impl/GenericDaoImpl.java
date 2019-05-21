@@ -1,6 +1,7 @@
 package com._22evil.module_cache.mysql.dao.impl;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,8 +18,7 @@ import com._22evil.module_cache.mysql.dao.GenericDao;
  */
 @Repository
 public class GenericDaoImpl implements GenericDao {
-    private static final Logger LOGGER = Logger
-            .getLogger(GenericDaoImpl.class);
+    private static Logger logger = LogManager.getLogger(GenericDaoImpl.class);
     @Autowired
     public SessionFactory sessionFactory;
     //protected Class<T> entityClass;

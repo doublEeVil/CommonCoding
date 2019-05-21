@@ -1,5 +1,6 @@
 package com._22evil.module_cache.ehcache;
 
+import com._22evil.util.ClassUtil2;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.UserManagedCache;
@@ -14,8 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import com._22evil.util.ClassUtil;
 
 public class MyCacheManager {
 
@@ -37,8 +36,8 @@ public class MyCacheManager {
         UserManagedCacheBuilder builder = UserManagedCacheBuilder.newUserManagedCacheBuilder(Integer.class, HashMap.class);
 
         // 开始构建
-        Map<String, Class<?>> classMap = ClassUtil.getClassMapByAnnounce(basePackage, CacheConfig.class);
-        for (Class<?> clazz : classMap.values()) {
+        Set<Class> classSet = ClassUtil2.getClassSetWithAnnotation(basePackage, CacheConfig.class);
+        for (Class<?> clazz : classSet) {
             try {
                 CacheConfig cacheConfig = clazz.getAnnotation(CacheConfig.class);
                 String cacheName = cacheConfig.name();

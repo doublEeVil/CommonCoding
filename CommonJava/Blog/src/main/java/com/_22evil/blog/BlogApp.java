@@ -1,11 +1,11 @@
 package com._22evil.blog;
 import com._22evil.blog.controller.api.*;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-//import org.apache.logging.log4j.core.config.Configurator;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import spark.*;
 
 import java.net.URI;
@@ -28,7 +28,7 @@ public class BlogApp {
         //*********************************如果log4j2配置文件不在根classpath下，需要手动指定**************
         // BasicConfigurator.configure();
         //final Logger logger = LogManager.getLogger("AppLog");
-        final Logger logger = LogManager.getRootLogger();
+        final Logger logger = LogManager.getLogger("AppLog");
         //********************************************************************************************
         System.out.println("BlogApp启动中...");
 
@@ -50,7 +50,9 @@ public class BlogApp {
             return "{\"message\":\"Custom 500 handling\"}";
         });
 
-        BLOG_CONFIG.setConfig(new PropertiesConfiguration("blog/app-config.properties"));
+        Configurations configs = new Configurations();
+        PropertiesConfiguration cfg = configs.properties("blog/app-config.properties");
+        BLOG_CONFIG.setConfig(cfg);
         port(BLOG_CONFIG.port());
 
         // 初始化数据

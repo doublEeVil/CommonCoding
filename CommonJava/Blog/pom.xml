@@ -21,7 +21,102 @@
         <jedis.version>2.9.0</jedis.version>
         <spark.version>2.7.2</spark.version>
         <fastjson.version>1.2.41</fastjson.version>
+        <common.configration.version>2.4</common.configration.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <aspectj.version>1.8.5</aspectj.version>
     </properties>
+
+    <build>
+        <resources>
+             <!-- 指定下面目录将会把下面的目录文件打包进jar-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- 拷贝lib包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/../../_ServerDeploy/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 复制其他配置文件到指定目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.directory}/../../_ServerDeploy/Blog/" >
+                                    <fileset dir="${project.build.directory}/classes/" excludes="com/*"></fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 本项目生成jar-->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 以下文件不打包进jar-->
+                            <excludes>
+                                <exclude>*.cmd</exclude>
+                            </excludes>
+                            <!-- 打包这些目录-->
+                            <includes>
+                                <include>com/**</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/../../_ServerDeploy/Blog</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -56,6 +151,26 @@
             <version>${fastjson.version}</version>
         </dependency>
 
+        <!-- apache common configuration2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${common.configration.version}</version>
+        </dependency>
+
+        <!--beanutil -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
+        </dependency>
+
+        <!--aspectj-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,9 +1,9 @@
-package com._22evil.test.cache;
+package com._22evil.test.db;
 
 import com._22evil.module_cache.redis.RedisService;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
