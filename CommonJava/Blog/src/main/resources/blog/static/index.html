@@ -279,12 +279,6 @@
 <!--========== jQuery (necessary for Bootstrap's JavaScript plugins) ==========-->
 <script src="js/jquery-2.2.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-<script src="vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="vendors/instafeed/instafeed.min.js"></script>
-<script src="vendors/imagesLoaded/imagesloaded.pkgd.min.js"></script>
-<script src="vendors/isotope/isotope.pkgd.min.js"></script>
-<script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="js/myutil.js"></script>
 <script type="text/javascript">
@@ -376,6 +370,9 @@
     }
 
     function getContent(content, type) {
+        if (true) {
+            return "hhhhhh";
+        }
         //console.log(content);
         if (type == 'markdown') {
             return marked(content);
@@ -386,5 +383,11 @@
     }
 
 </script>
+<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="vendors/instafeed/instafeed.min.js"></script>
+<script src="vendors/imagesLoaded/imagesloaded.pkgd.min.js"></script>
+<script src="vendors/isotope/isotope.pkgd.min.js"></script>
+<script src="js/theme.js"></script>
 </body>
 </html>

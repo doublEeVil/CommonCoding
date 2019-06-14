@@ -80,6 +80,46 @@ public class TestBasic {
         //ImageTool.gray(f1, f2);
         ImageTool.waterline(f1, f2, "  this is text");
     }
+
+    @Test
+    public void test3() {
+        class T1 {
+            private String name;
+            private int age;
+            private int[] fs;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getAge() {
+                return age;
+            }
+
+            public void setAge(int age) {
+                this.age = age;
+            }
+
+            public int[] getFs() {
+                return fs;
+            }
+
+            public void setFs(int[] fs) {
+                this.fs = fs;
+            }
+        }
+
+        T1 t1 = new T1();
+        t1.setAge(12);
+        t1.setName("zhjs");
+        t1.setFs(new int[] {1,2,3});
+        JSONObject jsonObject = JSONObject.fromObject(t1);
+        System.out.println(jsonObject);
+    }
 }
 
 

@@ -1,9 +1,11 @@
 package com._22evil.blog;
 import com._22evil.blog.service.IAdminService;
 import com._22evil.blog.service.IArticleService;
+import com._22evil.blog.service.IEventLogService;
 import com._22evil.blog.service.IPicInfoService;
 import com._22evil.blog.service.impl.AdminServiceImpl;
 import com._22evil.blog.service.impl.ArticleServiceImpl;
+import com._22evil.blog.service.impl.EventLogService;
 import com._22evil.blog.service.impl.PicInfoService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 public class ServiceManager {
@@ -58,5 +60,13 @@ public class ServiceManager {
      */
     public IPicInfoService getPicInfoService() {
         return context.getBean(PicInfoService.class);
+    }
+
+    /**
+     * 2019年6月13日11:29:31记录
+     * @return
+     */
+    public IEventLogService getEventLogService() {
+        return context.getBean(EventLogService.class);
     }
 }

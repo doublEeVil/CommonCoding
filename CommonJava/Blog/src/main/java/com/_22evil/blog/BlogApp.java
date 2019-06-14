@@ -1,5 +1,6 @@
 package com._22evil.blog;
 import com._22evil.blog.controller.api.*;
+import com._22evil.blog.entity.EventLog;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 
@@ -64,9 +65,24 @@ public class BlogApp {
         System.err.println("图片上传路径为:" + BLOG_CONFIG.getUploadPicPath());
         staticFiles.externalLocation(BLOG_CONFIG.getUploadPicPath());
 
+        before("/*", ((request, response) -> {
+            System.out.println("path:" + request.url());
+            System.out.println("method:" +  request.requestMethod());
+            System.out.println("ip" + request.ip());
+            System.out.println("param:" + request.params());
+            EventLog eventLog = new EventLog();
+            eventLog.setIp(request.ip());
+            eventLog.setAuth(request.session().attribute("login") != null);
+            eventLog.setUrl(request.url());
+            eventLog.setMethod(request.requestMethod());
+            eventLog.setParams(request.params().toString());
+            ServiceManager.getInstance().getEventLogService().add(eventLog);
+        }));
+
+
         // hello world
         get("/hello", "application/json", (request, response) -> {
-            response.redirect("http://127.0.0.1:8888/pic.html", 302);
+            //response.redirect("http://127.0.0.1:8888/pic.html", 302);
             JSONObject json = new JSONObject();
             json.put("message", "helloworld");
             return json;
@@ -74,7 +90,7 @@ public class BlogApp {
         });
 
         post("/hello", "application/json", (request, response) -> {
-            response.redirect("http://127.0.0.1:8888/pic.html", 401);
+            //response.redirect("http://127.0.0.1:8888/pic.html", 401);
             JSONObject json = new JSONObject();
             json.put("message", "helloworld");
             return json;

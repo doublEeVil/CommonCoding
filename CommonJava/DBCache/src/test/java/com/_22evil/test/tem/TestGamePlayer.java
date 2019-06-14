@@ -1,12 +1,15 @@
 package com._22evil.test.tem;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.LineNumberReader;
+import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 public class TestGamePlayer {
     private Connection conn = null;
@@ -138,6 +141,187 @@ public class TestGamePlayer {
             e.printStackTrace();
         }
     }
-    PreparedStatement ps = null;
 
+    @Test
+    public void test2() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/world", "zjs", "123456");
+
+            PreparedStatement ps1 = conn.prepareStatement("select account from tab_id_account where id > 2869");
+
+            ResultSet resultSet = ps1.executeQuery();
+
+            Set<String> set = new HashSet<>();
+
+            while (resultSet.next()) {
+                String subs = resultSet.getString(1).substring(8);
+                set.add(subs);
+            }
+
+            ps1 = conn.prepareStatement("select uid from data_see_ll where event_id=1000");
+            resultSet = ps1.executeQuery();
+
+            while (resultSet.next()) {
+                if (set.contains(resultSet.getString(1))) {
+                    System.out.println(resultSet.getString(1));
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void test3() throws Exception{
+        LineNumberReader reader = new LineNumberReader(new FileReader("C:\\Users\\Administrator\\Desktop\\H5\\redis-data.dat"));
+        String line;
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/world", "zjs", "123456");
+        PreparedStatement ps1 = conn.prepareStatement("insert into tab_id_account(id,account) values(?,?)");
+        conn.setAutoCommit(false);
+        int id = 0;
+        String account = "";
+        String[] sts;
+        while ((line = reader.readLine()) != null) {
+            sts = line.split(":");
+            id = Integer.valueOf(sts[0]);
+            ps1.setInt(1, id);
+            ps1.setString(2, sts[1]);
+            ps1.addBatch();
+        }
+        ps1.executeBatch();
+        conn.commit();
+    }
+
+    @Test
+    public void test4() throws Exception{
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/world", "zjs", "123456");
+        PreparedStatement ps1 = conn.prepareStatement("SELECT ll from data_see_ll GROUP BY ll HAVING count(ll) >= 2");
+        ResultSet resultSet = ps1.executeQuery();
+
+        Set<String> set = new HashSet<>();
+        while (resultSet.next()) {
+            set.add(resultSet.getString(1));
+        }
+
+        for (String ll : set) {
+            ps1 = conn.prepareStatement("SELECT ll from data_see_ll GROUP BY ll HAVING count(ll) >= 2");
+        }
+    }
+
+
+    @Test
+    public void test5() throws Exception {
+        LineNumberReader reader = new LineNumberReader(new FileReader("C:\\Users\\Administrator\\Desktop\\6-6\\worldlog.log"));
+        String line;
+        String s = "玩家装备数据丢失";
+        Set<Integer> set = new HashSet<>();
+        while ((line = reader.readLine()) != null) {
+            if (line.indexOf(s) > -1) {
+                String t = line.replaceAll(".*玩家装备数据丢失 playerid:","");
+                String[] tt = t.split(" ");
+                set.add(Integer.valueOf(tt[0]));
+            }
+        }
+        System.out.println("---" + set.size());
+        for (int t :set) {
+            System.out.println(t);
+        }
+    }
+
+    @Test
+    public void test6() throws Exception{
+        class T1 {
+            private String name;
+            private int age;
+            private int[] fs;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getAge() {
+                return age;
+            }
+
+            public void setAge(int age) {
+                this.age = age;
+            }
+
+            public int[] getFs() {
+                return fs;
+            }
+
+            public void setFs(int[] fs) {
+                this.fs = fs;
+            }
+        }
+
+        class T2 extends T1 {
+            private String[] ss;
+
+            public String[] getSs() {
+                return ss;
+            }
+
+            public void setSs(String[] ss) {
+                this.ss = ss;
+            }
+        }
+
+        T1 t1 = new T1();
+        t1.setAge(12);
+        t1.setName("zhjs");
+        t1.setFs(new int[] {1,2,3});
+
+        T2 t2 = new T2();
+        t2.setAge(122);
+        t2.setName("zhjs");
+        t2.setFs(new int[] {1,2,3,4});
+        t2.setSs(new String[]{"",""});
+        long ts = System.currentTimeMillis();
+        for (int i = 0; i < 20000; i++) {
+            Object jsonObject = JSONObject.toJSON(t1);
+            System.out.println(jsonObject);
+            jsonObject = JSONObject.toJSON(t2);
+            System.out.println(jsonObject);
+        }
+        System.out.println("---- json " + (System.currentTimeMillis() - ts));
+
+        Class<?> clazz1 = t1.getClass();
+        Class<?> clazz2 = t2.getClass();
+        Map<String, Field[]> fmap = new HashMap<>();
+        Field[] fields = clazz1.getDeclaredFields();
+        fmap.put(clazz1.getName(), fields);
+        Field[] fields2 = clazz2.getDeclaredFields();
+        fmap.put(clazz2.getName(), fields2);
+
+//        ts = System.currentTimeMillis();
+//        for (int i = 0; i < 20000; i++) {
+//            for (Map.Entry<String, Field[]> entry : fmap.entrySet()) {
+//                if (entry.getKey() == clazz1.getName()) {
+//                    Field[] tfs = entry.getValue();
+//                    for (Field field : tfs) {
+//                        field.setAccessible(true);
+//                        System.out.println(field.get(t1));
+//                    }
+//                }
+//                if (entry.getKey() == clazz2.getName()) {
+//                    Field[] tfs = entry.getValue();
+//                    for (Field field : tfs) {
+//                        field.setAccessible(true);
+//                        System.out.println(field.get(t2));
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println("---- reflect " + (System.currentTimeMillis() - ts));
+    }
 }

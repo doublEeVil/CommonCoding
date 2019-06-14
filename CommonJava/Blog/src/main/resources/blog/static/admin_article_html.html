@@ -108,7 +108,7 @@
     }
 
     function initEditData() {
-        $.get("/api/article", {"articleId": getArticleId()}, function(data) {
+        $.post("/api/article", {"articleId": getArticleId()}, function(data) {
             var article = JSON.parse(data);
             console.log(article);
             var title = article["title"];
