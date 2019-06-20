@@ -21,7 +21,7 @@ public class JavaSsistTest {
      */
     @Test
     public void testAddMethod() {
-        String className = "com._22evil.test.javassist.Obj";
+        String className = "Obj";
         ClassPool pool = ClassPool.getDefault();
         try {
             CtClass cc = pool.get(className);
@@ -56,7 +56,7 @@ public class JavaSsistTest {
      */
     @Test
     public void testAddField() {
-        String className = "com._22evil.test.javassist.Obj";
+        String className = "Obj";
         ClassPool pool = ClassPool.getDefault();
         try {
             CtClass cc = pool.get(className);
@@ -90,7 +90,7 @@ public class JavaSsistTest {
      */
     @Test
     public void testReloadMethod() {
-//        String className = "com._22evil.test.javassist.Obj";
+//        String className = "Obj";
 //        ClassPool pool = ClassPool.getDefault();
 //        try {
 //            CtClass cc = pool.get(className);

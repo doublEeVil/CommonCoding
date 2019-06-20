@@ -1,7 +1,5 @@
 package com._22evil.stone.ast;
 
-import com._22evil.stone.Token;
-
 import java.util.List;
 
 public class BinaryExpr extends ASTList {

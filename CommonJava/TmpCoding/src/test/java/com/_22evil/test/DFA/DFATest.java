@@ -1,4 +1,4 @@
-package com._22evil.test.dfa;
+package com._22evil.test.DFA;
 
 import com._22evil.DFA.WordFilter;
 
