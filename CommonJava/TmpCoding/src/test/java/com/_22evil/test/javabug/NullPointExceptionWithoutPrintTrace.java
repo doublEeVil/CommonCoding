@@ -7,7 +7,7 @@ public class NullPointExceptionWithoutPrintTrace {
          * java内部应该有优化，但某一异常过多时，便不再打印堆栈
          * -XX:-OmitStackTraceInFastThrow
          */
-        int count = 100000;
+        int count = 150000;
         String s = null;
         for (int i = 0; i < count; i++) {
             try {
@@ -27,6 +27,8 @@ public class NullPointExceptionWithoutPrintTrace {
         /**
          * 可以很明显的看到，后面的堆栈不再打印. 初步认为应该是这个bug(或者说future)修复了
          * 给几个值记录下
+         *      15W: 不再打印堆栈了
+         *      10W: 打印
          *      1W  ：打印
          *      1K  : 打印
          *      100 : 打印
