@@ -67,6 +67,7 @@ public class App {
         }
 
         for (Connection conn : connList) {
+            System.out.println("---正在写入库：" + conn.getMetaData().getURL() + " " + conn.getMetaData().getUserName());
             conn.setAutoCommit(false);
             PreparedStatement pstmt;
             Set<String> tabNames = excelEntityMap.keySet();
@@ -164,9 +165,6 @@ public class App {
                         add = false;
                     }
                     for (; start < end && add; start++) {
-                        if (tbName.equals("tab_activities_template") && start == 5) {
-                            System.out.println();
-                        }
                         cell = row.getCell(start);
                         CellType type = cell.getCellType();
                         if (start == 0 && type  != CellType.NUMERIC) {
