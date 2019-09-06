@@ -85,8 +85,8 @@ public class HttpUtil {
             HttpURLConnection conn = (HttpURLConnection)curl.openConnection();
             conn.setRequestMethod(method);
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setConnectTimeout(5000);
-            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(50000);
+            conn.setReadTimeout(50000);
             conn.setRequestProperty("User-Agent","Mozilla/5.0");
             conn.setRequestProperty("Accept","*/*");
             if (data != null) {
