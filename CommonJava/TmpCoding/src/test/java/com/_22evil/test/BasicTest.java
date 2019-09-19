@@ -3,12 +3,14 @@ package com._22evil.test;
 import com._22evil.util.FileUtil;
 import com._22evil.util.HttpCallback;
 import com._22evil.util.HttpUtil;
+import com.alipay.sofa.rpc.common.utils.FileUtils;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.LineNumberReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -227,5 +230,199 @@ public class BasicTest {
         for (int i : rm) {
             map.remove(i);
         }
+    }
+
+    @Test
+    public void test8() {
+        class Z1 {
+            String[] name;
+
+            public String[] getName() {
+                return name;
+            }
+
+            public void setName(String[] name) {
+                this.name = name;
+            }
+        }
+
+        class Z2 {
+            String[] name;
+
+            public String[] getName() {
+                return name;
+            }
+
+            public void setName(String[] name) {
+                this.name = name;
+            }
+        }
+
+        Z1 z1 = new Z1();
+        z1.setName(new String[]{"anv"});
+        Z2 z2 = new Z2();
+        BeanUtils.copyProperties(z1, z2);
+        System.out.println(z2.getName().length);
+    }
+
+    @Test
+    public void test9() throws Exception {
+        // java文本编辑没有特别好的方法，这个采用原生方法
+        File file = new File("C:\\Users\\Administrator\\Desktop\\test\\yy.properties");
+        LineNumberReader reader = new LineNumberReader(new FileReader(file));
+        List<String> lines = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith("port")) {
+                line = "port = 8999";
+            }
+            lines.add(line);
+        }
+
+        FileWriter writer = new FileWriter(file);
+        for (String l : lines) {
+            writer.append(l);
+            writer.append("\n");
+        }
+        writer.flush();
+
+        // 或者是采用BufferedWriter，新建临时文件，最后进行替换
+
+        // java nio方式
+        lines.clear();
+        for (String s : Files.readAllLines(Paths.get(file.getPath()))) {
+            lines.add(s);
+        }
+        Files.write(Paths.get(file.getPath()), lines);
+    }
+
+    @Test
+    public void test10() {
+        System.setProperty("http.proxyHost", "127.0.0.1"); // 不能使用192.168.0.1
+        System.setProperty("http.proxyPort", "8081");
+        HttpUtil.get("http://www.google.com", new HttpCallback() {
+            @Override
+            public void fail(String errorMsg) {
+                System.out.println(errorMsg);
+            }
+
+            @Override
+            public void success(int code, String data) {
+                System.out.println(data);
+            }
+        });
+    }
+
+    /**
+     * 三个线程 顺序打印1-100
+     */
+    @Test
+    public void test11() {
+//        AtomicInteger num = new AtomicInteger(1);
+//        Runnable run = new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    int cur = num.getAndIncrement();
+//                    if (cur <= 100) {
+//                        System.out.println("====" + cur);
+//                    } else {
+//                        break;
+//                    }
+//                }
+//            }
+//        };
+//
+//        new Thread(run).start();
+//        new Thread(run).start();
+//        new Thread(run).start();
+        // 上面这种写法是有问题的
+
+        // 第二种写法，加锁
+//        AtomicInteger num2 = new AtomicInteger(1);
+//        Object obj = new Object();
+//        Runnable run2 = new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    synchronized (obj) {
+//                        int cur = num2.getAndIncrement();
+//                        if (cur <= 100) {
+//                            System.out.println("====" + Thread.currentThread().getName() + " " + cur);
+//                        } else {
+//                            break;
+//                        }
+//                    }
+//                    try {
+//                        Thread.sleep(1L);
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//            }
+//        };
+//        new Thread(run2).start();
+//        new Thread(run2).start();
+//        new Thread(run2).start();
+
+        // 第三种写法，t1,t2这样打印
+        final AtomicInteger num = new AtomicInteger(1);
+        class MyThread extends Thread {
+            int flag;
+            Object lock;
+
+            public MyThread(int flag, Object lock) {
+                this.flag = flag;
+                this.lock = lock;
+            }
+
+            @Override
+            public void run() {
+                while (true) {
+                    synchronized (lock) {
+                        if (num.get() > 100) {
+                            break;
+                        }
+                        if (num.get() % 3 == flag) {
+                            System.out.println("----" + Thread.currentThread().getName() + " " + num);
+                            num.incrementAndGet();
+                            lock.notifyAll();
+
+                        } else {
+                            try {
+                                lock.wait();
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        Object lock = new Object();
+        new MyThread(0, lock).start();
+        new MyThread(1, lock).start();
+        new MyThread(2, lock).start();
+
+        try {
+            Thread.sleep(2000L);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void test12() {
+        // 一键构建工具
+        // 1. copy 最新的代码
+        // 2. mvn 构建最新的jar包
+
+        // 先本地构建
+        // 配置文件
+        // world server jdbc:
+        // version
+        // serverid  servername
     }
 }
