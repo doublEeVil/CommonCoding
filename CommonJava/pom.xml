@@ -16,6 +16,7 @@
         <module>TmpCoding</module>
         <module>Excel2DB</module>
         <module>Crawer</module>
+        <module>DailyCoding</module>
     </modules>
 
     <build>
