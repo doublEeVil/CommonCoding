@@ -17,6 +17,7 @@
         <module>Excel2DB</module>
         <module>Crawer</module>
         <module>DailyCoding</module>
+        <module>StoneLang</module>
     </modules>
 
     <build>

@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 所谓悲观锁，就是默认对方会修改数据，所以全程加锁处理数据
  * 乐观锁，就是默认对方不会修改数据。只有在最后提交时才会对比一下是否有过其他线程修改。所以实际上并未加锁，但最后一步对比数据因不同业务希求，可能会加锁
  * 乐观锁，最后对比一步，可能是采用CAS, 也可以是加版本号来处理
+ *
+ * 测试的时候不要单独一个i++测试，最好是10W个i++循环，比较容易出现线程冲突的结果
  */
 public class _001PessimisticLockAndOptimisticLock {
     private int num1 = 0;
@@ -18,7 +20,10 @@ public class _001PessimisticLockAndOptimisticLock {
         // 线程不安全的情况
         for (int i = 0; i < 150; i++) {
             new Thread(()->{
-                num1++;
+                for (int j = 0; j < 100000; j++) {
+                    num1++;
+                }
+                // 如果上面的代码改成 num1++, 很有可能500w线程都未必能触发一次
             }).start();
         }
 
@@ -32,7 +37,9 @@ public class _001PessimisticLockAndOptimisticLock {
         // 乐观锁情况
         for (int i = 0; i < 150; i++) {
             new Thread(()->{
-                num3.incrementAndGet();
+                for (int j = 0; j < 100000; j++) {
+                    num3.incrementAndGet();
+                }
             }).start();
         }
 
@@ -53,7 +60,9 @@ public class _001PessimisticLockAndOptimisticLock {
     }
 
     private synchronized void num2Add() {
-        num2++;
+        for (int i = 0; i < 100000; i++) {
+            num2++;
+        }
     }
 
     public static void main(String ... args) {
