@@ -1,9 +1,4 @@
-package com._22evil.test;
-
-import com._22evil.util.FileUtil;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.junit.Test;
 
 import java.io.FileWriter;
 import java.sql.Connection;
@@ -12,29 +7,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
 
-public class TestMysql {
+public class OutputData {
 
-    @Test
-    public void test6() throws Exception{
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.19.132/ww1?useTimezone=true&serverTimezone=GMT%2B8", "zjs", "123456");
-        PreparedStatement ps = conn.prepareStatement("select NOW()");
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            System.out.println(rs.getString(1));
+    public static void main(String ... args) throws Exception {
+
+        if (args.length < 3) {
+            System.out.println("input jdbcurl user pwd, eg. 192.168.0.192/dddfk_vn_test_back_1 root 123456");
+            return;
         }
-    }
+        String url = args[0];
+        String user = args[1];
+        String pwd = args[2];
 
-    @Test
-    public void test7() throws Exception {
-
-    }
-
-    @Test
-    public void test8() throws Exception {
+        System.out.println("====start=====");
         // 玩家钻石返利
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.192/dddfk_vn_back_2?useTimezone=true&serverTimezone=GMT%2B8", "zjs", "123456");
+        //Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.192/dddfk_vn_back_1?useTimezone=true&serverTimezone=GMT%2B8", "zjs", "123456");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://" + url+ "?useTimezone=true&serverTimezone=GMT%2B8", user, pwd);
         PreparedStatement ps = conn.prepareStatement("SELECT player_id, sum(price) from game_order where `status`=3 GROUP BY player_id");
         ResultSet rs = ps.executeQuery();
         Map<Integer, Double> playerIdRecharge = new HashMap<>();
@@ -57,7 +46,7 @@ public class TestMysql {
                 playerIdAccountName.put(playerId, accountName);
                 playerIdVIPEXP.put(playerId, vipExp);
                 if (accountName.equals("robot")) {
-                    System.out.println("====" + playerId);
+                    System.out.println("=robot===" + playerId);
                 }
             }
         }
@@ -86,30 +75,11 @@ public class TestMysql {
         ps.executeBatch();
         ps.close();
         conn.close();
+        System.out.println("====end=====");
     }
 
-    private String getRewarVIPEXP(double num) {
-        int val = (int)num;
-        return "{\"1\":\"[17,"+ val  +"]\"}";
-    }
-
-    private String getRewardStr(double num) {
-        int val = (int)num * 20;
-        return "{\"1\":\"[1,"+ val  +"]\"}";
-    }
-
-    private String getRewardStrVN(double num) {
+    private static String getRewardStrVN(double num) {
         int val = (int)num * 5;
         return "{\"1\":\"[1,"+ val  +"]&[70," + val + "]\"}";
-    }
-
-    @Test
-    public void test9() {
-
-    }
-
-    @Test
-    public void test10() throws Exception {
-
     }
 }

@@ -58,11 +58,25 @@ public class App {
         Map<String, List<TbEntity>> excelEntityMap = new HashMap<>();
         for (File file : files) {
             if (file.isDirectory()) continue;
+            if (file.getName().startsWith("~$")) {
+                // 这种是临时文件
+                continue;
+            }
             System.out.println("---正在读取文件：" + file.getName());
             if (file.getName().endsWith(".xls")) {
-                actionXLS(file, excelEntityMap);
+                try {
+                    actionXLS(file, excelEntityMap);
+                } catch (Exception e) {
+
+                }
+
             } else if (file.getName().endsWith(".xlsx")) {
-                actionXLSX(file, excelEntityMap);
+                try {
+                    actionXLSX(file, excelEntityMap);
+                } catch (Exception e) {
+
+                }
+
             }
         }
 
