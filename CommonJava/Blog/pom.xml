@@ -21,7 +21,7 @@
         <jedis.version>2.9.0</jedis.version>
         <spark.version>2.7.1</spark.version>
         <fastjson.version>1.2.41</fastjson.version>
-        <common.configration.version>2.4</common.configration.version>
+        <common.configration.version>2.7</common.configration.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <aspectj.version>1.8.5</aspectj.version>
     </properties>
