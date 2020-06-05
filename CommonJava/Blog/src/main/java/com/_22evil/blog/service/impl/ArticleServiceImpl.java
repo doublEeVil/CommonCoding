@@ -19,7 +19,7 @@ public class ArticleServiceImpl implements IArticleService{
     @Autowired
     private GenericMySqlService genericMySqlService;
 
-    private static final int PAGE_SIZE = 12;
+    private static final int PAGE_SIZE = 6;
     @Override
     public void onStart() {
         int count = genericMySqlService.countBySql("select count(*) from tb_article");
@@ -75,11 +75,12 @@ public class ArticleServiceImpl implements IArticleService{
 
     @Override
     public JSONObject getIndex(String keyword) {
-        //TODO 暂不实现查找，直接返回第一页的信息
+        //TODO 直接用locate函数(暂时不做)
         int page = 0;
         int start = page * PAGE_SIZE;
         int end = page + PAGE_SIZE;
         List<Article> articleList = genericMySqlService.getBySql(Article.class, "select * from tb_article limit " + start + "," + end);
+
         JSONObject json = new JSONObject();
         List<JSONObject> list = new ArrayList<>();
         String content;

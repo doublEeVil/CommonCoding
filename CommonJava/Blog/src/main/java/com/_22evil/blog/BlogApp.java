@@ -3,13 +3,13 @@ import com._22evil.blog.controller.api.*;
 import com._22evil.blog.entity.EventLog;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.configuration2.PropertiesConfiguration;
-
 import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.*;
 
-import java.net.URI;
+import java.util.Date;
 
 import static spark.Spark.*;
 /**
@@ -22,27 +22,17 @@ import static spark.Spark.*;
  * 暂时先尝试一下客户端渲染模式
  */
 public class BlogApp {
-
+    private static final Logger logger = LoggerFactory.getLogger("AppLog");
     public static BlogConfig BLOG_CONFIG = new BlogConfig();
 
     public static void main(String[] args) throws Exception{
-        //*********************************如果log4j2配置文件不在根classpath下，需要手动指定**************
-        // BasicConfigurator.configure();
-        //final Logger logger = LogManager.getLogger("AppLog");
-        final Logger logger = LogManager.getLogger("AppLog");
-        //********************************************************************************************
-        System.out.println("BlogApp启动中...");
 
-        logger.trace("trace level");
-        logger.debug("debug level");
-        logger.info("info level");
-        logger.warn("warn level");
-        logger.error("error level");
-        logger.fatal("fatal level");
+        System.out.println("BlogApp启动中...");
+        logger.info("server start ... " + new Date());
 
         initExceptionHandler((e) -> {
             System.out.println("exception occur");
-            logger.error(e, e);
+            logger.error("", e);
             e.printStackTrace();
         });
 
@@ -52,7 +42,7 @@ public class BlogApp {
         });
 
         Configurations configs = new Configurations();
-        PropertiesConfiguration cfg = configs.properties("blog/app-config.properties");
+        PropertiesConfiguration cfg = configs.properties("app-config.properties");
         BLOG_CONFIG.setConfig(cfg);
         port(BLOG_CONFIG.port());
 
@@ -60,16 +50,13 @@ public class BlogApp {
         ServiceManager.getInstance().initData();
 
         // 静态文件(不包括上传文件)
-        staticFileLocation("blog/static");
+        staticFileLocation("static");
         // 网页上传的文件路径
         System.err.println("图片上传路径为:" + BLOG_CONFIG.getUploadPicPath());
         staticFiles.externalLocation(BLOG_CONFIG.getUploadPicPath());
 
         before("/*", ((request, response) -> {
-            System.out.println("path:" + request.url());
-            System.out.println("method:" +  request.requestMethod());
-            System.out.println("ip" + request.ip());
-            System.out.println("param:" + request.params());
+            logger.info("访问记录:ip:"+request.ip() + " path:" + request.url() + " params:" + request.params());
             EventLog eventLog = new EventLog();
             eventLog.setIp(request.ip());
             eventLog.setAuth(request.session().attribute("login") != null);
@@ -84,7 +71,7 @@ public class BlogApp {
         get("/hello", "application/json", (request, response) -> {
             //response.redirect("http://127.0.0.1:8888/pic.html", 302);
             JSONObject json = new JSONObject();
-            json.put("message", "helloworld");
+            json.put("message", "hello world");
             return json;
             //return "{\"message\": \"Hello World\"}";
         });
@@ -92,7 +79,7 @@ public class BlogApp {
         post("/hello", "application/json", (request, response) -> {
             //response.redirect("http://127.0.0.1:8888/pic.html", 401);
             JSONObject json = new JSONObject();
-            json.put("message", "helloworld");
+            json.put("message", "hello world");
             return json;
             //return "{\"message\": \"Hello World\"}";
         });
@@ -140,6 +127,10 @@ public class BlogApp {
             post("/pic","application/json", new ApiPicRouter());
             // 查询
             post("/search", "application/json", new ApiSearchRouter());
+            // 反馈信息
+            post("/send_feedback", "application/json", new ApiFeekbackRouter());
+            // 简历
+            post("/jianli", "application/json", new ApiJianliRouter());
 
             // 后置拦截器处理
             afterAfter(((request, response) -> {
@@ -156,7 +147,7 @@ public class BlogApp {
         // 异常同一处理
         Spark.exception(Exception.class, (e, request, response) -> {
             System.out.println("发生异常");
-            logger.error(e, e);
+            logger.error("", e);
             e.printStackTrace();
             response.body("<html><body>发生未知错误</body></html>");
         });
@@ -166,6 +157,7 @@ public class BlogApp {
 
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
             stop();
+            logger.info("程序被killed " + new Date());
             System.out.println("程序被killed");
         }));
 

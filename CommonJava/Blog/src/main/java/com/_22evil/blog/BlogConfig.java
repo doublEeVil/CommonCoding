@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
  * 配置
  */
 @Configuration
-@ImportResource({"classpath*:blog/application.xml"})
+@ImportResource({"classpath*:application.xml"})
 public class BlogConfig {
     private PropertiesConfiguration config;
     public BlogConfig() {
@@ -39,5 +39,21 @@ public class BlogConfig {
 
     public String getUploadPicPath() {
         return config.getString("upload_pic_path");
+    }
+
+    public String mailHost() {
+        return config.getString("mail_host");
+    }
+
+    public String mailUser() {
+        return config.getString("mail_user");
+    }
+
+    public String mailPwd() {
+        return config.getString("mail_pwd");
+    }
+
+    public String mailTo() {
+        return config.getString("mail_to");
     }
 }

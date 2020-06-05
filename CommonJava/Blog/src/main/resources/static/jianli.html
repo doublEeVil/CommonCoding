@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简历</title>
+</head>
+<body>
+<div id = 'content'>
+    <!-- 填充内容-->
+</div>
+<script src="js/jquery-2.2.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+        $.post("/api/jianli", {}, function(data) {
+        document.getElementById('content').innerHTML = marked(data);
+    });
+    </script>
+</body>
+</html>
