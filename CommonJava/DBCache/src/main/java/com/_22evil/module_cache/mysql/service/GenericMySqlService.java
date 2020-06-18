@@ -96,4 +96,13 @@ public interface GenericMySqlService {
      * @return
      */
     <T> int countBySql(String sql);
+
+    /**
+     *
+     * @param sql
+     * @param params
+     * @param <T>
+     * @return
+     */
+    <T> List<T> getBySql(String sql, Object ... params);
 }

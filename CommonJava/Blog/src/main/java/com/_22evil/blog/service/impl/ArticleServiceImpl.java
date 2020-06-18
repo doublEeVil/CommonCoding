@@ -75,12 +75,20 @@ public class ArticleServiceImpl implements IArticleService{
 
     @Override
     public JSONObject getIndex(String keyword) {
-        //TODO 直接用locate函数(暂时不做)
+        // 直接用locate函数
         int page = 0;
-        int start = page * PAGE_SIZE;
-        int end = page + PAGE_SIZE;
-        List<Article> articleList = genericMySqlService.getBySql(Article.class, "select * from tb_article limit " + start + "," + end);
-
+        String sql = "select id, title, create_date, type, content from tb_article where locate(?, `content`) > 0";
+        List<Object[]> dbList = genericMySqlService.getBySql(sql, keyword);
+        List<Article> articleList = new ArrayList<>();
+        for (Object[] arr : dbList) {
+            Article article = new Article();
+            article.setId(Integer.valueOf(arr[0].toString()));
+            article.setTitle(arr[1].toString());
+            article.setCreateDate(Long.parseLong(arr[2].toString()));
+            article.setType(arr[3].toString());
+            article.setContent(arr[4].toString());
+            articleList.add(article);
+        }
         JSONObject json = new JSONObject();
         List<JSONObject> list = new ArrayList<>();
         String content;

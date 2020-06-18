@@ -1,9 +1,13 @@
 package com._22evil.module_cache.mysql.service.impl;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com._22evil.module_cache.mysql.BaseEntity;
@@ -78,5 +82,16 @@ public class GenericMysqlServiceImpl implements GenericMySqlService {
     @Override
     public <T> int countBySql(String sql) {
         return genericDao.countBySql(sql);
+    }
+
+    @Override
+    public List<Object[]> getBySql(String sql, Object ... params) {
+        Session session = genericDao.getSession();
+        Query query = session.createSQLQuery(sql);
+        int i = 1;
+        for (Object obj : params) {
+            query.setParameter(i++, obj);
+        }
+        return query.list();
     }
 }
