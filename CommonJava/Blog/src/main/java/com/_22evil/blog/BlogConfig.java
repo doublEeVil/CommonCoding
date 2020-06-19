@@ -56,4 +56,8 @@ public class BlogConfig {
     public String mailTo() {
         return config.getString("mail_to");
     }
+
+    public boolean outSideWebContainer() {
+        return config.getBoolean("outside_web_container");
+    }
 }

@@ -50,7 +50,9 @@ public class BlogApp {
         ServiceManager.getInstance().initData();
 
         // 静态文件(不包括上传文件)
-        staticFileLocation("static");
+        if (!BLOG_CONFIG.outSideWebContainer()) {
+            staticFileLocation("static");
+        }
         // 网页上传的文件路径
         System.err.println("图片上传路径为:" + BLOG_CONFIG.getUploadPicPath());
         staticFiles.externalLocation(BLOG_CONFIG.getUploadPicPath());
