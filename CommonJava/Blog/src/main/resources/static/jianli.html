@@ -1,19 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>简历</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--========== The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags ==========-->
+    <title>个人简历</title>
+
+    <!--==========Dependency============-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/owl-carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="vendors/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="vendors/flexslider/flexslider.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit:500">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:600,700italic">
+    <link href='https://fonts.googleapis.com/css?family=Dosis:400,200,300,500,600,800,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500italic,500,700italic,700,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+
+    <!--==========Theme Styles==========-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/theme/green.css" rel="stylesheet">
+
+    <!--========== HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries ==========-->
+    <!--========== WARNING: Respond.js doesn't work if you view the page via file:// ==========-->
+    <!--==========[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]==========-->
 </head>
-<body>
-<div id = 'content'>
-    <!-- 填充内容-->
-</div>
+<body class="home">
+
+<header class="row transparent white" data-spy="affix" data-offset-top="300" id="header">
+    <div class="container">
+        <div class="row top-header">
+            <div class="col-sm-4 logo-col text-center">
+                <a href="index.html"><img src="images/logo-black-green.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<section class="row content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 single-post-contents">
+                <article class="single-post-content row m0 post  ">
+                    <header class="row">
+                        <h1  id='content-title' class="post-title">
+                            <!-- 填充标题-->
+                        </h1>
+                    </header>
+
+                    <div id = 'content' class="post-content row">
+                        <!-- 填充内容-->
+                    </div>
+
+                </article>
+            </div>
+            <div class="col-md-4 sidebar">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--========== jQuery (necessary for Bootstrap's JavaScript plugins) ==========-->
 <script src="js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="vendors/instafeed/instafeed.min.js"></script>
+<script src="vendors/imagesLoaded/imagesloaded.pkgd.min.js"></script>
+<script src="vendors/isotope/isotope.pkgd.min.js"></script>
+<script src="vendors/flexslider/jquery.flexslider-min.js"></script>
+<script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="js/myutil.js"></script>
+
 <script>
-        $.post("/api/jianli", {}, function(data) {
-        document.getElementById('content').innerHTML = marked(data);
+    var i = 0;
+
+    var _data = "## jiali<\n> ";
+
+    $.post("/api/jianli", {}, function(data) {
+        //document.getElementById('content').innerHTML = marked(data);
+        _data = marked(data);
+        typing();
     });
-    </script>
+
+    function typing(){
+        var self_info1 = document.getElementById('content');
+        if (i <= _data.length) {
+            self_info1.innerHTML = _data.slice(0, i++) + '_';
+            setTimeout('typing()', 20);//
+        } else {
+            self_info1.innerHTML = _data;
+        }
+    }
+</script>
 </body>
 </html>
