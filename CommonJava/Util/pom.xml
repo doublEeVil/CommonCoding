@@ -14,7 +14,7 @@
         <commonmark.version>0.11.0</commonmark.version>
         <commonlang.version>3.9</commonlang.version>
         <commoncodec.version>1.9</commoncodec.version>
-        <log4j2.version>2.6.2</log4j2.version>
+        <log4j2.version>2.15.0</log4j2.version>
     </properties>
 
     <build>
